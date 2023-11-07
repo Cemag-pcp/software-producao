@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Programação de Cargas</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="static/css/modal-programacao.css">
+    <link rel="stylesheet" type="text/css" href="static/css/modal-peca-solicitada.css">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <input id="setor_logado" name="setor_logado" value="{{ username }}" style="display: none;">
+
+    <select style="display: none;" name="mudarSetorEstamparia" id="mudarSetorEstamparia">
+        {% if username == 'Estamparia' %}
+            <option value="Estamparia" selected>Estamparia</option>
+            <option value="Corte">Corte</option>
+        {% else %}
+            <option value="Corte" selected>Corte</option>
+            <option value="Estamparia">Estamparia</option>
+        {% endif %}
+    </select>
+
+    <select style="display: none;" name="mudarSetorSolda" id="mudarSetorSolda">
+        {% if username == 'Solda' %}
+            <option value="Solda" selected>Solda</option>
+            <option value="Montagem">Montagem</option>
+        {% else %}
+            <option value="Montagem" selected>Montagem</option>
+            <option value="Solda">Solda</option>
+        {% endif %}
+    </select>
+    
+
+    <h1>Você está logado como: {{ username }}</h1>
+
+</head>
+
+<body>
+
+    <label>Data da carga:</label>
+    <input type="date" id="dataFilter">
+
+    <label>Carretas:</label>
+    <select id="carretasSelect">
+        <option></option>
+    </select>
+
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_pesquisa_peca" id="solicitarPecasButton" style="display: none;">
+        Solicitar peças
+    </button>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_visualizar_peca_solicitada" id="visualizarPecasSolicitadas" style="display: none;">
+        Peças solicitadas
+    </button>
+
+    <table>
+        <tr>
+            <th>Data</th>
+            <th>Carreta</th>
+            <th>Quantidade</th>
+            <th style="display: none;">Chave</th>
+            <th>Programação</th>
+        </tr>
+        {% for row in base_carretas %}
+        <tr>
+            <td>{{row[6]}}</td>
+            <td>{{row[10]}}</td>
+            <td>{{row[15]}}</td>
+            <td style="display: none;">{{row[13]}}</td>
+            <td><input type="button" class="modal-button" data-chave="{{row[13]}}" data-carreta="{{row[10]}}"></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <!-- Modal de programação de carretas -->
+    <div id="modal_programacao" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_pesquisa_peca" id="solicitar_peca" style="display: none;">
+                Solicitar peças
+            </button>
+            <p>Chave: <span id="modalChave"></span></p>
+            <p>Carreta: <span id="spanCarreta"></span></p>
+            <div class="conjuntos">
+            </div>
+            <button id="enviarButton">Enviar</button>
+        </div>
+    </div>
+
+    <!-- Modal para solicitar peças -->
+    <div class="modal fade" id="modal_pesquisa_peca" tabindex="-1" role="dialog" aria-labelledby="modal_pesquisa_peca_label" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width: 300%;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal_pesquisa_peca_label">Pesquisa de Peça</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    
+                    <form>
+                        <div class="container-fluid">
+                            <div class="row">
+                                
+                                <div class="col-md-6">
+                                    <label>Peça</label>
+                                    <select id="filtroPeca" class="form-control">
+                                        <option></option>
+                                        <option>497101</option>
+                                        <option>497102</option>
+                                        <option>497103</option>
+                                        <option>497104</option>
+                                        <option>497105</option>
+                                        <option>497106</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label>Processo</label>
+                                    <select id="filtroProcesso" class="form-control">
+                                        <option></option>
+                                        <option>GMS Estamparia</option>
+                                    </select>
+                                </div>
+                                
+                            </div>
+
+                            <label>Carreta</label>
+                            <select id="filtroCarreta" class="form-control">
+                                <option></option>
+                                <option>CBH5 FO SC RD MM M21</option>
+                                <option>F4 CS RS/RS P P600(I) M21</option>
+                            </select>
+
+                            <label>Conjunto</label>
+                            <select id="filtroConjunto" class="form-control">
+                                <option></option>
+                                <option>Peças Para Carretas</option>
+                            </select>
+
+                            <button type="button" class="btn btn-primary" id="btnFiltrar">Filtrar</button>
+                        </div>
+                    </form>
+                    <div id="tabela-solicitar-peca" style="max-height: 300px; overflow-y: auto;">
+                        <table class="table">
+                            <thead class="tabela-cabecalho">
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Peça</th>
+                                    <th>Quantidade</th>
+                                    <th>Carreta</th>
+                                    <th>Conjunto</th>
+                                    <th>Quantidade</th>
+                                    <th>Observação</th>
+                                    <th>Solicitar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para visualizar peças solicitadas -->
+    <div class="modal fade" id="modal_visualizar_peca_solicitada" tabindex="-1" role="dialog" aria-labelledby="modal_visualizar_peca_solicitada" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width: 200%;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal_visualizar_peca_solicitada">Peças solicitadas</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="tabela-visualizar-peca" style="max-height: 200; overflow-y: auto;">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Chave</th>
+                                    <th>Data solicitada</th>
+                                    <th>Carreta</th>
+                                    <th>Código</th>
+                                    <th>Descrição</th>
+                                    <th>Conjunto</th>
+                                    <th>Quantidade</th>
+                                    <th>Observação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="static/js/filtros-tabela-inicial.js"></script>
+    <script src="static/js/modal-tabela-inicial.js"></script>
+    <script src="static/js/lista-pecas-api.js"></script>
+    <script src="static/js/modal-visualizar-pecas.js"></script>
+
+    <!-- JavaScript do Bootstrap -->
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

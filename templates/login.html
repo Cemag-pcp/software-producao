@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login</title>
+
+    <link rel="stylesheet" type="text/css" href="static/css/message.css">
+
+</head>
+
+<body>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li{% if category == 'error' %} class="error"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+        <label for="username">Nome de usuário:</label>
+        <input type="text" id="username" name="username" required><br>
+        <label for="password">Senha:</label>
+        <input type="password" id="password" name="password" required><br>
+        <input type="submit" value="Login">
+    </form>
+
+    <!-- Script para mensagem -->
+    <script>
+        const errorMessages = document.querySelectorAll(".error");
+        errorMessages.forEach(message => {
+            message.classList.add("error-message");
+            setTimeout(() => {
+                message.style.display = "none"; // Oculta a mensagem após 5 segundos (5000 ms)
+            }, 5000);
+        });
+    </script>
+
+</body>
+
+</html>
