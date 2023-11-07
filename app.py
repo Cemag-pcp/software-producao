@@ -383,7 +383,6 @@ def peca_concluida():
 
     return data
 
-
 @app.route("/carretas-checked")
 def carretas_checked():
 

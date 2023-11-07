@@ -1,15 +1,13 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static\css\message.css">
+    <link rel="stylesheet" href="static\css\login.css">
     <title>Login</title>
-
-    <link rel="stylesheet" type="text/css" href="static/css/message.css">
-
 </head>
-
 <body>
-
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             <ul class="flashes">
@@ -20,13 +18,32 @@
         {% endif %}
     {% endwith %}
 
-    <form method="POST">
-        <label for="username">Nome de usuário:</label>
-        <input type="text" id="username" name="username" required><br>
-        <label for="password">Senha:</label>
-        <input type="password" id="password" name="password" required><br>
-        <input type="submit" value="Login">
-    </form>
+    <div class="container">
+        <div class="logreg-box">
+            <div class="form-box login">
+                <div class="form-content">
+                <form method="post">
+                    <div class="logo_login">
+                        <img id="logo_login" src="static\css\CEMAGL (1) - Copia.png" alt="logo cemag">
+                    </div>
+                    <h2 style="margin-top: 15px;">Login</h2>
+                    <div class="input-box center">
+                        <label class="opacity-100" for="username">Usuário:</label>
+                        <span class="icon"><ion-icon style="color: white;"></ion-icon></span>
+                        <input type="text" id="username" name="username" autocomplete="off" required><br><br>
+                    </div>
+                    <div class="input-box center">
+                        <label class="opacity-100" for="password">Senha:</label>
+                        <span class="icon"><ion-icon name="lock-closed" style="color: white;"></ion-icon></span>
+                        <input type="password" id="password" name="password" autocomplete="off" required><br><br>
+                    </div>
+
+                    <button id="changeRouteBtn" type="submit" class="btn btn-light" style="text-align: center;">Login</button>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Script para mensagem -->
     <script>
@@ -38,7 +55,5 @@
             }, 5000);
         });
     </script>
-
 </body>
-
 </html>
