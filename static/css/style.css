@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
+:root {
+    --cores-letras:#fff;
+  }
+
 *{
     margin: 0;
     padding: 0;
@@ -9,10 +13,11 @@
 body {
     margin: 0;
     width: 100%;
-    background-color: #C8DAE4;
+    height: 100vh;
     position: relative;
     display: flex;
     justify-content: center;
+    background-color: #121214 !important;
   }
 
 body.modal-open {
@@ -21,6 +26,7 @@ body.modal-open {
 
 h4{
     color: white;
+    font-size: 14px;
 }
 
 nav{
@@ -74,7 +80,280 @@ nav i:hover{
     padding-left: 5px;
 }
 
-main{
+
+.principal{
+    display: grid;
+    grid-template-columns: 0.5fr 1fr;
+    grid-template-rows: auto auto auto 1fr;
+    margin-top: 113px;
+    overflow-x: hidden;
+    font-size: 12px;
+    transition: all 0.3s ease;
+}
+
+div.table{
+    width: 45vw;
+    color: var(--cores-letras);
+    height: 80vh;
+    margin-bottom: 0px;
+    margin-right: 0;
+    background: rgba(140, 132, 180, 0.28);
+    box-shadow: 0 .4rem .8rem #0005;
+    border-radius: .8rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+table{
+    width: 100%;
+    color: var(--cores-letras);
+}
+
+.table__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 70px;
+    background: rgba(140, 132, 180, 0.28);
+    padding: .8rem 1rem;
+}
+
+.table__header .input-group{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: 70%;
+    background-color: #fff5;
+    padding: 0.8rem;
+    border-radius: 2rem;
+    transition: .2s;
+}
+
+.table__header .input-group:hover{ 
+    background-color: #fff8;
+    box-shadow: 0 .1rem .4rem #0002;
+}
+
+.table__header .input-group i{
+    font-size: 16px;
+}
+
+.table__header .input-group input{
+    font-size: 100%;
+    padding: 0 .5rem 0 .3rem;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+.botoes_pecas{
+    display: flex;
+    gap: 10px;
+}
+
+.table__body {
+    width: 100%;
+    max-height: calc(85% - .8rem);
+    margin: .8rem auto;
+    border-radius: .6rem;
+    overflow: auto;
+    overflow: overlay;
+    padding-left: 20px;
+}
+
+.table__body2 {
+    width: 100%;
+    max-height: calc(95% - .8rem);
+    margin: .8rem auto;
+    border-radius: .6rem;
+    overflow: auto;
+    overflow: overlay;
+}
+
+td .modal-button{
+    width: 50px;
+    height: 29px;
+    outline: none;
+    cursor: pointer;
+    border: none;
+    font-weight: bold;
+    font-size: 1em;
+    color: #fff;
+    border-radius: 10px;
+    background: rgb(77, 69, 122);
+}
+
+td .modal-button:hover{
+    background: rgb(61, 55, 97);
+}
+
+#visualizarPecasSolicitadas,#solicitarPecasButton{
+    background: #807A9E;
+    border-color: #807A9E;
+    color: var(--cores-letras);
+}
+
+#enviarButton,.status{
     margin: auto;
-    margin-top: 200px;
+    width: 50%;
+    height: 40px;
+    outline: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1em;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    background: #7167a3;
+}
+
+.status{
+    width: 60px;
+}
+
+#enviarButton:hover{
+    background: #5f568b;
+}
+
+.espacamento_chave_carreta{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.card__body{
+    width: 95%;
+    max-height: calc(90% - .8rem);
+    margin: .8rem auto;
+    border-radius: .6rem;
+}
+
+.titulo_data_carreta{
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 20px 20px 0px 0px;
+    padding: 10px;
+    background: rgba(61, 55, 88, 0.60);
+}
+
+.table__body::-webkit-scrollbar-thumb{
+    border-radius: .6rem;
+    background-color: #0004;
+    visibility: hidden;
+}
+
+.table__body:hover:-webkit-scrollbar-thumb{
+    visibility: visible;
+}
+
+.table__body2::-webkit-scrollbar-thumb{
+    border-radius: .6rem;
+    background-color: #0004;
+    visibility: hidden;
+}
+
+.table__body2:hover:-webkit-scrollbar-thumb{
+    visibility: visible;
+}
+
+
+table, th, td {
+    border-collapse: collapse;
+    padding: 1rem;
+    text-align: center;
+    font-size: 14px;
+}
+
+thead .cabecalho{
+    position: sticky;
+    top: 0;
+    left: 0;
+    background: rgba(61, 55, 88, 0.60);
+}
+
+tbody tr:nth-child(even){
+    background: rgba(112, 105, 148);
+}
+
+tbody tr{
+    --delay: .1s;
+    transition: .5s ease-in-out var(--delay), background-color 0s;
+    background: #5d577c;
+}
+
+tbody tr.hide{
+    opacity: 0;
+    transform: translateX(100%);
+}
+
+.responsive-table tr.hide{
+    opacity: 0;
+    transform: translateX(100%);
+    display: none;
+}
+
+.form-row {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    background: rgba(112, 105, 148, 0.44);
+    text-align: center;
+    justify-content: center;
+    border-radius: 0px 0px 20px 20px;
+}
+  
+.form-row .form-group {
+    display: flex;
+    width: 40%;
+    margin-left: 3px;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.form-group input {
+    position: relative;
+    width: 80%;
+    height: 50px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    border: 1px solid #3D3758;
+    border-radius: 10px;
+    background: rgba(128, 122, 158, 0.44);
+    color: white;
+    outline: none;
+    font-size: 1em;
+    padding: 10px;
+}
+
+.form-group select {
+    position: relative;
+    width: 80%;
+    height: 50px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    border: 1px solid #3D3758;
+    border-radius: 10px;
+    background: rgba(128, 122, 158, 0.44);
+    color: white;
+    outline: none;
+    font-size: 1em;
+    padding: 10px;
+}
+
+.form-control2{
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #fff;
+    background: rgba(128, 122, 158, 0.44);
+    background-clip: padding-box;
+    border: 1px solid #3D3758;
+    border-radius: 0.25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }

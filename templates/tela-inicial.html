@@ -2,16 +2,14 @@
 <html>
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Programação de Cargas</title>
     <link rel="stylesheet" href="static\css\style.css">
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     <link rel="stylesheet" type="text/css" href="static/css/modal-programacao.css">
     <link rel="stylesheet" type="text/css" href="static/css/modal-peca-solicitada.css">
-    
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
 </head>
 
 <body>
@@ -44,55 +42,78 @@
             </select>
         </div>
     </nav>
-
-    <main>
-        <div>
-            <label>Data da carga:</label>
-            <input type="date" id="dataFilter">
-            <label>Carretas:</label>
-            <select id="carretasSelect">
-                <option></option>
-            </select>
+    <main class="principal">
+        <div class="table table-2" style="margin: 30px; margin-left: 20px;">
+            <section class="table__header">
+                <h4 style="font-size: 18px;">Programação de Cargas</h4>
+                <div class="botoes_pecas">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_pesquisa_peca" id="solicitarPecasButton" style="display: none;">
+                        Solicitar peças
+                    </button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_visualizar_peca_solicitada" id="visualizarPecasSolicitadas" style="display: none;">
+                        Peças solicitadas
+                    </button>
+                </div>
+            </section>
+            <section class="card__body">
+                <p class="titulo_data_carreta" style="margin-bottom: 0;">Data/Carreta</p>
+                <div class="form-row" style=" margin-right: 0px;margin-left: 0px;">
+                  <div class="form-group" style="margin-top: 20px;">
+                    <label>Data da carga:</label>
+                    <input type="date" id="dataFilter">
+                  </div>
+          
+                  <div class="form-group" style="margin-top: 20px;">
+                    <label>Carretas:</label>
+                    <select id="carretasSelect">
+                        <option></option>
+                    </select>
+                  </div>
+                </div>
+            </section>
         </div>
-        <div>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_pesquisa_peca" id="solicitarPecasButton" style="display: none;">
-                Solicitar peças
-            </button>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_visualizar_peca_solicitada" id="visualizarPecasSolicitadas" style="display: none;">
-                Peças solicitadas
-            </button>
+        <div class="table table-2" style="margin: 30px; margin-left: 20px;">
+            <section class="table__header">
+                <h4 style="font-size: 18px;">Programação de Cargas</h4>
+            </section>
+            <section class="table__body">
+                <table class="responsive-table">
+                    <thead>
+                        <tr style="border-top: 0">
+                            <th class="cabecalho" style="border-bottom: none;border-top: none">Data</th>
+                            <th class="cabecalho" style="border-bottom: none;border-top: none">Carreta</th>
+                            <th class="cabecalho" style="border-bottom: none;border-top: none">Quantidade</th>
+                            <th class="cabecalho" style="display: none; border-bottom: none;border-top: none">Chave</th>
+                            <th class="cabecalho" style="border-bottom: none;border-top: none">Programação</th>
+                        </tr>        
+                    </thead>
+                    <tbody>
+                        {% for row in base_carretas %}
+                        <tr>
+                            <td style="border-top: none;">{{row[6]}}</td>
+                            <td style="border-top: none;">{{row[10]}}</td>
+                            <td style="border-top: none;">{{row[15]}}</td>
+                            <td style="display: none; border-top: none;">{{row[13]}}</td>
+                            <td style="border-top: none;"><input type="button" class="modal-button" data-chave="{{row[13]}}" data-carreta="{{row[10]}}"></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
         </div>
-        
-        <table>
-            <tr>
-                <th>Data</th>
-                <th>Carreta</th>
-                <th>Quantidade</th>
-                <th style="display: none;">Chave</th>
-                <th>Programação</th>
-            </tr>
-            {% for row in base_carretas %}
-            <tr>
-                <td>{{row[6]}}</td>
-                <td>{{row[10]}}</td>
-                <td>{{row[15]}}</td>
-                <td style="display: none;">{{row[13]}}</td>
-                <td><input type="button" class="modal-button" data-chave="{{row[13]}}" data-carreta="{{row[10]}}"></td>
-            </tr>
-            {% endfor %}
-        </table>
     </main>
-
     <!-- Modal de programação de carretas -->
     <div id="modal_programacao" class="modal">
-        <div class="modal-content">
+        <div class="modal-content" style="width: 830px;height: 95%;">
             <span class="close" id="closeModal">&times;</span>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_pesquisa_peca" id="solicitar_peca" style="display: none;">
                 Solicitar peças
             </button>
-            <p>Chave: <span id="modalChave"></span></p>
-            <p>Carreta: <span id="spanCarreta"></span></p>
-            <div class="conjuntos">
+            <div class="espacamento_chave_carreta">
+                <p>Chave: <span id="modalChave"></span></p>
+                <p>Carreta: <span id="spanCarreta"></span></p>
+            </div>
+            <div class="conjuntos" style="height: 80%;">
             </div>
             <button id="enviarButton">Enviar</button>
         </div>
@@ -103,8 +124,8 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="width: 300%;">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modal_pesquisa_peca_label">Pesquisa de Peça</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <h5 class="modal-title" id="modal_pesquisa_peca_label" style="color: white;">Pesquisa de Peça</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar" style="color: #fff;">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -116,7 +137,7 @@
                                 
                                 <div class="col-md-6">
                                     <label>Peça</label>
-                                    <select id="filtroPeca" class="form-control">
+                                    <select id="filtroPeca" class="form-control2">
                                         <option></option>
                                         <option>497101</option>
                                         <option>497102</option>
@@ -129,7 +150,7 @@
 
                                 <div class="col-md-6">
                                     <label>Processo</label>
-                                    <select id="filtroProcesso" class="form-control">
+                                    <select id="filtroProcesso" class="form-control2">
                                         <option></option>
                                         <option>GMS Estamparia</option>
                                     </select>
@@ -138,14 +159,14 @@
                             </div>
 
                             <label>Carreta</label>
-                            <select id="filtroCarreta" class="form-control">
+                            <select id="filtroCarreta" class="form-control2">
                                 <option></option>
                                 <option>CBH5 FO SC RD MM M21</option>
                                 <option>F4 CS RS/RS P P600(I) M21</option>
                             </select>
 
                             <label>Conjunto</label>
-                            <select id="filtroConjunto" class="form-control">
+                            <select id="filtroConjunto" class="form-control2">
                                 <option></option>
                                 <option>Peças Para Carretas</option>
                             </select>
@@ -154,8 +175,8 @@
                         </div>
                     </form>
                     <div id="tabela-solicitar-peca" style="max-height: 300px; overflow-y: auto;">
-                        <table class="table">
-                            <thead class="tabela-cabecalho">
+                        <table class="responsive-table">
+                            <thead>
                                 <tr>
                                     <th>Código</th>
                                     <th>Peça</th>
@@ -187,27 +208,28 @@
 
     <!-- Modal para visualizar peças solicitadas -->
     <div class="modal fade" id="modal_visualizar_peca_solicitada" tabindex="-1" role="dialog" aria-labelledby="modal_visualizar_peca_solicitada" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="width: 200%;">
+        <div class="modal-dialog" role="document" style="max-width: 100%;">
+            <div class="modal-content" style="width: 1000px">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modal_visualizar_peca_solicitada">Peças solicitadas</h5>
+                    <h5 class="modal-title" id="modal_visualizar_peca_solicitada" style="color: white;">Peças solicitadas</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div id="tabela-visualizar-peca" style="max-height: 200; overflow-y: auto;">
-                        <table class="table">
+                    <div class="table__body2" id="tabela-visualizar-peca" style="max-height: 200; overflow-y: auto;">
+                        <table class='responsive-table'>
                             <thead>
                                 <tr>
-                                    <th>Chave</th>
-                                    <th>Data solicitada</th>
-                                    <th>Carreta</th>
-                                    <th>Código</th>
-                                    <th>Descrição</th>
-                                    <th>Conjunto</th>
-                                    <th>Quantidade</th>
-                                    <th>Observação</th>
+                                    <th class="cabecalho">Chave</th>
+                                    <th class="cabecalho">Data solicitada</th>
+                                    <th class="cabecalho">Carreta</th>
+                                    <th class="cabecalho">Código</th>
+                                    <th class="cabecalho">Descrição</th>
+                                    <th class="cabecalho">Conjunto</th>
+                                    <th class="cabecalho">Quantidade</th>
+                                    <th class="cabecalho">Observação</th>
+                                    <th class="cabecalho">Botão</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -228,7 +250,6 @@
                 <div class="modal-footer">
                 </div>
             </div>
-        </div>
     </div>
 
     <script src="static/js/filtros-tabela-inicial.js"></script>

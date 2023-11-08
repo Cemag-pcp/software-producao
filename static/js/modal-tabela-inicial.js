@@ -31,15 +31,16 @@ modalButtons.forEach(button => {
             .then(response => response.json())
             .then(data => {
                 conjuntosContainer.innerHTML += `
-                <table>
+                <section class="table__body2">
+                <table class='responsive-table'>
                     <tr>
-                        <th>Conjuntos</th>
-                        <th>Usinagem</th>
-                        <th>Corte</th>
-                        <th>Estamparia</th>
-                        <th>Solda</th>
-                        <th>Montagem</th>
-                        <th>Pintura</th>
+                        <th class="cabecalho">Conjuntos</th>
+                        <th class="cabecalho">Usinagem</th>
+                        <th class="cabecalho">Corte</th>
+                        <th class="cabecalho">Estamparia</th>
+                        <th class="cabecalho">Solda</th>
+                        <th class="cabecalho">Montagem</th>
+                        <th class="cabecalho">Pintura</th>
                     </tr>
                     <tr>
                         <td>Caçamba / Plataforma</td>
@@ -140,8 +141,8 @@ modalButtons.forEach(button => {
                         <td><input type="checkbox" id="fx_montagem" ${setorLogadoInput.value === "Montagem" ? '' : 'disabled'}></td>
                         <td><input type="checkbox" id="fx_pintura" ${setorLogadoInput.value === "Pintura" ? '' : 'disabled'}></td>
                     </tr>
-                
                 </table>   
+                </section>
                 `;
 
                 // Marque os checkboxes com base nos dados recebidos

@@ -2,7 +2,7 @@
 // Evitando o carregamento da tabela inteira de uma só vez
 
 const modalPesquisaPeca = document.getElementById("modal_pesquisa_peca");
-const tableBody = document.querySelector("#modal_pesquisa_peca .table tbody");
+const tableBody = document.querySelector("#modal_pesquisa_peca .responsive-table tbody");
 const campoRolagem = document.getElementById("tabela-solicitar-peca");
 
 let page = 1;
@@ -19,7 +19,7 @@ campoRolagem.addEventListener("scroll", function () {
 
 // Função para limpar os dados das células <td> na tabela
 function limparDadosDaTabela() {
-    const tdElements = document.querySelectorAll("#modal_pesquisa_peca .table tbody td");
+    const tdElements = document.querySelectorAll("#modal_pesquisa_peca .responsive-table tbody td");
     tdElements.forEach(td => {
         td.textContent = ""; // Define o conteúdo da célula como vazio
     });
@@ -29,7 +29,7 @@ function limparDadosDaTabela() {
 $('#modal_pesquisa_peca').on('show.bs.modal', function () {
     // Função para limpar os dados das células <td> na tabela
     function limparDadosDaTabela() {
-        const tdElements = document.querySelectorAll("#modal_pesquisa_peca .table tbody tr");
+        const tdElements = document.querySelectorAll("#modal_pesquisa_peca .responsive-table tbody tr");
         tdElements.forEach(td => {
             td.textContent = ""; // Define o conteúdo da célula como vazio
         });
@@ -132,4 +132,6 @@ document.getElementById('btnFiltrar').addEventListener('click', function () {
     page = 1; // Reinicie a página ao aplicar o filtro
     tableBody.innerHTML = ''; // Limpe a tabela
     fetchMoreData(); // Busque dados filtrados
+
+    btnFiltrar.style.backgroundColor = 'rgb(61, 55, 97)';
 });

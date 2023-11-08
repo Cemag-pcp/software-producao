@@ -7,7 +7,7 @@ $(document).ready(function() {
             type: 'GET',
             success: function(data) {
                 // Manipule os dados recebidos e preencha a tabela
-                const tableBody = $('#modal_visualizar_peca_solicitada .table tbody');
+                const tableBody = $('#modal_visualizar_peca_solicitada .responsive-table tbody');
                 tableBody.empty(); // Limpe a tabela antes de preencher os novos dados
 
                 data.forEach(function(item) {
@@ -65,7 +65,7 @@ function pecaConcluida(chave) {
                 type: 'GET',
                 success: function(newData) {
                     // Manipule os dados recebidos e atualize a tabela no modal
-                    const tableBody = $('#modal_visualizar_peca_solicitada .table tbody');
+                    const tableBody = $('#modal_visualizar_peca_solicitada .responsive-table tbody');
                     tableBody.empty(); // Limpe a tabela antes de preencher os novos dados
 
                     newData.forEach(function(item) {
