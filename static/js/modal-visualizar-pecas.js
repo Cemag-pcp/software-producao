@@ -44,6 +44,7 @@ $(document).ready(function() {
 });
 
 function pecaConcluida(chave) {
+    $("#loading-overlay").show();
     // Faça uma solicitação para enviar os dados para o backend
     fetch("/peca-concluida", {
         method: "POST",
@@ -64,6 +65,7 @@ function pecaConcluida(chave) {
                 url: '/visualizar-pecas-solicitadas', // Substitua '/sua_rota_no_backend' pela URL correta
                 type: 'GET',
                 success: function(newData) {
+                    $("#loading-overlay").hide();
                     // Manipule os dados recebidos e atualize a tabela no modal
                     const tableBody = $('#modal_visualizar_peca_solicitada .responsive-table tbody');
                     tableBody.empty(); // Limpe a tabela antes de preencher os novos dados
@@ -93,11 +95,13 @@ function pecaConcluida(chave) {
                     });
                 },
                 error: function(error) {
+                    $("#loading-overlay").hide();
                     console.error('Erro na solicitação ao backend:', error);
                 }
             });
         })
         .catch(error => {
+            $("#loading-overlay").hide();
             console.error("Erro ao enviar os dados para o backend.", error);
         });
 }

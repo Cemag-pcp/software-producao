@@ -188,6 +188,8 @@ def tela_inicial(username):
     base_carretas = buscar_dados(filename)
     base_carretas_dataframe = base_carretas
     base_carretas = base_carretas.values.tolist()
+    base_carretas_filtro = list(set(row[10] for row in base_carretas if row[10] is not None and row[10] != ""))
+    
     
     conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER,
                                 password=DB_PASS, host=DB_HOST)
@@ -205,7 +207,7 @@ def tela_inicial(username):
 
 
 
-    return render_template("tela-inicial.html", base_carretas=base_carretas, username=username)
+    return render_template("tela-inicial.html", base_carretas=base_carretas, username=username,base_carretas_filtro=base_carretas_filtro)
 
 
 @app.route("/receber-checkbox", methods=['POST'])

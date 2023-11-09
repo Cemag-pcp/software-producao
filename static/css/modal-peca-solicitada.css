@@ -22,6 +22,6 @@
 /* Aplique a formatação necessária para garantir que o cabeçalho e o corpo da tabela correspondam. */
 .table thead th,
 .table tbody td {
-    text-align: left; /* Alinhamento à esquerda para manter a consistência */
+    text-align: center; /* Alinhamento à esquerda para manter a consistência */
     /* Outros estilos apropriados para o cabeçalho e corpo da tabela */
 }

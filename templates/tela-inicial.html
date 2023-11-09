@@ -7,6 +7,8 @@
     <title>Programação de Cargas</title>
     <link rel="stylesheet" href="static\css\style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
     <link rel="stylesheet" type="text/css" href="static/css/modal-programacao.css">
     <link rel="stylesheet" type="text/css" href="static/css/modal-peca-solicitada.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -43,7 +45,7 @@
         </div>
     </nav>
     <main class="principal">
-        <div class="table table-2" style="margin: 30px; margin-left: 20px;">
+        <div class="table table-2">
             <section class="table__header">
                 <h4 style="font-size: 18px;">Programação de Cargas</h4>
                 <div class="botoes_pecas">
@@ -76,6 +78,14 @@
             <section class="table__header">
                 <h4 style="font-size: 18px;">Programação de Cargas</h4>
             </section>
+            <div class="select-group">
+                <select name="ordemproducao" id="ordemproducao" multiple>
+                    {% for row in base_carretas_filtro %}
+                    <option value="{{row}}">{{row}}</option>
+                    {% endfor %}
+                </select>
+                <button id="filtrarOrdem" type="submit" class="btn btn-light" style=" margin-left: 10px;">Filtrar</button>
+            </div>
             <section class="table__body">
                 <table class="responsive-table">
                     <thead>
@@ -90,11 +100,11 @@
                     <tbody>
                         {% for row in base_carretas %}
                         <tr>
-                            <td style="border-top: none;">{{row[6]}}</td>
-                            <td style="border-top: none;">{{row[10]}}</td>
-                            <td style="border-top: none;">{{row[15]}}</td>
-                            <td style="display: none; border-top: none;">{{row[13]}}</td>
-                            <td style="border-top: none;"><input type="button" class="modal-button" data-chave="{{row[13]}}" data-carreta="{{row[10]}}"></td>
+                            <td data-label="Data" style="border-top: none;">{{row[6]}}</td>
+                            <td data-label="Carreta" style="border-top: none;">{{row[10]}}</td>
+                            <td data-label="Quantidade" style="border-top: none;">{{row[15]}}</td>
+                            <td data-label="Chave" style="display: none; border-top: none;">{{row[13]}}</td>
+                            <td data-label="Programação" style="border-top: none;"><input type="button" class="modal-button" data-chave="{{row[13]}}" data-carreta="{{row[10]}}" value="☑️"></td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -102,6 +112,10 @@
             </section>
         </div>
     </main>
+
+    <div id="loading-overlay" style="display: none;">
+        <div id="loading-spinner"></div>
+    </div>
     <!-- Modal de programação de carretas -->
     <div id="modal_programacao" class="modal">
         <div class="modal-content" style="width: 830px;height: 95%;">
@@ -209,7 +223,7 @@
     <!-- Modal para visualizar peças solicitadas -->
     <div class="modal fade" id="modal_visualizar_peca_solicitada" tabindex="-1" role="dialog" aria-labelledby="modal_visualizar_peca_solicitada" aria-hidden="true">
         <div class="modal-dialog" role="document" style="max-width: 100%;">
-            <div class="modal-content" style="width: 1000px">
+            <div class="modal-content" style="width: 1200px">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modal_visualizar_peca_solicitada" style="color: white;">Peças solicitadas</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
@@ -217,7 +231,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="table__body2" id="tabela-visualizar-peca" style="max-height: 200; overflow-y: auto;">
+                    <div class="table__body3" id="tabela-visualizar-peca">
                         <table class='responsive-table'>
                             <thead>
                                 <tr>
@@ -256,6 +270,7 @@
     <script src="static/js/modal-tabela-inicial.js"></script>
     <script src="static/js/lista-pecas-api.js"></script>
     <script src="static/js/modal-visualizar-pecas.js"></script>
+    <script src="static/js/multi-select.js"></script>
 
     <!-- JavaScript do Bootstrap -->
     <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->

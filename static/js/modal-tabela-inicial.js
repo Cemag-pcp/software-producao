@@ -35,108 +35,72 @@ modalButtons.forEach(button => {
                 <table class='responsive-table'>
                     <tr>
                         <th class="cabecalho">Conjuntos</th>
-                        <th class="cabecalho">Usinagem</th>
-                        <th class="cabecalho">Corte</th>
-                        <th class="cabecalho">Estamparia</th>
                         <th class="cabecalho">Solda</th>
                         <th class="cabecalho">Montagem</th>
                         <th class="cabecalho">Pintura</th>
                     </tr>
                     <tr>
                         <td>Caçamba / Plataforma</td>
-                        <td><input type="checkbox" id="cacplat_usinagem" ${setorLogadoInput.value === "Usinagem" ? '' : 'disabled'}></td>
-                        <td><input type="checkbox" id="cacplat_corte" ${setorLogadoInput.value === "Corte" ? '' : 'disabled'}></td>
-                        <td><input type="checkbox" id="cacplat_estamparia" ${setorLogadoInput.value === "Estamparia" ? '' : 'disabled'}></td>
                         <td><input type="checkbox" id="cacplat_solda" ${setorLogadoInput.value === "Solda" ? '' : 'disabled'}></td>
                         <td><input type="checkbox" id="cacplat_montagem" ${setorLogadoInput.value === "Montagem" ? '' : 'disabled'}></td>
                         <td><input type="checkbox" id="cacplat_pintura" ${setorLogadoInput.value === "Pintura" ? '' : 'disabled'}></td>
                     </tr>
                     <tr>
                         <td>Dianteira</td>
-                        <td><input type="checkbox" id="diant_usinagem" ${setorLogadoInput.value === "Usinagem" ? '' : 'disabled'}></td>
-                        <td><input type="checkbox" id="diant_corte" ${setorLogadoInput.value === "Corte" ? '' : 'disabled'}></td>
-                        <td><input type="checkbox" id="diant_estamparia" ${setorLogadoInput.value === "Estamparia" ? '' : 'disabled'}></td>
                         <td><input type="checkbox" id="diant_solda" ${setorLogadoInput.value === "Solda" ? '' : 'disabled'}></td>
                         <td><input type="checkbox" id="diant_montagem" ${setorLogadoInput.value === "Montagem" ? '' : 'disabled'}></td>
                         <td><input type="checkbox" id="diant_pintura" ${setorLogadoInput.value === "Pintura" ? '' : 'disabled'}></td>
                     </tr>
                     <tr>
                         <td>Lateral</td>
-                        <td><input type="checkbox" id="lat_usinagem" ${setorLogadoInput.value === "Usinagem" ? '' : 'disabled'}></td>
-                        <td><input type="checkbox" id="lat_corte" ${setorLogadoInput.value === "Corte" ? '' : 'disabled'}></td>
-                        <td><input type="checkbox" id="lat_estamparia" ${setorLogadoInput.value === "Estamparia" ? '' : 'disabled'}></td>
                         <td><input type="checkbox" id="lat_solda" ${setorLogadoInput.value === "Solda" ? '' : 'disabled'}></td>
                         <td><input type="checkbox" id="lat_montagem" ${setorLogadoInput.value === "Montagem" ? '' : 'disabled'}></td>
                         <td><input type="checkbox" id="lat_pintura" ${setorLogadoInput.value === "Pintura" ? '' : 'disabled'}></td>
                     </tr>
                     <tr>
                         <td>Traseira</td>
-                        <td><input type="checkbox" id="tras_usinagem" ${setorLogadoInput.value === "Usinagem" ? '' : 'disabled'}></td>
-                        <td><input type="checkbox" id="tras_corte" ${setorLogadoInput.value === "Corte" ? '' : 'disabled'}></td>
-                        <td><input type="checkbox" id="tras_estamparia" ${setorLogadoInput.value === "Estamparia" ? '' : 'disabled'}></td>
                         <td><input type="checkbox" id="tras_solda" ${setorLogadoInput.value === "Solda" ? '' : 'disabled'}></td>
                         <td><input type="checkbox" id="tras_montagem" ${setorLogadoInput.value === "Montagem" ? '' : 'disabled'}></td>
                         <td><input type="checkbox" id="tras_pintura" ${setorLogadoInput.value === "Pintura" ? '' : 'disabled'}></td>
                     </tr>
                     <tr>
                         <td>Chassi</td>
-                        <td><input type="checkbox" id="chass_usinagem" ${setorLogadoInput.value === "Usinagem" ? '' : 'disabled'}></td>
-                        <td><input type="checkbox" id="chass_corte" ${setorLogadoInput.value === "Corte" ? '' : 'disabled'}></td>
-                        <td><input type="checkbox" id="chass_estamparia" ${setorLogadoInput.value === "Estamparia" ? '' : 'disabled'}></td>
                         <td><input type="checkbox" id="chass_solda" ${setorLogadoInput.value === "Solda" ? '' : 'disabled'}></td>
                         <td><input type="checkbox" id="chass_montagem" ${setorLogadoInput.value === "Montagem" ? '' : 'disabled'}></td>
                         <td><input type="checkbox" id="chass_pintura" ${setorLogadoInput.value === "Pintura" ? '' : 'disabled'}></td>
                     </tr>
                     <tr>
                         <td>Içamento</td>
-                        <td><input type="checkbox" id="icam_usinagem" ${setorLogadoInput.value === "Usinagem" ? '' : 'disabled'}></td>
-                        <td><input type="checkbox" id="icam_corte" ${setorLogadoInput.value === "Corte" ? '' : 'disabled'}></td>
-                        <td><input type="checkbox" id="icam_estamparia" ${setorLogadoInput.value === "Estamparia" ? '' : 'disabled'}></td>
                         <td><input type="checkbox" id="icam_solda" ${setorLogadoInput.value === "Solda" ? '' : 'disabled'}></td>
                         <td><input type="checkbox" id="icam_montagem" ${setorLogadoInput.value === "Montagem" ? '' : 'disabled'}></td>
                         <td><input type="checkbox" id="icam_pintura" ${setorLogadoInput.value === "Pintura" ? '' : 'disabled'}></td>
                     </tr>
                     <tr>
                         <td>Eixo</td>
-                        <td><input type="checkbox" id="eixo_usinagem" ${setorLogadoInput.value === "Usinagem" ? '' : 'disabled'}></td>
-                        <td><input type="checkbox" id="eixo_corte" ${setorLogadoInput.value === "Corte" ? '' : 'disabled'}></td>
-                        <td><input type="checkbox" id="eixo_estamparia" ${setorLogadoInput.value === "Estamparia" ? '' : 'disabled'}></td>
                         <td><input type="checkbox" id="eixo_solda" ${setorLogadoInput.value === "Solda" ? '' : 'disabled'}></td>
                         <td><input type="checkbox" id="eixo_montagem" ${setorLogadoInput.value === "Montagem" ? '' : 'disabled'}></td>
                         <td><input type="checkbox" id="eixo_pintura" ${setorLogadoInput.value === "Pintura" ? '' : 'disabled'}></td>
                     </tr>
                     <tr>
                         <td>SupE</td>
-                        <td><input type="checkbox" id="supe_usinagem" ${setorLogadoInput.value === "Usinagem" ? '' : 'disabled'}></td>
-                        <td><input type="checkbox" id="supe_corte" ${setorLogadoInput.value === "Corte" ? '' : 'disabled'}></td>
-                        <td><input type="checkbox" id="supe_estamparia" ${setorLogadoInput.value === "Estamparia" ? '' : 'disabled'}></td>
                         <td><input type="checkbox" id="supe_solda" ${setorLogadoInput.value === "Solda" ? '' : 'disabled'}></td>
                         <td><input type="checkbox" id="supe_montagem" ${setorLogadoInput.value === "Montagem" ? '' : 'disabled'}></td>
                         <td><input type="checkbox" id="supe_pintura" ${setorLogadoInput.value === "Pintura" ? '' : 'disabled'}></td>
                     </tr>
                     <tr>
                         <td>5R</td>
-                        <td><input type="checkbox" id="5r_usinagem" ${setorLogadoInput.value === "Usinagem" ? '' : 'disabled'}></td>
-                        <td><input type="checkbox" id="5r_corte" ${setorLogadoInput.value === "Corte" ? '' : 'disabled'}></td>
-                        <td><input type="checkbox" id="5r_estamparia" ${setorLogadoInput.value === "Estamparia" ? '' : 'disabled'}></td>
                         <td><input type="checkbox" id="5r_solda" ${setorLogadoInput.value === "Solda" ? '' : 'disabled'}></td>
                         <td><input type="checkbox" id="5r_montagem" ${setorLogadoInput.value === "Montagem" ? '' : 'disabled'}></td>
                         <td><input type="checkbox" id="5r_pintura" ${setorLogadoInput.value === "Pintura" ? '' : 'disabled'}></td>
                     </tr>
                     <tr>
                         <td>Cilindro</td>
-                        <td><input type="checkbox" id="cilindro_usinagem" ${setorLogadoInput.value === "Usinagem" ? '' : 'disabled'}></td>
-                        <td><input type="checkbox" id="cilindro_corte" ${setorLogadoInput.value === "Corte" ? '' : 'disabled'}></td>
-                        <td><input type="checkbox" id="cilindro_estamparia" ${setorLogadoInput.value === "Estamparia" ? '' : 'disabled'}></td>
                         <td><input type="checkbox" id="cilindro_solda" ${setorLogadoInput.value === "Solda" ? '' : 'disabled'}></td>
                         <td><input type="checkbox" id="cilindro_montagem" ${setorLogadoInput.value === "Montagem" ? '' : 'disabled'}></td>
                         <td><input type="checkbox" id="cilindro_pintura" ${setorLogadoInput.value === "Pintura" ? '' : 'disabled'}></td>
                     </tr>
                     <tr>
                         <td>Fx Molas</td>
-                        <td><input type="checkbox" id="fx_usinagem" ${setorLogadoInput.value === "Usinagem" ? '' : 'disabled'}></td>
-                        <td><input type="checkbox" id="fx_corte" ${setorLogadoInput.value === "Corte" ? '' : 'disabled'}></td>
-                        <td><input type="checkbox" id="fx_estamparia" ${setorLogadoInput.value === "Estamparia" ? '' : 'disabled'}></td>
                         <td><input type="checkbox" id="fx_solda" ${setorLogadoInput.value === "Solda" ? '' : 'disabled'}></td>
                         <td><input type="checkbox" id="fx_montagem" ${setorLogadoInput.value === "Montagem" ? '' : 'disabled'}></td>
                         <td><input type="checkbox" id="fx_pintura" ${setorLogadoInput.value === "Pintura" ? '' : 'disabled'}></td>
@@ -180,6 +144,7 @@ window.addEventListener("click", function (event) {
 
 // Quando o botão "Enviar" é clicado, colete os dados dos checkboxes
 enviarButton.addEventListener("click", function () {
+    $('#loading-overlay').show();
     const chave = modalChave.textContent;
     console.log(chave);
     const setorSelecionado = setorLogadoInput.value; // Obtenha o conjunto selecionado dinamicamente
@@ -219,14 +184,17 @@ enviarButton.addEventListener("click", function () {
     })
     .then(response => {
         if (response.ok) {
+            $('#loading-overlay').hide();
             // Lida com a resposta bem-sucedida
             console.log("Dados enviados com sucesso!");
             modal.style.display = "none";
         } else {
+            $('#loading-overlay').hide();
             // Lida com erros na resposta
             console.error("Erro ao enviar dados.");
         }
     }).catch(error => {
+        $('#loading-overlay').hide();
         // Lida com erros na solicitação
         console.error("Erro na solicitação:", error);
     });

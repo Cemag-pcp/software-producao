@@ -69,8 +69,8 @@ function fetchMoreData() {
                     <td>${item.quantidade}</td>
                     <td>${item.carreta}</td>
                     <td>${item.conjunto}</td>
-                    <td><input type="number" id="quantidade_solicitada"></td>
-                    <td><textarea name="observacao" rows="5" cols="30"></textarea></td>
+                    <td><input type="number" id="quantidade_solicitada" class="form-control2"></td>
+                    <td><textarea name="observacao" rows="5" cols="30" class="form-control-textarea"></textarea></td>
                     <td><button class="solicitar">Solicitar</button></td>
                     `;
                 tableBody.appendChild(row);
@@ -94,13 +94,17 @@ tableBody.addEventListener("click", function (event) {
         const quantidadeSolicitada = row.querySelector("td:nth-child(6) input").value;
         const observacao = row.querySelector("td:nth-child(7) textarea").value;
 
-        // Agora você tem os dados que deseja enviar para o backend
-        enviarDadosParaBackend(codigo, descricao, carreta, conjunto, observacao, quantidadeSolicitada);
+        if(!quantidadeSolicitada){
+            alert("Preencha o campo de quantidade")
+        } else {
+            enviarDadosParaBackend(codigo, descricao, carreta, conjunto, observacao, quantidadeSolicitada);
+        }
     }
 });
 
 function enviarDadosParaBackend(codigo, descricao, carreta, conjunto, observacao, quantidadeSolicitada) {
     // Faça uma solicitação para enviar os dados para o backend
+    $("#loading-overlay").show();
     fetch("/solicitar-peca", {
         method: "POST",
         headers: {
@@ -117,11 +121,13 @@ function enviarDadosParaBackend(codigo, descricao, carreta, conjunto, observacao
     })
         .then(response => response.json())
         .then(data => {
+            $("#loading-overlay").hide();
             // Lide com a resposta do backend, se necessário
             console.log("Resposta do backend:", data);
             alert("Solicitação enviada.");
         })
         .catch(error => {
+            $("#loading-overlay").hide();
             console.error("Erro ao enviar os dados para o backend.", error);
         });
 }
