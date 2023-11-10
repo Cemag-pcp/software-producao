@@ -14,9 +14,9 @@
 .modal-content {
     background-color: #2c2d2f !important;
     margin: 1% auto;
+    margin-top: auto;
     padding: 20px;
-    border: 1px solid #888;
-    width: 50%;
+    border: 1px solid #888;;
 }
 
 .modal-content p{
@@ -57,4 +57,39 @@
 
 .container-fluid button:active{
     background: rgb(61, 55, 97);
+}
+
+@media(max-width:1200px){
+    .modal-content {
+        width: 100% !important;
+    }   
+    .modal-content #modalChave,.modal-content #spanCarreta{
+        border-radius: 40px;
+        border: 1px solid #202024;
+        color: #ffffff;
+        background: rgba(150, 146, 169, 0.44);
+        padding: 9px;
+        text-align: center;
+        font-size: 11px;
+    }
+}
+
+.modal-title {
+    font-size: 16px;
+    padding: 16px;
+    background: #2c2d2f;
+    border: none;
+    cursor: pointer;
+    color: white;
+}
+
+
+.modal-title.active {
+    border-bottom: 2px solid #fff;
+    background: #7e838324;
+    border-radius: 20px 20px 0 0;
+}
+
+.date-input {
+    display: none;
 }

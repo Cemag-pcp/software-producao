@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="static\css\style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
     <link rel="stylesheet" type="text/css" href="static/css/modal-programacao.css">
     <link rel="stylesheet" type="text/css" href="static/css/modal-peca-solicitada.css">
@@ -118,14 +122,14 @@
     </div>
     <!-- Modal de programação de carretas -->
     <div id="modal_programacao" class="modal">
-        <div class="modal-content" style="width: 830px;height: 95%;">
+        <div class="modal-content" style="height: 100%; width: 60%;">
             <span class="close" id="closeModal">&times;</span>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_pesquisa_peca" id="solicitar_peca" style="display: none;">
                 Solicitar peças
             </button>
             <div class="espacamento_chave_carreta">
-                <p>Chave: <span id="modalChave"></span></p>
-                <p>Carreta: <span id="spanCarreta"></span></p>
+                <p>Chave:</p><span id="modalChave"></span>
+                <p>Carreta:</p><span id="spanCarreta"></span>
             </div>
             <div class="conjuntos" style="height: 80%;">
             </div>
@@ -138,7 +142,8 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="width: 300%;">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modal_pesquisa_peca_label" style="color: white;">Pesquisa de Peça</h5>
+                    <input type="button" class="modal-title active" id="modal_pesquisa_peca_label" value="Peças solicitadas">
+                    <input type="button" class="modal-title" id="modal_levantamento_peca_label" value="Levantamento de Peças">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Fechar" style="color: #fff;">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -148,7 +153,12 @@
                     <form>
                         <div class="container-fluid">
                             <div class="row">
-                                
+
+                                <div id="coluna_data" class="col-md-6 date-input">
+                                    <label id="data_inicial" class="date-input">Data Inicial</label>
+                                    <input type="text" class="form-control2 date-input" id="inputDate1" name="datetimes">
+                                </div>
+
                                 <div class="col-md-6">
                                     <label>Peça</label>
                                     <select id="filtroPeca" class="form-control2">
@@ -170,20 +180,24 @@
                                     </select>
                                 </div>
                                 
-                            </div>
-
-                            <label>Carreta</label>
-                            <select id="filtroCarreta" class="form-control2">
-                                <option></option>
-                                <option>CBH5 FO SC RD MM M21</option>
-                                <option>F4 CS RS/RS P P600(I) M21</option>
-                            </select>
-
-                            <label>Conjunto</label>
-                            <select id="filtroConjunto" class="form-control2">
-                                <option></option>
-                                <option>Peças Para Carretas</option>
-                            </select>
+                                <div class="col-md-6">
+                                    <label>Carreta</label>
+                                    <select id="filtroCarreta" class="form-control2">
+                                        <option></option>
+                                        <option>CBH5 FO SC RD MM M21</option>
+                                        <option>F4 CS RS/RS P P600(I) M21</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label>Conjunto</label>
+                                    <select id="filtroConjunto" class="form-control2">
+                                        <option></option>
+                                        <option>Peças Para Carretas</option>
+                                    </select>
+                                </div>
+                                    
+                                </div>
 
                             <button type="button" class="btn btn-primary" id="btnFiltrar">Filtrar</button>
                         </div>
@@ -223,9 +237,10 @@
     <!-- Modal para visualizar peças solicitadas -->
     <div class="modal fade" id="modal_visualizar_peca_solicitada" tabindex="-1" role="dialog" aria-labelledby="modal_visualizar_peca_solicitada" aria-hidden="true">
         <div class="modal-dialog" role="document" style="max-width: 100%;">
-            <div class="modal-content" style="width: 1200px">
+            <div class="modal-content" style="width: 80% ">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modal_visualizar_peca_solicitada" style="color: white;">Peças solicitadas</h5>
+                    <input type="button" class="modal-title active" id="modal_visualizar_peca_solicitada_input" value="Peças solicitadas">
+                    <input type="button" class="modal-title" id="modal_visualizar_peca_feita_input" value="Peças Feitas">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -271,6 +286,7 @@
     <script src="static/js/lista-pecas-api.js"></script>
     <script src="static/js/modal-visualizar-pecas.js"></script>
     <script src="static/js/multi-select.js"></script>
+    <script src="static/js/botoes-ativados.js"></script>
 
     <!-- JavaScript do Bootstrap -->
     <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->

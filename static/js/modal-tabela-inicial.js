@@ -10,9 +10,14 @@ const spanCarreta = document.getElementById("spanCarreta");
 const conjuntosContainer = document.querySelector(".conjuntos");
 const setorLogadoInput = document.getElementById("setor_logado");
 const username = document.getElementById("setor_logado");
+const enviarButton = document.getElementById("enviarButton");
 // const botaoSolicitarPeca = document.getElementById("solicitar_peca");       
 
-// Quando um botão do modal for clicado, exiba o modal com a chave associada
+if(username.value === "Montagem" || username.value === "Solda" || username.value === "Pintura"){
+    enviarButton.style.display = "block"
+} else { 
+    enviarButton.style.display = "none"
+}
 
 modalButtons.forEach(button => {
     button.addEventListener("click", function () {

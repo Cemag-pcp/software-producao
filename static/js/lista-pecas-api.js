@@ -134,6 +134,12 @@ function enviarDadosParaBackend(codigo, descricao, carreta, conjunto, observacao
 
 // Adicione um evento de clique ao botão "Filtrar" para recarregar a tabela
 document.getElementById('btnFiltrar').addEventListener('click', function () {
+    $("#loading-overlay").show();
+
+    setTimeout(() => {
+        $("#loading-overlay").hide(); // Oculta a mensagem após 5 segundos (5000 ms)
+    }, 2000);
+
     allDataLoaded = false; // Redefina a variável de controle quando o filtro é aplicado
     page = 1; // Reinicie a página ao aplicar o filtro
     tableBody.innerHTML = ''; // Limpe a tabela

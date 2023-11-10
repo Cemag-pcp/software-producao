@@ -117,7 +117,7 @@ div.table{
     transition: all 0.3s ease;
 }
 
-table{
+.responsive-table{
     width: 100%;
     color: var(--cores-letras);
 }
@@ -176,7 +176,7 @@ table{
 
 .table__body {
     width: 100%;
-    max-height: calc(85% - .8rem);
+    max-height: calc(80% - .8rem);
     margin: .8rem auto;
     border-radius: .6rem;
     overflow: auto;
@@ -218,7 +218,7 @@ td .modal-button:hover{
     background: rgb(61, 55, 97);
 }
 
-#visualizarPecasSolicitadas,#solicitarPecasButton,#filtrarOrdem{
+#visualizarPecasSolicitadas,#solicitarPecasButton,#filtrarOrdem,#levantamentoPecasSolicitadas{
     background: #807A9E;
     border-color: #807A9E;
     color: var(--cores-letras);
@@ -248,7 +248,9 @@ td .modal-button:hover{
 
 .espacamento_chave_carreta{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
+    align-items: baseline;
+    gap: 10px;
 }
 
 .card__body{
@@ -287,9 +289,9 @@ td .modal-button:hover{
 }
 
 
-table, th, td {
+.responsive-table, .responsive-table th, .responsive-table td {
     border-collapse: collapse;
-    padding: 1rem;
+    padding: 1rem !important;
     text-align: center;
     font-size: 14px;
 }
@@ -515,7 +517,7 @@ tbody tr.hide{
     div.table:first-child{
         width: 90vw;
         margin-left: 20px;
-        height: 40vh;
+        height: 100vw;
     }
 
     div.table{
@@ -558,7 +560,6 @@ tbody tr.hide{
     .responsive-table th {
         display: block;
         text-align: center;
-        border-bottom: solid 1px #202024;
     }
     
     .responsive-table td:before {
@@ -566,10 +567,11 @@ tbody tr.hide{
         font-weight: bold;
         display: block;
     }
-    tbody tr{
+    .responsive-table tr{
         --delay: .1s;
         transition: .5s ease-in-out var(--delay), background-color 0s;
         display: grid;
+        border: 2px solid #c4b9ff;
         grid-template-columns: 1fr;
     }
     
@@ -577,7 +579,7 @@ tbody tr.hide{
         font-size: 15px !important;
     }
 
-    #visualizarPecasSolicitadas,#solicitarPecasButton,#filtrarOrdem{
+    #visualizarPecasSolicitadas,#solicitarPecasButton,#filtrarOrdem,levantamentoPecasSolicitadas{
         background: #807A9E;
         border-color: #807A9E;
         color: var(--cores-letras);
