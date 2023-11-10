@@ -107,18 +107,3 @@ function pecaConcluida(chave) {
 }
 
 
-document.addEventListener('DOMContentLoaded', function () {
-    var btnSolicitada = document.getElementById('modal_visualizar_peca_solicitada');
-    var btnFeita = document.getElementById('modal_visualizar_peca_feita');
-  
-    btnSolicitada.addEventListener('click', function () {
-      btnSolicitada.classList.add('active');
-      btnFeita.classList.remove('active');
-    });
-  
-    btnFeita.addEventListener('click', function () {
-      btnFeita.classList.add('active');
-      btnSolicitada.classList.remove('active');
-    });
-  });
-  
