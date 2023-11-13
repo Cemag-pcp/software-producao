@@ -385,6 +385,35 @@ def peca_concluida():
 
     return data
 
+
+@app.route("/visualizacao-peca-concluida", methods=['GET'])
+def visualizar_pecas_concluidas():
+
+    """
+    Rota para visualizar peças que foram concluidas ao setor de Estamparia/Corte
+    A peças deverão conter a coluna de status "true"
+    Base utilizada: software_producao.tb_solicitacao_pecas
+    """
+
+    conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER,
+                                password=DB_PASS, host=DB_HOST)
+    cur = conn.cursor()
+
+    sql = """
+        SELECT * 
+        FROM software_producao.tb_solicitacao_pecas 
+        WHERE status = 'true';
+    """
+
+    cur.execute(sql)
+
+    data = cur.fetchall()
+
+    data = [(tupla[0], formatar_data(tupla[1]), *tupla[2:]) for tupla in data]
+    
+    return jsonify(data)
+
+
 @app.route("/carretas-checked")
 def carretas_checked():
 

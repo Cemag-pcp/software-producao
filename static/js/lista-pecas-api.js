@@ -64,13 +64,13 @@ function fetchMoreData() {
             data.forEach(item => {
                 const row = document.createElement("tr");
                 row.innerHTML = `
-                    <td>${item.codigo}</td>
-                    <td>${item.descricao}</td>
-                    <td>${item.quantidade}</td>
-                    <td>${item.carreta}</td>
-                    <td>${item.conjunto}</td>
-                    <td><input type="number" id="quantidade_solicitada" class="form-control2"></td>
-                    <td><textarea name="observacao" rows="5" cols="30" class="form-control-textarea"></textarea></td>
+                    <td data-label="Código">${item.codigo}</td>
+                    <td data-label="Peça">${item.descricao}</td>
+                    <td data-label="Quantidade">${item.quantidade}</td>
+                    <td data-label="Carreta">${item.carreta}</td>
+                    <td data-label="Conjunto">${item.conjunto}</td>
+                    <td data-label="Quantidade"><input type="number" id="quantidade_solicitada" class="form-control2"></td>
+                    <td data-label="Observação"><textarea name="observacao" rows="5" cols="30" class="form-control-textarea"></textarea></td>
                     <td><button class="solicitar">Solicitar</button></td>
                     `;
                 tableBody.appendChild(row);

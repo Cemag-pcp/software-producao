@@ -108,7 +108,7 @@
                             <td data-label="Carreta" style="border-top: none;">{{row[10]}}</td>
                             <td data-label="Quantidade" style="border-top: none;">{{row[15]}}</td>
                             <td data-label="Chave" style="display: none; border-top: none;">{{row[13]}}</td>
-                            <td data-label="Programação" style="border-top: none;"><input type="button" class="modal-button" data-chave="{{row[13]}}" data-carreta="{{row[10]}}" value="☑️"></td>
+                            <td style="border-top: none;"><input type="button" class="modal-button" data-chave="{{row[13]}}" data-carreta="{{row[10]}}" value="Programação"></td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -155,7 +155,7 @@
                             <div class="row">
 
                                 <div id="coluna_data" class="col-md-6 date-input">
-                                    <label id="data_inicial" class="date-input">Data Inicial</label>
+                                    <label id="data_inicial" class="date-input">Data</label>
                                     <input type="text" class="form-control2 date-input" id="inputDate1" name="datetimes">
                                 </div>
 
@@ -197,9 +197,10 @@
                                     </select>
                                 </div>
                                     
-                                </div>
+                            </div>
 
                             <button type="button" class="btn btn-primary" id="btnFiltrar">Filtrar</button>
+                            <button type="button" class="btn btn-primary" id="levantamentoButton" style="display: none;">Filtrar</button>
                         </div>
                     </form>
                     <div id="tabela-solicitar-peca" style="max-height: 300px; overflow-y: auto;">
@@ -224,6 +225,30 @@
                                     <td></td>
                                     <td></td>
                                 </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="tabela-levantamento-peca" style="max-height: 300px; overflow-y: auto;">
+                        <table class="responsive-table responsive-table1">
+                            <thead>
+                                <tr style="border-top: 0">
+                                    <th class="cabecalho" style="border-bottom: none;border-top: none">Data</th>
+                                    <th class="cabecalho" style="border-bottom: none;border-top: none">Carreta</th>
+                                    <th class="cabecalho" style="border-bottom: none;border-top: none">Quantidade</th>
+                                    <th class="cabecalho" style="display: none; border-bottom: none;border-top: none">Chave</th>
+                                    <th class="cabecalho" style="border-bottom: none;border-top: none">Programação</th>
+                                </tr>        
+                            </thead>
+                            <tbody>
+                                {% for row in base_carretas %}
+                                <tr>
+                                    <td data-label="Data" style="border-top: none;">{{row[6]}}</td>
+                                    <td data-label="Carreta" style="border-top: none;">{{row[10]}}</td>
+                                    <td data-label="Quantidade" style="border-top: none;">{{row[15]}}</td>
+                                    <td data-label="Chave" style="display: none; border-top: none;">{{row[13]}}</td>
+                                    <td style="border-top: none;"><input type="button" class="modal-button" data-chave="{{row[13]}}" data-carreta="{{row[10]}}" value="Programação"></td>
+                                </tr>
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>
@@ -258,19 +283,19 @@
                                     <th class="cabecalho">Conjunto</th>
                                     <th class="cabecalho">Quantidade</th>
                                     <th class="cabecalho">Observação</th>
-                                    <th class="cabecalho">Botão</th>
+                                    <th class="cabecalho botao-column">Botão</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td data-label="Chave"></td>
+                                    <td data-label="Data"></td>
+                                    <td data-label="Carreta"></td>
+                                    <td data-label="Código"></td>
+                                    <td data-label="Descrição"></td>
+                                    <td data-label="Conjunto"></td>
+                                    <td data-label="Quantidade"></td>
+                                    <td class="botao-column"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -287,6 +312,7 @@
     <script src="static/js/modal-visualizar-pecas.js"></script>
     <script src="static/js/multi-select.js"></script>
     <script src="static/js/botoes-ativados.js"></script>
+    <script src="static/js/data-range.js"></script>
 
     <!-- JavaScript do Bootstrap -->
     <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->

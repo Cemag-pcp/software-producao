@@ -203,7 +203,7 @@ div.table{
 }
 
 td .modal-button{
-    padding: 5px;
+    padding: 10px;
     outline: none;
     cursor: pointer;
     border: none;
@@ -300,7 +300,7 @@ thead .cabecalho{
     position: sticky;
     top: 0;
     left: 0;
-    background: rgba(61, 55, 88, 0.60);
+    background: rgba(61, 55, 88);
 }
 
 tbody tr:nth-child(even){
@@ -585,4 +585,15 @@ tbody tr.hide{
         color: var(--cores-letras);
         font-size: 10px;
     }
+}
+
+.daterangepicker{
+    top: 100px !important;
+}
+
+input[type=checkbox]{
+    border: 0px;
+    width: 25px;
+    height: 30px;
+    vertical-align: middle;
 }
