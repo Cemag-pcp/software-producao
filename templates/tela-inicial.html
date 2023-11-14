@@ -20,6 +20,7 @@
 
 <body>
 
+    
     <input id="setor_logado" name="setor_logado" value="{{ username }}" style="display: none;">
     <nav style="display: flex;">
         <div class="logo">
@@ -159,7 +160,7 @@
                                     <input type="text" class="form-control2 date-input" id="inputDate1" name="datetimes">
                                 </div>
 
-                                <div class="col-md-6">
+                                <div id="peca" class="col-md-6">
                                     <label>Peça</label>
                                     <select id="filtroPeca" class="form-control2">
                                         <option></option>
@@ -172,7 +173,7 @@
                                     </select>
                                 </div>
 
-                                <div class="col-md-6">
+                                <div id="processo" class="col-md-6">
                                     <label>Processo</label>
                                     <select id="filtroProcesso" class="form-control2">
                                         <option></option>
@@ -180,16 +181,14 @@
                                     </select>
                                 </div>
                                 
-                                <div class="col-md-6">
+                                <div id="carreta" class="col-md-6">
                                     <label>Carreta</label>
                                     <select id="filtroCarreta" class="form-control2">
                                         <option></option>
-                                        <option>CBH5 FO SC RD MM M21</option>
-                                        <option>F4 CS RS/RS P P600(I) M21</option>
                                     </select>
                                 </div>
                                 
-                                <div class="col-md-6">
+                                <div id="conjunto" class="col-md-6">
                                     <label>Conjunto</label>
                                     <select id="filtroConjunto" class="form-control2">
                                         <option></option>
@@ -229,26 +228,27 @@
                         </table>
                     </div>
                     <div id="tabela-levantamento-peca" style="max-height: 300px; overflow-y: auto;">
-                        <table class="responsive-table responsive-table1">
+                        <table class="responsive-table1">
                             <thead>
-                                <tr style="border-top: 0">
-                                    <th class="cabecalho" style="border-bottom: none;border-top: none">Data</th>
-                                    <th class="cabecalho" style="border-bottom: none;border-top: none">Carreta</th>
-                                    <th class="cabecalho" style="border-bottom: none;border-top: none">Quantidade</th>
-                                    <th class="cabecalho" style="display: none; border-bottom: none;border-top: none">Chave</th>
-                                    <th class="cabecalho" style="border-bottom: none;border-top: none">Programação</th>
-                                </tr>        
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Peça</th>
+                                    <th>Quantidade</th>
+                                    <th>Carreta</th>
+                                    <th>Conjunto</th>
+                                    <th>Quantidade</th>
+                                    <th>Observação</th>
+                                    <th>Solicitar</th>
+                                </tr>
                             </thead>
                             <tbody>
-                                {% for row in base_carretas %}
                                 <tr>
-                                    <td data-label="Data" style="border-top: none;">{{row[6]}}</td>
-                                    <td data-label="Carreta" style="border-top: none;">{{row[10]}}</td>
-                                    <td data-label="Quantidade" style="border-top: none;">{{row[15]}}</td>
-                                    <td data-label="Chave" style="display: none; border-top: none;">{{row[13]}}</td>
-                                    <td style="border-top: none;"><input type="button" class="modal-button" data-chave="{{row[13]}}" data-carreta="{{row[10]}}" value="Programação"></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
-                                {% endfor %}
                             </tbody>
                         </table>
                     </div>
@@ -313,6 +313,7 @@
     <script src="static/js/multi-select.js"></script>
     <script src="static/js/botoes-ativados.js"></script>
     <script src="static/js/data-range.js"></script>
+    <script src="static/js/levantamento.js"></script>
 
     <!-- JavaScript do Bootstrap -->
     <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->

@@ -457,5 +457,22 @@ def visao_geral():
     return render_template("visao-geral.html", base_carretas=base_carretas)
 
 
+@app.route("/get_base_carretas")
+def get_base_carretas():
+
+    base_carretas = buscar_dados(filename)
+    base_carretas_dataframe = base_carretas
+
+    # Seleciona as colunas 6 e 10 do DataFrame
+    colunas_selecionadas = base_carretas_dataframe.iloc[:, [6, 10]]
+
+    # Filtra os dados não nulos e não vazios na coluna 10
+    dados_filtrados = colunas_selecionadas[colunas_selecionadas.iloc[:, 1] != ""].dropna()
+
+    # Converte os dados para uma lista de dicionários
+    base_carretas_json = dados_filtrados.to_dict(orient='records')
+
+    return jsonify(base_carretas_json)
+
 if __name__ == '__main__':
     app.run()

@@ -27,6 +27,11 @@ document.addEventListener('DOMContentLoaded', function () {
     var btnFiltrarLevantamento = document.getElementById('levantamentoButton');
     var tabelaSolicitarPeca = document.getElementById('tabela-solicitar-peca');
     var tabelaLevantamentoPeca = document.getElementById('tabela-levantamento-peca');
+    var table_levantamento = document.getElementById('table-levantamento');
+    var pecaLabel = document.getElementById('peca')
+    var processoLabel = document.getElementById('processo')
+    var carretaLabel = document.getElementById('carreta')
+    var conjuntoLabel = document.getElementById('conjunto')
 
     btnPesquisa.addEventListener('click', function () {
         btnPesquisa.classList.add('active');
@@ -36,13 +41,17 @@ document.addEventListener('DOMContentLoaded', function () {
         filtroProcesso.value = ''; // Limpa a seleção de processo
         filtroCarreta.value = ''; // Limpa a seleção de carreta
         filtroConjunto.value = ''; // Limpa a seleção de conjunto
+        pecaLabel.style.display = 'block';
+        processoLabel.style.display = 'block';
+        carretaLabel.style.display = 'block';
+        conjuntoLabel.style.display = 'block';
         col.style.display='none';
         inputDate1.style.display = 'none';
         data_inicial.style.display='none';
         btnFiltrarLevantamento.style.display = 'none';
         btnFiltrar.style.display = 'block';
         tabelaSolicitarPeca.style.display= 'block';
-        tabelaLevantamentoPeca.style.display='none';
+        table_levantamento.style.display='none'
     });
 
     btnLevantamento.addEventListener('click', function () {
@@ -51,15 +60,18 @@ document.addEventListener('DOMContentLoaded', function () {
         inputDate1.value = ''; // Limpa o valor do campo de data
         filtroPeca.value = ''; // Limpa a seleção de peça
         filtroProcesso.value = ''; // Limpa a seleção de processo
-        filtroCarreta.value = ''; // Limpa a seleção de carreta
         filtroConjunto.value = ''; // Limpa a seleção de conjunto
+        pecaLabel.style.display = 'none';
+        processoLabel.style.display = 'none';
+        carretaLabel.style.display = 'none';
+        conjuntoLabel.style.display = 'none';
         col.style.display='block';
         inputDate1.style.display = 'block';
         data_inicial.style.display='block';
         btnFiltrarLevantamento.style.display = 'block';
         btnFiltrar.style.display = 'none';
         tabelaSolicitarPeca.style.display='none';
-        tabelaLevantamentoPeca.style.display='block';
+        table_levantamento.style.display='block'
     });
 }); 
 
