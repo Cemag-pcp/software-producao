@@ -122,6 +122,11 @@ div.table{
     color: var(--cores-letras);
 }
 
+.responsive-table1{
+    width: 100%;
+    color: var(--cores-letras);
+}
+
 .table__header {
     display: flex;
     justify-content: space-between;
@@ -296,6 +301,13 @@ td .modal-button:hover{
     font-size: 14px;
 }
 
+.responsive-table1, .responsive-table1 th, .responsive-table1 td {
+    border-collapse: collapse;
+    padding: 1rem !important;
+    text-align: center;
+    font-size: 14px;
+}
+
 thead .cabecalho{
     position: sticky;
     top: 0;
@@ -319,6 +331,12 @@ tbody tr.hide{
 }
 
 .responsive-table tr.hide{
+    opacity: 0;
+    transform: translateX(100%);
+    display: none;
+}
+
+.responsive-table1 tr.hide{
     opacity: 0;
     transform: translateX(100%);
     display: none;

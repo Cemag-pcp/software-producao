@@ -227,28 +227,25 @@
                             </tbody>
                         </table>
                     </div>
-                    <div id="tabela-levantamento-peca" style="max-height: 300px; overflow-y: auto;">
+                    <div id="tabela-levantamento-peca" style="max-height: 300px; overflow-y: auto; display: none;">
                         <table class="responsive-table1">
                             <thead>
-                                <tr>
-                                    <th>Código</th>
-                                    <th>Peça</th>
-                                    <th>Quantidade</th>
-                                    <th>Carreta</th>
-                                    <th>Conjunto</th>
-                                    <th>Quantidade</th>
-                                    <th>Observação</th>
-                                    <th>Solicitar</th>
-                                </tr>
+                                <tr style="border-top: 0">
+                                    <th class="cabecalho" style="border-bottom: none;border-top: none">Data</th>
+                                    <th class="cabecalho" style="border-bottom: none;border-top: none">Carreta</th>
+                                    <th class="cabecalho" style="border-bottom: none;border-top: none">Quantidade</th>
+                                    <th class="cabecalho" style="display: none; border-bottom: none;border-top: none">Chave</th>
+                                </tr>        
                             </thead>
                             <tbody>
+                                {% for row in base_carretas %}
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td data-label="Data" style="border-top: none;">{{row[6]}}</td>
+                                    <td data-label="Carreta" style="border-top: none;">{{row[10]}}</td>
+                                    <td data-label="Quantidade" style="border-top: none;">{{row[15]}}</td>
+                                    <td data-label="Chave" style="display: none; border-top: none;">{{row[13]}}</td>
                                 </tr>
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>

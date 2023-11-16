@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
         btnFiltrarLevantamento.style.display = 'none';
         btnFiltrar.style.display = 'block';
         tabelaSolicitarPeca.style.display= 'block';
-        table_levantamento.style.display='none'
+        tabelaLevantamentoPeca.style.display='none'
     });
 
     btnLevantamento.addEventListener('click', function () {
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
         btnFiltrarLevantamento.style.display = 'block';
         btnFiltrar.style.display = 'none';
         tabelaSolicitarPeca.style.display='none';
-        table_levantamento.style.display='block'
+        tabelaLevantamentoPeca.style.display='none';
     });
 }); 
 

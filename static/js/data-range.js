@@ -1,19 +1,5 @@
 // Filtro para tabela inicial
 const dateRangeFilter = document.getElementById('inputDate1');
-const base = document.getElementById('base_carretas').value;
-
-lista = base.split(", ")
-console.log(lista)
-
-let prevDateRangeValue = dateRangeFilter.value;
-
-// Selecione o botão com a classe applyBtn
-const applyBtn = document.querySelector('.applyBtn');
-
-// Adicione um id ao botão
-if (applyBtn) {
-    applyBtn.setAttribute('id', 'idBotaoData');
-}
 
 // Função para formatar o intervalo de datas
 function parseDateRange(dateRange) {
@@ -101,20 +87,13 @@ function filterTable() {
         carretaSelect.innerHTML = '<option></option>' + Array.from(carretasSet).map(carreta => `<option>${carreta}</option>`).join('');
     }, 500); // Ajuste o tempo de espera conforme necessário
 }
-dateRangeFilter.addEventListener('input', function () {
-    // Verifique se o valor mudou em relação ao anterior
-    
-    if (dateRangeFilter.value !== prevDateRangeValue) {
-        // Atualize o valor anterior
-        prevDateRangeValue = dateRangeFilter.value;
-        filterTable();
-    }
-});
-
-
+// Adicione um evento de entrada ao campo de intervalo de datas para chamar a função de filtro
+dateRangeFilter.addEventListener('input', filterTable);
+var tabelaLevantamentoPeca = document.getElementById('tabela-levantamento-peca');
 var carretaLabel = document.getElementById('carreta')
 const btnFiltrar = document.getElementById('levantamentoButton');
 btnFiltrar.addEventListener('click', function(){
     filterTable();
-    carretaLabel.style.display = 'block';
+    tabelaLevantamentoPeca.style.display='block';
+    carretaLabel.style.display='block';
 });
