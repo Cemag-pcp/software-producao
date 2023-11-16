@@ -97,3 +97,24 @@ btnFiltrar.addEventListener('click', function(){
     tabelaLevantamentoPeca.style.display='block';
     carretaLabel.style.display='block';
 });
+
+document.getElementById('filtroCarreta').addEventListener('change', function() {
+    var filtroCarreta = this.value.toLowerCase(); // Obtém o valor selecionado e converte para minúsculas
+    var tabela = document.getElementById('tabela-levantamento-peca');
+    var linhas = tabela.getElementsByTagName('tr');
+
+    for (var i = 1; i < linhas.length; i++) { // Começa do índice 1 para ignorar o cabeçalho
+        var colunaCarreta = linhas[i].getElementsByTagName('td')[1]; // Obtém a célula "Carreta" na linha atual
+
+        if (colunaCarreta) {
+            var valorCarreta = colunaCarreta.textContent || colunaCarreta.innerText;
+
+            // Converte o valor da célula para minúsculas e verifica se corresponde ao filtro
+            if (valorCarreta.toLowerCase().indexOf(filtroCarreta) > -1) {
+                linhas[i].style.display = ''; // Exibe a linha se houver correspondência
+            } else {
+                linhas[i].style.display = 'none'; // Oculta a linha se não houver correspondência
+            }
+        }
+    }
+});
