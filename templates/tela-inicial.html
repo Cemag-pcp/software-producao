@@ -199,7 +199,10 @@
                             </div>
 
                             <button type="button" class="btn btn-primary" id="btnFiltrar">Filtrar</button>
+                            <div style="display: flex; justify-content: space-between;">
                             <button type="button" class="btn btn-primary" id="levantamentoButton" style="display: none;">Filtrar</button>
+                            <button type="button" class="btn btn-primary" id="exibirTabela" style="display: none;" onclick="toggleTabela()">Exibir carretas p/ dia</button>
+                            </div>
                         </div>
                     </form>
                     <div id="tabela-solicitar-peca" style="max-height: 300px; overflow-y: auto;">
@@ -227,7 +230,8 @@
                             </tbody>
                         </table>
                     </div>
-                    <div id="tabela-levantamento-peca" style="max-height: 300px; overflow-y: auto; display: none;">
+                    <div id="tabela-levantamento-peca" style="max-height: 300px; overflow-y: auto; display: none; margin-bottom: 30px;">
+                        <label>Carretas Utilizadas por dias</label>
                         <table class="responsive-table1">
                             <thead>
                                 <tr style="border-top: 0">
@@ -238,16 +242,18 @@
                                 </tr>        
                             </thead>
                             <tbody>
-                                {% for row in base_carretas %}
+                                {% for row in base_levantamento %}
                                 <tr>
-                                    <td data-label="Data" style="border-top: none;">{{row[6]}}</td>
-                                    <td data-label="Carreta" style="border-top: none;">{{row[10]}}</td>
-                                    <td data-label="Quantidade" style="border-top: none;">{{row[15]}}</td>
-                                    <td data-label="Chave" style="display: none; border-top: none;">{{row[13]}}</td>
+                                    <td data-label="Data" style="border-top: none;">{{row[0]}}</td>
+                                    <td data-label="Carreta" style="border-top: none;">{{row[1]}}</td>
+                                    <td data-label="Quantidade" style="border-top: none;">{{row[3]}}</td>
+                                    <td data-label="Chave" style="display: none; border-top: none;">{{row[2]}}</td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
+                    </div>
+                    <div id="resultado" style="max-height: 300px; overflow-y: auto;">
                     </div>
                 </div>
                 <div class="modal-footer">

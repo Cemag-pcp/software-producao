@@ -205,10 +205,49 @@ def tela_inicial(username):
 
     dataFrame.merge(base_carretas_dataframe, how='left', right_on='PED_NUMEROSERIE', left_on='chave')
 
+    # Pode ser necessário realizar alguma lógica adicional com os dados recebidos
 
+    df = pd.DataFrame(base_carretas)
 
-    return render_template("tela-inicial.html", base_carretas=base_carretas, username=username,base_carretas_filtro=base_carretas_filtro)
+    # Lista de colunas desejadas
+    colunas_desejadas = [6, 10, 13, 15]
 
+    # Certifique-se de que as colunas existem antes de filtrar
+    colunas_existentes = set(df.columns)
+    colunas_para_filtrar = [coluna for coluna in colunas_desejadas if coluna in colunas_existentes]
+
+    # Crie o DataFrame apenas com as colunas desejadas
+    df = df[colunas_para_filtrar]
+
+    # Lista de sufixos a serem removidos
+    sufixos_para_remover = ['VM', 'VJ', 'AV', 'CO', 'LC', 'AN']
+
+    # Remove os sufixos das colunas específicas
+    for coluna in colunas_para_filtrar:
+        for sufixo in sufixos_para_remover:
+            df[coluna] = df[coluna].str.rstrip(sufixo)
+
+    # Renomear as colunas
+    df = df.rename(columns={6: 'data', 10: 'carreta', 13: 'chave', 15: 'quantidade'})
+
+    # Filtrar linhas onde a coluna 'carreta' não começa com dígitos
+    df = df[~df['carreta'].astype(str).str.match(r'^\d')]
+
+    # Converta a coluna 'quantidade' para tipo numérico
+    df['quantidade'] = pd.to_numeric(df['quantidade'], errors='coerce')
+    df['carreta'] = df['carreta'].str.strip()
+
+    # Remover linhas onde todos os valores são vazios ou nulos
+    df = df.dropna(how='any')
+
+    # Agrupa por 'carreta' e soma as colunas 'quantidade', 'data' e 'chave'
+    base_levantamento = df.groupby(['data', 'carreta', 'chave'])['quantidade'].sum().reset_index()
+
+    print(base_levantamento)
+
+    base_levantamento = base_levantamento.values.tolist()
+
+    return render_template("tela-inicial.html", base_carretas=base_carretas, username=username,base_carretas_filtro=base_carretas_filtro,base_levantamento=base_levantamento)
 
 @app.route("/receber-checkbox", methods=['POST'])
 def receber_checkbox():
@@ -457,22 +496,72 @@ def visao_geral():
     return render_template("visao-geral.html", base_carretas=base_carretas)
 
 
-@app.route("/get_base_carretas")
+@app.route("/get_base_carretas", methods=['POST'])
 def get_base_carretas():
 
-    base_carretas = buscar_dados(filename)
-    base_carretas_dataframe = base_carretas
+    try:
+        # Obtenha os dados JSON da requisição
+        data = request.json
+         # data = {'carretas': ['CBH6R FO SS T P750(I) M21', 'F6 SS RS/RS A45 P750(I) M23', '026020', 'F6 CS RS/RS A45 P750(I) M23', 'CBHM10000-2E SS RS/RD P750(I) M17', 'CBH6-2E FO SS RS/RD P750(I) M21', 'FTC6500 CS RS/RS BB P750(I) M22', 'FTC6500 CS RS/RS BB P750(I) M22 AV', '026054', '030671', 'CBHM5000 GR SS RD MM P750(I) M17 AV', 'CBHM6000 CA SS RD MM M21 AN', 'CBHM5000 CA SC RD ABA MM P750(I) M17 VJ', '466657CO', 'CBH5 FO SS T MM P750(I) M21 AV', 'CBH6 FO SS T MM P750(I) M22 AV', 'CBH6 FO SS T MM P750(I) M22 VM', 'CBHM5000 CA SS RD ABA MM P750(I) M17 VM', 'CBHM6000 CA SS RD ABA MM P750(I) M21 VM', 'CBHM6000 CA SC RD ABA MM P750(I) M21 VJ', 'CBH5 UG SS RD P750(I) M21', 'FTC4300 SS RS/RS BB P750(I) M22 AN', 'CBHM5000 GR SS RD MM M17 VM', 'CBHM5000 GR SS T MM M20', 'CBHM5000 GR SS RD MM M17', '318280', '318413', '031254LC', '240590', '222185', '240229']}
+ 
+        # Acesse o array de objetos 'data' dentro do objeto JSON
+        data_list = data.get('data', [])
 
-    # Seleciona as colunas 6 e 10 do DataFrame
-    colunas_selecionadas = base_carretas_dataframe.iloc[:, [6, 10]]
+        # Crie um DataFrame a partir dos dados
+        df = pd.DataFrame(data_list)
 
-    # Filtra os dados não nulos e não vazios na coluna 10
-    dados_filtrados = colunas_selecionadas[colunas_selecionadas.iloc[:, 1] != ""].dropna()
+        # Pode ser necessário realizar alguma lógica adicional com os dados recebidos
 
-    # Converte os dados para uma lista de dicionários
-    base_carretas_json = dados_filtrados.to_dict(orient='records')
+        df = df[~df['carreta'].astype(str).str.match(r'^\d')]
 
-    return jsonify(base_carretas_json)
+                # Lista de sufixos a serem removidos
+        sufixos_para_remover = ['VM', 'VJ', 'AV', 'CO', 'LC', 'AN']
+
+        # Remove os sufixos da coluna 'carreta'
+        for sufixo in sufixos_para_remover:
+            df['carreta'] = df['carreta'].str.rstrip(sufixo)
+
+                # Converta a coluna 'quantidade' para tipo numérico
+        df['quantidade_carretas'] = pd.to_numeric(df['quantidade_carretas'], errors='coerce')
+
+        # Agrupa por 'carreta' e soma a coluna 'quantidade_carretas'
+        df_agrupado = df.groupby('carreta')['quantidade_carretas'].sum().reset_index()
+
+        lista_carretas = df_agrupado['carreta'].values.tolist()
+    
+        lista_carretas = tuple(lista_carretas)
+
+        conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER,
+                            password=DB_PASS, host=DB_HOST)
+        cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+
+        sql = f"""
+        SELECT processo, conjunto, codigo, quantidade, carreta FROM pcp.tb_base_carretas_explodidas WHERE carreta in {lista_carretas} LIMIT 100
+        """
+
+        cur.execute(sql)
+        tabela_filtrada = cur.fetchall()
+        df_tabela_filtrada = pd.DataFrame(tabela_filtrada)
+
+        df_combinado = pd.merge(df_tabela_filtrada, df_agrupado, how='inner', on='carreta')
+
+        # Crie a nova coluna 'quantidade_total' multiplicando as colunas 'quantidade_carretas' e 'quantidade'
+        df_combinado['Quantidade'] = df_combinado['quantidade_carretas'] * df_combinado['quantidade']
+
+        df_combinado_html = df_combinado[['processo', 'conjunto', 'codigo', 'carreta', 'Quantidade']].to_html(index=False)
+
+        # Adicionar a classe 'responsive-table' à tabela
+        df_combinado_html = df_combinado_html.replace('<table border="1" class="dataframe">', '<table border="0" class="responsive-table">')
+
+        # Adicionar a classe 'cabecalho' às células do cabeçalho ('th')
+        df_combinado_html = df_combinado_html.replace('<th>', '<th class="cabecalho">')
+
+        # Você pode retornar uma mensagem de sucesso ou qualquer outra coisa que desejar
+        return jsonify({'message': 'Dados recebidos com sucesso!','df_combinado_html': df_combinado_html})
+
+    except Exception as e:
+        # Em caso de erro, retorne uma resposta de erro
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run()

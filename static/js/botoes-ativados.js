@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var filtroCarreta = document.getElementById('filtroCarreta');
     var filtroConjunto = document.getElementById('filtroConjunto');
     var btnFiltrarLevantamento = document.getElementById('levantamentoButton');
+    var exibirTabela = document.getElementById('exibirTabela');
     var tabelaSolicitarPeca = document.getElementById('tabela-solicitar-peca');
     var tabelaLevantamentoPeca = document.getElementById('tabela-levantamento-peca');
     var table_levantamento = document.getElementById('table-levantamento');
@@ -49,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
         inputDate1.style.display = 'none';
         data_inicial.style.display='none';
         btnFiltrarLevantamento.style.display = 'none';
+        exibirTabela.style.display='none';
         btnFiltrar.style.display = 'block';
         tabelaSolicitarPeca.style.display= 'block';
         tabelaLevantamentoPeca.style.display='none'
@@ -66,6 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
         carretaLabel.style.display = 'none';
         conjuntoLabel.style.display = 'none';
         col.style.display='block';
+        exibirTabela.style.display='none';
         inputDate1.style.display = 'block';
         data_inicial.style.display='block';
         btnFiltrarLevantamento.style.display = 'block';
