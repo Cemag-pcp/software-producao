@@ -361,7 +361,7 @@ def resgatar_checkbox(chave):
     return jsonify(dados)
 
 
-@app.route("/login", methods=["GET", "POST"])
+@app.route("/", methods=["GET", "POST"])
 def login():
     
     """
@@ -536,7 +536,7 @@ def get_base_carretas():
         cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
         sql = f"""
-        SELECT processo, conjunto, codigo, quantidade, carreta FROM pcp.tb_base_carretas_explodidas WHERE carreta in {lista_carretas} LIMIT 100
+        SELECT processo, conjunto, codigo, descricao, quantidade, carreta FROM pcp.tb_base_carretas_explodidas WHERE carreta in {lista_carretas} LIMIT 100
         """
 
         cur.execute(sql)
@@ -548,13 +548,29 @@ def get_base_carretas():
         # Crie a nova coluna 'quantidade_total' multiplicando as colunas 'quantidade_carretas' e 'quantidade'
         df_combinado['Quantidade'] = df_combinado['quantidade_carretas'] * df_combinado['quantidade']
 
-        df_combinado_html = df_combinado[['processo', 'conjunto', 'codigo', 'carreta', 'Quantidade']].to_html(index=False)
+        df_combinado['Observacao'] = ''  # Coluna para o textarea
+        df_combinado['Solicitar'] = ''  # Coluna para o botão
+
+        df_combinado_html = df_combinado[['processo', 'conjunto', 'codigo','descricao', 'carreta', 'Quantidade','Observacao', 'Solicitar']].to_html(index=False)
 
         # Adicionar a classe 'responsive-table' à tabela
-        df_combinado_html = df_combinado_html.replace('<table border="1" class="dataframe">', '<table border="0" class="responsive-table">')
+        df_combinado_html = df_combinado_html.replace('<table border="1" class="dataframe">', '<table border="0" class="responsive-table responsive" id="responsive">')
 
         # Adicionar a classe 'cabecalho' às células do cabeçalho ('th')
         df_combinado_html = df_combinado_html.replace('<th>', '<th class="cabecalho">')
+
+        # Separar o cabeçalho e o corpo do HTML
+        thead_end_index = df_combinado_html.find('</thead>')
+        thead_html = df_combinado_html[:thead_end_index]
+        tbody_html = df_combinado_html[thead_end_index:]
+
+        # Adicionar colunas extras no final de cada linha no corpo do HTML
+        tbody_html = tbody_html.replace('</tr>', '<td><textarea class="form-control-textarea"></textarea></td><td><button class="solicitar">Solicitar</button></td></tr>')
+
+        # Juntar o cabeçalho e o corpo do HTML
+        df_combinado_html = thead_html + tbody_html
+        
+        df_combinado_html = df_combinado_html.replace('<td></td>', '')
 
         # Você pode retornar uma mensagem de sucesso ou qualquer outra coisa que desejar
         return jsonify({'message': 'Dados recebidos com sucesso!','df_combinado_html': df_combinado_html})

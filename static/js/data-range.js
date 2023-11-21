@@ -5,8 +5,9 @@ let carretaLabel = document.getElementById('carreta');
 let peca = document.getElementById('peca');
 let processo = document.getElementById('processo');
 let conjunto = document.getElementById('conjunto');
+let descricao = document.getElementById('descricao');
 let exibirTabela = document.getElementById('exibirTabela');
-
+let resultado = document.getElementById('resultado');
 // Função para formatar o intervalo de datas
 function parseDateRange(dateRange) {
     const dateRangeParts = dateRange.split(" - ");
@@ -49,7 +50,6 @@ function filterTable() {
         const dateRange = dateRangeFilter.value;
         const { startDate, endDate } = parseDateRange(dateRange);
         const rows = document.querySelectorAll('.responsive-table1 tbody tr');
-        const carretaSelect = document.getElementById('filtroCarreta');
 
         // Inicialize um conjunto para armazenar carretas únicas
         const carretasArray = new Set();
@@ -84,7 +84,6 @@ function filterTable() {
             if (dateMatch) {
                 // Adicione a carreta ao conjunto
                 carretasArray.add(row.cells[1].textContent);
-                console.log(carretasArray)
                 quantCellArray.push(row.cells[2].textContent);
                 row.style.display = 'table-row';
             } else {
@@ -93,13 +92,11 @@ function filterTable() {
         });
         
         // Atualize o conteúdo do select com as carretas filtradas
-        carretaSelect.innerHTML = '<option></option>' + Array.from(carretasArray).map(carreta => `<option>${carreta}</option>`).join('');
         enviarCarretasParaBackend(carretasArray, quantCellArray);
     }, 500); // Ajuste o tempo de espera conforme necessário
 }
 
 function enviarCarretasParaBackend(carretas,quantidade) {
-    $("#loading-overlay").show();
     const carretasArray = Array.from(carretas);
     const quantCellArray = Array.from(quantidade);
     
@@ -118,14 +115,18 @@ function enviarCarretasParaBackend(carretas,quantidade) {
     .then(response => response.json())
     .then(data => {
         // Faça algo com a resposta do servidor, se necessário
-        $("#loading-overlay").hide();
+        setTimeout(function () {
+            $("#loading-overlay").hide();
+        },3000)
         console.log('Resposta do servidor:', data);
 
         // Exiba o HTML na sua página
         document.getElementById('resultado').innerHTML = data.df_combinado_html;
     })
     .catch(error => {
-        $("#loading-overlay").hide();
+        setTimeout(function () {
+            $("#loading-overlay").hide();
+        },3500)
         console.error('Erro ao enviar carretas para o backend:', error);
         
         // Exiba um alerta informando que ocorreu um erro
@@ -144,25 +145,7 @@ btnFiltrar.addEventListener('click', function(){
     processo.style.display='block';
     conjunto.style.display='block';
     exibirTabela.style.display='block';
+    resultado.style.display='block';
+    descricao.style.display='block';
 });
 
-document.getElementById('filtroCarreta').addEventListener('change', function() {
-    var filtroCarreta = this.value.toLowerCase(); // Obtém o valor selecionado e converte para minúsculas
-    var tabela = document.getElementById('tabela-levantamento-peca');
-    var linhas = tabela.getElementsByTagName('tr');
-
-    for (var i = 1; i < linhas.length; i++) { // Começa do índice 1 para ignorar o cabeçalho
-        var colunaCarreta = linhas[i].getElementsByTagName('td')[1]; // Obtém a célula "Carreta" na linha atual
-
-        if (colunaCarreta) {
-            var valorCarreta = colunaCarreta.textContent || colunaCarreta.innerText;
-
-            // Converte o valor da célula para minúsculas e verifica se corresponde ao filtro
-            if (valorCarreta.toLowerCase().indexOf(filtroCarreta) > -1) {
-                linhas[i].style.display = ''; // Exibe a linha se houver correspondência
-            } else {
-                linhas[i].style.display = 'none'; // Oculta a linha se não houver correspondência
-            }
-        }
-    }
-});

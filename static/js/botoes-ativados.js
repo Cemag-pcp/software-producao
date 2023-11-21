@@ -29,10 +29,12 @@ document.addEventListener('DOMContentLoaded', function () {
     var tabelaSolicitarPeca = document.getElementById('tabela-solicitar-peca');
     var tabelaLevantamentoPeca = document.getElementById('tabela-levantamento-peca');
     var table_levantamento = document.getElementById('table-levantamento');
-    var pecaLabel = document.getElementById('peca')
-    var processoLabel = document.getElementById('processo')
-    var carretaLabel = document.getElementById('carreta')
-    var conjuntoLabel = document.getElementById('conjunto')
+    var pecaLabel = document.getElementById('peca');
+    var processoLabel = document.getElementById('processo');
+    var descricao = document.getElementById('descricao');
+    var carretaLabel = document.getElementById('carreta');
+    var conjuntoLabel = document.getElementById('conjunto');
+    var resultado = document.getElementById('resultado');
 
     btnPesquisa.addEventListener('click', function () {
         btnPesquisa.classList.add('active');
@@ -45,6 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
         pecaLabel.style.display = 'block';
         processoLabel.style.display = 'block';
         carretaLabel.style.display = 'block';
+        descricao.style.display='none';
         conjuntoLabel.style.display = 'block';
         col.style.display='none';
         inputDate1.style.display = 'none';
@@ -53,7 +56,8 @@ document.addEventListener('DOMContentLoaded', function () {
         exibirTabela.style.display='none';
         btnFiltrar.style.display = 'block';
         tabelaSolicitarPeca.style.display= 'block';
-        tabelaLevantamentoPeca.style.display='none'
+        tabelaLevantamentoPeca.style.display='none';
+        resultado.style.display = 'none';
     });
 
     btnLevantamento.addEventListener('click', function () {
@@ -64,6 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
         filtroProcesso.value = ''; // Limpa a seleção de processo
         filtroConjunto.value = ''; // Limpa a seleção de conjunto
         pecaLabel.style.display = 'none';
+        descricao.style.display='none';
         processoLabel.style.display = 'none';
         carretaLabel.style.display = 'none';
         conjuntoLabel.style.display = 'none';
@@ -75,6 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
         btnFiltrar.style.display = 'none';
         tabelaSolicitarPeca.style.display='none';
         tabelaLevantamentoPeca.style.display='none';
+        resultado.style.display = 'none';
     });
 }); 
 

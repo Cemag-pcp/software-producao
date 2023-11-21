@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css" href="static/css/modal-programacao.css">
     <link rel="stylesheet" type="text/css" href="static/css/modal-peca-solicitada.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -164,12 +165,6 @@
                                     <label>Peça</label>
                                     <select id="filtroPeca" class="form-control2">
                                         <option></option>
-                                        <option>497101</option>
-                                        <option>497102</option>
-                                        <option>497103</option>
-                                        <option>497104</option>
-                                        <option>497105</option>
-                                        <option>497106</option>
                                     </select>
                                 </div>
 
@@ -177,7 +172,6 @@
                                     <label>Processo</label>
                                     <select id="filtroProcesso" class="form-control2">
                                         <option></option>
-                                        <option>GMS Estamparia</option>
                                     </select>
                                 </div>
                                 
@@ -192,7 +186,13 @@
                                     <label>Conjunto</label>
                                     <select id="filtroConjunto" class="form-control2">
                                         <option></option>
-                                        <option>Peças Para Carretas</option>
+                                    </select>
+                                </div>
+
+                                <div id="descricao" class="col-md-6" style="display: none;">
+                                    <label>Descrição</label>
+                                    <select id="filtroDescricao" class="form-control2">
+                                        <option></option>
                                     </select>
                                 </div>
                                     
@@ -201,7 +201,7 @@
                             <button type="button" class="btn btn-primary" id="btnFiltrar">Filtrar</button>
                             <div style="display: flex; justify-content: space-between;">
                             <button type="button" class="btn btn-primary" id="levantamentoButton" style="display: none;">Filtrar</button>
-                            <button type="button" class="btn btn-primary" id="exibirTabela" style="display: none;" onclick="toggleTabela()">Exibir carretas p/ dia</button>
+                            <button type="button" class="btn btn-primary" id="exibirTabela" style="display: none;" onclick="toggleTabela()">Exibir Carretas</button>
                             </div>
                         </div>
                     </form>
@@ -232,7 +232,7 @@
                     </div>
                     <div id="tabela-levantamento-peca" style="max-height: 300px; overflow-y: auto; display: none; margin-bottom: 30px;">
                         <label>Carretas Utilizadas por dias</label>
-                        <table class="responsive-table1">
+                        <table class="responsive-table1" name="responsive-table1">
                             <thead>
                                 <tr style="border-top: 0">
                                     <th class="cabecalho" style="border-bottom: none;border-top: none">Data</th>
@@ -317,11 +317,13 @@
     <script src="static/js/botoes-ativados.js"></script>
     <script src="static/js/data-range.js"></script>
     <script src="static/js/levantamento.js"></script>
+    <script src="static/js/filtros-levantamento.js"></script>
 
     <!-- JavaScript do Bootstrap -->
     <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 </body>
 

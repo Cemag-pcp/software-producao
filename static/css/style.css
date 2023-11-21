@@ -569,8 +569,15 @@ tbody tr.hide{
         max-width: 100%;
         overflow-x: auto;
     }
+    .responsive-table1 {
+        max-width: 100%;
+        overflow-x: auto;
+    }
     
     .responsive-table thead {
+        display: none;
+    }
+    .responsive-table1 thead {
         display: none;
     }
     
@@ -579,8 +586,19 @@ tbody tr.hide{
         display: block;
         text-align: center;
     }
+    .responsive-table1 td,
+    .responsive-table1 th {
+        display: block;
+        text-align: center;
+    }
+    
     
     .responsive-table td:before {
+        content: attr(data-label);
+        font-weight: bold;
+        display: block;
+    }
+    .responsive-table1 td:before {
         content: attr(data-label);
         font-weight: bold;
         display: block;
@@ -592,7 +610,13 @@ tbody tr.hide{
         border: 2px solid #c4b9ff;
         grid-template-columns: 1fr;
     }
-    
+    .responsive-table1 tr{
+        --delay: .1s;
+        transition: .5s ease-in-out var(--delay), background-color 0s;
+        display: grid;
+        border: 2px solid #c4b9ff;
+        grid-template-columns: 1fr;
+    }
     h4{
         font-size: 15px !important;
     }
@@ -614,4 +638,26 @@ input[type=checkbox]{
     width: 25px;
     height: 30px;
     vertical-align: middle;
+}
+
+.select2-container--default .select2-results>.select2-results__options {
+    max-height: 200px;
+    overflow-y: auto;
+    font-size: 12px;
+}
+
+.select2-container--default .select2-selection--single {
+    background: rgba(128, 122, 158, 0.44) !important;
+    border: 1px solid #3D3758 !important;
+    border-radius: 4px;
+    height: 30px !important; /* Use !important */
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #fff !important;
+    line-height: 28px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__clear {
+    height: 0px !important;
 }
