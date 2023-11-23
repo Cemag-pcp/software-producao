@@ -32,6 +32,7 @@ $(document).ready(function() {
                         <td data-label="Conjunto">${item[7]}</td>
                         <td data-label="Quantidade">${item[4]}</td>
                         <td data-label="Observação">${item[8]}</td>
+                        <td data-label="Origem">${item[9]}</td>
                         <td><button class="status">Feito</button></td>
                     `);
                     tableBody.append(row);
@@ -80,6 +81,7 @@ $('#modal_visualizar_peca_feita_input').click(function() {
                     <td data-label="Conjunto">${item[7]}</td>
                     <td data-label="Quantidade">${item[4]}</td>
                     <td data-label="Observação">${item[8]}</td>
+                    <td data-label="Origem">${item[9]}</td>
                     `);
                     tableBody.append(row);
                 });
@@ -158,6 +160,7 @@ function pecaConcluida(chave) {
                             <td>${item[7]}</td>
                             <td>${item[4]}</td>
                             <td>${item[8]}</td>
+                            <td>${item[9]}</td>
                             <td><button class="status">Feito</button></td>
                         `);
                         tableBody.append(row);

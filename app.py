@@ -35,6 +35,33 @@ def resetar_cache(cache):
 def formatar_data(data):
     return data.strftime("%d/%m/%Y") if data else ''
 
+@app.route("/visualizacao-peca-concluida", methods=['GET'])
+def visualizar_pecas_concluidas():
+
+    """
+    Rota para visualizar peças que foram concluidas ao setor de Estamparia/Corte
+    A peças deverão conter a coluna de status "true"
+    Base utilizada: software_producao.tb_solicitacao_pecas
+    """
+
+    conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER,
+                                password=DB_PASS, host=DB_HOST)
+    cur = conn.cursor()
+
+    sql = """
+        SELECT * 
+        FROM software_producao.tb_solicitacao_pecas 
+        WHERE status = 'true';
+    """
+
+    cur.execute(sql)
+
+    data = cur.fetchall()
+
+    data = [(tupla[0], formatar_data(tupla[1]), *tupla[2:]) for tupla in data]
+    
+    return jsonify(data)
+
 
 @app.route("/visualizar-pecas-solicitadas")
 def visualizar_pecas_solicitadas():
@@ -127,18 +154,22 @@ def solicitar_peca():
 
     data_json = request.get_json()
 
+    processo = data_json['processo']
     codigo = data_json['codigo']
     carreta = data_json['carreta']
-    quantidade = data_json['quantidadeSolicitada']
+    quantidade = float(data_json['quantidadeSolicitada'])
+    quantidadeEstoque = float(data_json['quantidadeEstoque'])
     descricao = data_json['descricao']
     conjunto = data_json['conjunto']
     observacao = data_json['observacao']
+    origem = data_json['origem']
 
-    print(data_json)
+    if quantidadeEstoque != '' and quantidadeEstoque <= quantidade:
+        quantidade = quantidade - quantidadeEstoque
 
     sql = """
-        INSERT INTO software_producao.tb_solicitacao_pecas (carreta,codigo,quantidade,descricao,conjunto,observacao) values ('{}','{}',{},'{}','{}','{}')
-    """.format(carreta, codigo, quantidade, descricao, conjunto, observacao)
+        INSERT INTO software_producao.tb_solicitacao_pecas (carreta,codigo,quantidade,descricao,conjunto,observacao,origem,processo) values ('{}','{}',{},'{}','{}','{}','{}','{}')
+    """.format(carreta, codigo, quantidade, descricao, conjunto, observacao,origem,processo)
 
     cur.execute(sql)
 
@@ -241,7 +272,7 @@ def tela_inicial(username):
     df = df.dropna(how='any')
 
     # Agrupa por 'carreta' e soma as colunas 'quantidade', 'data' e 'chave'
-    base_levantamento = df.groupby(['data', 'carreta', 'chave'])['quantidade'].sum().reset_index()
+    base_levantamento = df.groupby(['data', 'carreta'])['quantidade'].sum().reset_index()
 
     print(base_levantamento)
 
@@ -424,35 +455,6 @@ def peca_concluida():
 
     return data
 
-
-@app.route("/visualizacao-peca-concluida", methods=['GET'])
-def visualizar_pecas_concluidas():
-
-    """
-    Rota para visualizar peças que foram concluidas ao setor de Estamparia/Corte
-    A peças deverão conter a coluna de status "true"
-    Base utilizada: software_producao.tb_solicitacao_pecas
-    """
-
-    conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER,
-                                password=DB_PASS, host=DB_HOST)
-    cur = conn.cursor()
-
-    sql = """
-        SELECT * 
-        FROM software_producao.tb_solicitacao_pecas 
-        WHERE status = 'true';
-    """
-
-    cur.execute(sql)
-
-    data = cur.fetchall()
-
-    data = [(tupla[0], formatar_data(tupla[1]), *tupla[2:]) for tupla in data]
-    
-    return jsonify(data)
-
-
 @app.route("/carretas-checked")
 def carretas_checked():
 
@@ -549,9 +551,12 @@ def get_base_carretas():
         df_combinado['Quantidade'] = df_combinado['quantidade_carretas'] * df_combinado['quantidade']
 
         df_combinado['Observacao'] = ''  # Coluna para o textarea
-        df_combinado['Solicitar'] = ''  # Coluna para o botão
+        df_combinado['Solicitar'] = ''
+        df_combinado['Quantidade no Estoque'] = ''  # Coluna para o botão
 
-        df_combinado_html = df_combinado[['processo', 'conjunto', 'codigo','descricao', 'carreta', 'Quantidade','Observacao', 'Solicitar']].to_html(index=False)
+        print(df_combinado)
+
+        df_combinado_html = df_combinado[['processo', 'conjunto', 'codigo','descricao', 'carreta', 'Quantidade','Quantidade no Estoque','Observacao', 'Solicitar']].to_html(index=False)
 
         # Adicionar a classe 'responsive-table' à tabela
         df_combinado_html = df_combinado_html.replace('<table border="1" class="dataframe">', '<table border="0" class="responsive-table responsive" id="responsive">')
@@ -565,7 +570,7 @@ def get_base_carretas():
         tbody_html = df_combinado_html[thead_end_index:]
 
         # Adicionar colunas extras no final de cada linha no corpo do HTML
-        tbody_html = tbody_html.replace('</tr>', '<td><textarea class="form-control-textarea"></textarea></td><td><button class="solicitar">Solicitar</button></td></tr>')
+        tbody_html = tbody_html.replace('</tr>', '<td><input type="number" class="form-control2"></td><td><textarea class="form-control-textarea"></textarea></td><td><button class="solicitar" id="solicitar_levantamento">Solicitar</button></td></tr>')
 
         # Juntar o cabeçalho e o corpo do HTML
         df_combinado_html = thead_html + tbody_html

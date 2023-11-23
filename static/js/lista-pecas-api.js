@@ -3,6 +3,7 @@
 
 const modalPesquisaPeca = document.getElementById("modal_pesquisa_peca");
 const tableBody = document.querySelector("#modal_pesquisa_peca .responsive-table tbody");
+const divResultado = document.getElementById("resultado");
 const campoRolagem = document.getElementById("tabela-solicitar-peca");
 
 let page = 1;
@@ -64,6 +65,7 @@ function fetchMoreData() {
             data.forEach(item => {
                 const row = document.createElement("tr");
                 row.innerHTML = `
+                    <td data-label="Processo">${item.processo}</td>
                     <td data-label="Código">${item.codigo}</td>
                     <td data-label="Peça">${item.descricao}</td>
                     <td data-label="Quantidade">${item.quantidade}</td>
@@ -87,22 +89,52 @@ tableBody.addEventListener("click", function (event) {
        
         // Obtenha os dados relevantes da linha (você pode usar os métodos do DOM para percorrer os elementos da linha)
         const row = event.target.parentElement.parentElement;
-        const codigo = row.querySelector("td:first-child").textContent;
-        const descricao = row.querySelector("td:nth-child(2)").textContent;
-        const carreta = row.querySelector("td:nth-child(4)").textContent;
-        const conjunto = row.querySelector("td:nth-child(5)").textContent;
-        const quantidadeSolicitada = row.querySelector("td:nth-child(6) input").value;
-        const observacao = row.querySelector("td:nth-child(7) textarea").value;
+        const processo = row.querySelector("td:first-child").textContent;
+        const codigo = row.querySelector("td:nth-child(2)").textContent;
+        const descricao = row.querySelector("td:nth-child(3)").textContent;
+        const carreta = row.querySelector("td:nth-child(5)").textContent;
+        const conjunto = row.querySelector("td:nth-child(6)").textContent;
+        const quantidadeSolicitada = row.querySelector("td:nth-child(7) input").value;
+        const observacao = row.querySelector("td:nth-child(8) textarea").value;
 
         if(!quantidadeSolicitada){
             alert("Preencha o campo de quantidade")
         } else {
-            enviarDadosParaBackend(codigo, descricao, carreta, conjunto, observacao, quantidadeSolicitada);
+            let origem = "Solicitadas";
+            enviarDadosParaBackend(processo,codigo, descricao, carreta, conjunto, observacao, quantidadeSolicitada,origem);
         }
     }
 });
 
-function enviarDadosParaBackend(codigo, descricao, carreta, conjunto, observacao, quantidadeSolicitada) {
+
+divResultado.addEventListener("click", function (event) {
+    // Obtenha a linha atual
+    if (event.target.classList.contains("solicitar")) {
+    const row = event.target.parentElement.parentElement;
+
+    // Obtenha os dados relevantes da linha
+    const processo = row.querySelector("td:first-child").textContent;
+    const conjunto = row.querySelector("td:nth-child(2)").textContent;
+    const codigo = row.querySelector("td:nth-child(3)").textContent;
+    const descricao = row.querySelector("td:nth-child(4)").textContent;
+    const carreta = row.querySelector("td:nth-child(5)").textContent;
+    const quantidadeNecessaria = row.querySelector("td:nth-child(6)").textContent;
+    const quantidadeEstoque = row.querySelector("td:nth-child(7) input").value;
+    const observacao = row.querySelector("td:nth-child(8) textarea").value;
+
+        // Adicione verificação para quantidadeNecessaria se necessário
+        if (!quantidadeNecessaria || !quantidadeEstoque) {
+            alert("Preencha os campos de quantidade");
+        } else if(quantidadeEstoque >= quantidadeNecessaria){
+            alert("Quantidade no estoque já é maior que a quantidade necessária");
+        } else {
+            let origem = "Levantamento";
+            enviarDadosParaBackend(processo,codigo, descricao, carreta, conjunto, observacao, quantidadeNecessaria,quantidadeEstoque,origem);
+        }
+    }
+});
+
+function enviarDadosParaBackend(processo,codigo, descricao, carreta, conjunto, observacao, quantidadeSolicitada, quantidadeEstoque='',origem) {
     // Faça uma solicitação para enviar os dados para o backend
     $("#loading-overlay").show();
     fetch("/solicitar-peca", {
@@ -111,12 +143,15 @@ function enviarDadosParaBackend(codigo, descricao, carreta, conjunto, observacao
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
+            processo: processo,
             codigo: codigo,
             descricao: descricao,
             carreta: carreta,
             conjunto: conjunto,
             observacao: observacao,
             quantidadeSolicitada: quantidadeSolicitada,
+            quantidadeEstoque: quantidadeEstoque,
+            origem:origem
         }),
     })
         .then(response => response.json())

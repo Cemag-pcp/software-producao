@@ -144,7 +144,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="width: 300%;">
                 <div class="modal-header">
-                    <input type="button" class="modal-title active" id="modal_pesquisa_peca_label" value="Peças solicitadas">
+                    <input type="button" class="modal-title active" id="modal_pesquisa_peca_label" value="Solicitar Peças">
                     <input type="button" class="modal-title" id="modal_levantamento_peca_label" value="Levantamento de Peças">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Fechar" style="color: #fff;">
                         <span aria-hidden="true">&times;</span>
@@ -209,6 +209,7 @@
                         <table class="responsive-table">
                             <thead>
                                 <tr>
+                                    <th>Processo</th>
                                     <th>Código</th>
                                     <th>Peça</th>
                                     <th>Quantidade</th>
@@ -246,8 +247,7 @@
                                 <tr>
                                     <td data-label="Data" style="border-top: none;">{{row[0]}}</td>
                                     <td data-label="Carreta" style="border-top: none;">{{row[1]}}</td>
-                                    <td data-label="Quantidade" style="border-top: none;">{{row[3]}}</td>
-                                    <td data-label="Chave" style="display: none; border-top: none;">{{row[2]}}</td>
+                                    <td data-label="Quantidade" style="border-top: none;">{{row[2]}}</td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
@@ -286,6 +286,7 @@
                                     <th class="cabecalho">Conjunto</th>
                                     <th class="cabecalho">Quantidade</th>
                                     <th class="cabecalho">Observação</th>
+                                    <th class="cabecalho">Origem</th>
                                     <th class="cabecalho botao-column">Botão</th>
                                 </tr>
                             </thead>
@@ -315,10 +316,10 @@
     <script src="static/js/modal-visualizar-pecas.js"></script>
     <script src="static/js/multi-select.js"></script>
     <script src="static/js/botoes-ativados.js"></script>
-    <script src="static/js/data-range.js"></script>
-    <script src="static/js/levantamento.js"></script>
+    <script src="static/js/data-range-e-tabela-levantamento.js"></script>
+    <script src="static/js/select-levantamento.js"></script>
     <script src="static/js/filtros-levantamento.js"></script>
-
+    
     <!-- JavaScript do Bootstrap -->
     <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
