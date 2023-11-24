@@ -7,15 +7,6 @@ new MultiSelectTag('ordemproducao', {
     }
 })
 
-new MultiSelectTag('filtroSelect', {
-    rounded: true,    // default true
-    shadow: true,      // default false
-    placeholder: 'Pesquisar...',  // default Search...
-    onChange: function (values) {
-        console.log(values)
-    }
-})
-
 document.addEventListener("DOMContentLoaded", function() {
     const filtrarButton = document.getElementById("filtrarOrdem");
     filtrarButton.addEventListener("click", function() {
