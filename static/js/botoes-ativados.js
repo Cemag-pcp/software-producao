@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
         conjuntoLabel.style.display = 'block';
         col.style.display='none';
         inputDate1.style.display = 'none';
+        limparLevantamento.style.display = 'none';
         data_inicial.style.display='none';
         btnFiltrarLevantamento.style.display = 'none';
         exibirTabela.style.display='none';
@@ -79,6 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
         data_inicial.style.display='block';
         btnFiltrarLevantamento.style.display = 'block';
         btnFiltrar.style.display = 'none';
+        limparLevantamento.style.display = 'none';
         tabelaSolicitarPeca.style.display='none';
         tabelaLevantamentoPeca.style.display='none';
         resultado.style.display = 'none';

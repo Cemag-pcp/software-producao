@@ -100,6 +100,12 @@ function enviarCarretasParaBackend(carretas,quantidade) {
     $('#loading-overlay').show()
     const carretasArray = Array.from(carretas);
     const quantCellArray = Array.from(quantidade);
+
+    if(carretasArray == ''){
+        alert("Erro ao encontrar carreta para essas datas")
+        $('#loading-overlay').hide()
+        return 
+    }
     
     const dataToSend = carretasArray.map((carreta, index) => ({
         carreta: carreta,
