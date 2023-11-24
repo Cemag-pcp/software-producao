@@ -154,13 +154,23 @@ btnFiltrar.addEventListener('click', function(){
 });
 
 $(document).ready(function () {
+    $('#filtroPeca').select2({
+        width: '100%',
+        dropdownParent: $('#modal_pesquisa_peca')
+    });
+});
+
+$(document).ready(function () {
     $('#filtroDescricao').select2({
         width: '100%',
+        dropdownParent: $('#modal_pesquisa_peca')
     });
 });
 
 $(document).ready(function () {
     $('#filtroCarreta').select2({
         width: '100%',
+        dropdownParent: $('#modal_pesquisa_peca')
     });
 });
+

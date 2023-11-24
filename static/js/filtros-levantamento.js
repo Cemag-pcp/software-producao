@@ -19,11 +19,6 @@ $(document).ready(function () {
             fillSelect('filtroDescricao', getColumnValues(tableData, 3));
             fillSelect('filtroCarreta', getColumnValues(tableData, 4));
 
-            // Inicializa o Select2 para #filtroDescricao
-            $('#filtroDescricao').select2({
-                width: '100%',
-            });
-
             // Mostra a tabela
             $('#tableContainer').show();
         }, 3000); // 3000 milissegundos = 3 segundos
