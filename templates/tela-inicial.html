@@ -163,36 +163,36 @@
 
                                 <div id="peca" class="col-md-6">
                                     <label>Peça</label>
-                                    <select id="filtroPeca" class="form-control2">
-                                        <option></option>
+                                    <select id="filtroPeca" name="filtroPeca" class="form-control2">
+                                        <option value="" selected disabled hidden></option>  
                                     </select>
                                 </div>
 
                                 <div id="processo" class="col-md-6">
                                     <label>Processo</label>
-                                    <select id="filtroProcesso" class="form-control2">
-                                        <option></option>
+                                    <select id="filtroProcesso" name="filtroProcesso" class="form-control2">
+                                        <option value="" selected disabled hidden></option>  
                                     </select>
                                 </div>
                                 
                                 <div id="carreta" class="col-md-6">
                                     <label>Carreta</label>
-                                    <select id="filtroCarreta" class="form-control2">
-                                        <option></option>
+                                    <select id="filtroCarreta" name="filtroCarreta" class="form-control2">
+                                        <option value="" selected disabled hidden></option>  
                                     </select>
                                 </div>
                                 
                                 <div id="conjunto" class="col-md-6">
                                     <label>Conjunto</label>
-                                    <select id="filtroConjunto" class="form-control2">
-                                        <option></option>
+                                    <select id="filtroConjunto" name="filtroConjunto" class="form-control2">
+                                        <option value="" selected disabled hidden></option>  
                                     </select>
                                 </div>
 
                                 <div id="descricao" class="col-md-6" style="display: none;">
                                     <label>Descrição</label>
-                                    <select id="filtroDescricao" class="form-control2">
-                                        <option></option>
+                                    <select id="filtroDescricao" name="filtroDescricao" class="form-control2">
+                                        <option value="" selected disabled hidden></option>  
                                     </select>
                                 </div>
                                     
@@ -201,6 +201,7 @@
                             <button type="button" class="btn btn-primary" id="btnFiltrar">Filtrar</button>
                             <div style="display: flex; justify-content: space-between;">
                             <button type="button" class="btn btn-primary" id="levantamentoButton" style="display: none;">Filtrar</button>
+                            <button type="button" class="btn btn-primary" id="limparLevantamento" style="display: none;">Limpar Filtros</button>
                             <button type="button" class="btn btn-primary" id="exibirTabela" style="display: none;" onclick="toggleTabela()">Exibir Carretas</button>
                             </div>
                         </div>
@@ -215,7 +216,7 @@
                                     <th>Quantidade</th>
                                     <th>Carreta</th>
                                     <th>Conjunto</th>
-                                    <th>Quantidade</th>
+                                    <th>Quantidade necessária</th>
                                     <th>Observação</th>
                                     <th>Solicitar</th>
                                 </tr>

@@ -97,6 +97,7 @@ function filterTable() {
 }
 
 function enviarCarretasParaBackend(carretas,quantidade) {
+    $('#loading-overlay').show()
     const carretasArray = Array.from(carretas);
     const quantCellArray = Array.from(quantidade);
     
@@ -122,6 +123,7 @@ function enviarCarretasParaBackend(carretas,quantidade) {
 
         // Exiba o HTML na sua página
         document.getElementById('resultado').innerHTML = data.df_combinado_html;
+        $('#loading-overlay').hide()
     })
     .catch(error => {
         setTimeout(function () {
@@ -137,10 +139,12 @@ function enviarCarretasParaBackend(carretas,quantidade) {
 // Adicione um evento de entrada ao campo de intervalo de datas para chamar a função de filtro
 dateRangeFilter.addEventListener('input', filterTable);
 const btnFiltrar = document.getElementById('levantamentoButton');
+let limparFiltro = document.getElementById('limparLevantamento');
 btnFiltrar.addEventListener('click', function(){
     filterTable();
     tabelaLevantamentoPeca.style.display='none';
     carretaLabel.style.display='block';
+    limparFiltro.style.display='block';
     peca.style.display='block';
     processo.style.display='block';
     conjunto.style.display='block';
@@ -149,3 +153,14 @@ btnFiltrar.addEventListener('click', function(){
     descricao.style.display='block';
 });
 
+$(document).ready(function () {
+    $('#filtroDescricao').select2({
+        width: '100%',
+    });
+});
+
+$(document).ready(function () {
+    $('#filtroCarreta').select2({
+        width: '100%',
+    });
+});

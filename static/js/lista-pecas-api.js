@@ -71,7 +71,7 @@ function fetchMoreData() {
                     <td data-label="Quantidade">${item.quantidade}</td>
                     <td data-label="Carreta">${item.carreta}</td>
                     <td data-label="Conjunto">${item.conjunto}</td>
-                    <td data-label="Quantidade"><input type="number" id="quantidade_solicitada" class="form-control2"></td>
+                    <td data-label="Quantidade necessária"><input type="number" id="quantidade_solicitada" class="form-control2"></td>
                     <td data-label="Observação"><textarea name="observacao" rows="5" cols="30" class="form-control-textarea"></textarea></td>
                     <td><button class="solicitar">Solicitar</button></td>
                     `;
@@ -101,7 +101,7 @@ tableBody.addEventListener("click", function (event) {
             alert("Preencha o campo de quantidade")
         } else {
             let origem = "Solicitadas";
-            enviarDadosParaBackend(processo,codigo, descricao, carreta, conjunto, observacao, quantidadeSolicitada,origem);
+            enviarDadosParaBackend(processo,codigo, descricao, carreta, conjunto, observacao, quantidadeSolicitada,'',origem);
         }
     }
 });
@@ -123,7 +123,7 @@ divResultado.addEventListener("click", function (event) {
     const observacao = row.querySelector("td:nth-child(8) textarea").value;
 
         // Adicione verificação para quantidadeNecessaria se necessário
-        if (!quantidadeNecessaria || !quantidadeEstoque) {
+        if (!quantidadeNecessaria || !quantidadeEstoque || quantidadeEstoque < 0) {
             alert("Preencha os campos de quantidade");
         } else if(quantidadeEstoque >= quantidadeNecessaria){
             alert("Quantidade no estoque já é maior que a quantidade necessária");

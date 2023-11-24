@@ -158,13 +158,14 @@ def solicitar_peca():
     codigo = data_json['codigo']
     carreta = data_json['carreta']
     quantidade = float(data_json['quantidadeSolicitada'])
-    quantidadeEstoque = float(data_json['quantidadeEstoque'])
+    quantidadeEstoque = data_json['quantidadeEstoque']
     descricao = data_json['descricao']
     conjunto = data_json['conjunto']
     observacao = data_json['observacao']
     origem = data_json['origem']
 
-    if quantidadeEstoque != '' and quantidadeEstoque <= quantidade:
+    if quantidadeEstoque != '':
+        quantidadeEstoque = float(quantidadeEstoque) 
         quantidade = quantidade - quantidadeEstoque
 
     sql = """
@@ -177,7 +178,6 @@ def solicitar_peca():
     conn.close()
 
     return data_json
-
 
 @cachetools.cached(cache_carretas)
 def buscar_dados(filename):

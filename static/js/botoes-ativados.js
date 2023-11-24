@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var filtroCarreta = document.getElementById('filtroCarreta');
     var filtroConjunto = document.getElementById('filtroConjunto');
     var btnFiltrarLevantamento = document.getElementById('levantamentoButton');
+    var limparLevantamento = document.getElementById('limparLevantamento');
     var exibirTabela = document.getElementById('exibirTabela');
     var tabelaSolicitarPeca = document.getElementById('tabela-solicitar-peca');
     var tabelaLevantamentoPeca = document.getElementById('tabela-levantamento-peca');
