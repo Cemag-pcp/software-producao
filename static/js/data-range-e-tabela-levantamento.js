@@ -101,11 +101,11 @@ function enviarCarretasParaBackend(carretas,quantidade) {
     const carretasArray = Array.from(carretas);
     const quantCellArray = Array.from(quantidade);
 
-    if(carretasArray == ''){
+    if(carretasArray == '' || carretasArray.length == 1){
         alert("Erro ao encontrar carreta para essas datas")
         $('#loading-overlay').hide()
         return 
-    }
+    } 
     
     const dataToSend = carretasArray.map((carreta, index) => ({
         carreta: carreta,
@@ -122,14 +122,14 @@ function enviarCarretasParaBackend(carretas,quantidade) {
     .then(response => response.json())
     .then(data => {
         // Faça algo com a resposta do servidor, se necessário
-        setTimeout(function () {
-            $("#loading-overlay").hide();
-        },3000)
         console.log('Resposta do servidor:', data);
 
         // Exiba o HTML na sua página
         document.getElementById('resultado').innerHTML = data.df_combinado_html;
-        $('#loading-overlay').hide()
+        
+        setTimeout(function () {
+        },3000)
+        $("#loading-overlay").hide();
     })
     .catch(error => {
         setTimeout(function () {
@@ -138,7 +138,6 @@ function enviarCarretasParaBackend(carretas,quantidade) {
         console.error('Erro ao enviar carretas para o backend:', error);
         
         // Exiba um alerta informando que ocorreu um erro
-        alert('Erro ao processar as carretas. Verifique se há carretas para a data selecionada.');
     });
 }
 

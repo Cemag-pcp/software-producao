@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var carretaLabel = document.getElementById('carreta');
     var conjuntoLabel = document.getElementById('conjunto');
     var resultado = document.getElementById('resultado');
+    var close = document.getElementById('fechar_levantamento');
 
     btnPesquisa.addEventListener('click', function () {
         btnPesquisa.classList.add('active');
@@ -57,10 +58,38 @@ document.addEventListener('DOMContentLoaded', function () {
         btnFiltrarLevantamento.style.display = 'none';
         exibirTabela.style.display='none';
         btnFiltrar.style.display = 'block';
-        tabelaSolicitarPeca.style.display= 'block';
+        tabelaSolicitarPeca.style.display= 'none';
         tabelaLevantamentoPeca.style.display='none';
         resultado.style.display = 'none';
     });
+
+    close.addEventListener('click', function () {
+      btnLevantamento.classList.add('active');
+      btnPesquisa.classList.remove('active');
+      inputDate1.value = ''; // Limpa o valor do campo de data
+      filtroPeca.value = ''; // Limpa a seleção de peça
+      filtroProcesso.value = ''; // Limpa a seleção de processo
+      filtroConjunto.value = ''; // Limpa a seleção de conjunto
+      pecaLabel.style.display = 'none';
+      descricao.style.display='none';
+      processoLabel.style.display = 'none';
+      carretaLabel.style.display = 'none';
+      conjuntoLabel.style.display = 'none';
+      col.style.display='block';
+      exibirTabela.style.display='none';
+      inputDate1.style.display = 'block';
+      data_inicial.style.display='block';
+      btnFiltrarLevantamento.style.display = 'block';
+      btnFiltrar.style.display = 'none';
+      limparLevantamento.style.display = 'none';
+      tabelaSolicitarPeca.style.display='none';
+      tabelaLevantamentoPeca.style.display='none';
+      resultado.style.display = 'none';
+    });
+
+    btnFiltrar.addEventListener('click',function(){
+      tabelaSolicitarPeca.style.display='block';
+    })
 
     btnLevantamento.addEventListener('click', function () {
         btnLevantamento.classList.add('active');
@@ -127,16 +156,16 @@ $(document).ready(function() {
   }
 
   // Chamar a função para ambos os botões quando a página for carregada
-  ajustarValorBotao($('#modal_pesquisa_peca_label'), 'Peças solicitadas', 'Solicitadas');
+  ajustarValorBotao($('#modal_pesquisa_peca_label'), 'Solicitar Peças', 'Solicitadas');
   ajustarValorBotao($('#modal_levantamento_peca_label'), 'Levantamento de Peças', 'Levantamento');
-  ajustarValorBotao($('#modal_visualizar_peca_solicitada_input'), 'Peças solicitadas', 'Solicitadas');
+  ajustarValorBotao($('#modal_visualizar_peca_solicitada_input'), 'Solicitar Peças', 'Solicitadas');
   ajustarValorBotao($('#modal_visualizar_peca_feita_input'), 'Peças Feitas', 'Feitas');
 
   // Chamar a função sempre que a largura da tela for alterada
   $(window).resize(function() {
-      ajustarValorBotao($('#modal_pesquisa_peca_label'), 'Peças solicitadas', 'Solicitadas');
+      ajustarValorBotao($('#modal_pesquisa_peca_label'), 'Solicitar Peças', 'Solicitadas');
       ajustarValorBotao($('#modal_levantamento_peca_label'), 'Levantamento de Peças', 'Levantamento');
-      ajustarValorBotao($('#modal_visualizar_peca_solicitada_input'), 'Peças solicitadas', 'Solicitadas');
+      ajustarValorBotao($('#modal_visualizar_peca_solicitada_input'), 'Solicitar Peças', 'Solicitadas');
       ajustarValorBotao($('#modal_visualizar_peca_feita_input'), 'Peças Feitas', 'Feitas');
   });
 });

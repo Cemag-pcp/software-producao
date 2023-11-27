@@ -1,9 +1,10 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for, flash
+from flask import Flask, render_template, request, jsonify, redirect, url_for, flash, send_file
 import gspread
 import warnings
 import pandas as pd
 import cachetools
 from cachetools import Cache
+import os
 import psycopg2  # pip install psycopg2
 import psycopg2.extras
 
@@ -29,6 +30,7 @@ def resetar_cache(cache):
     Função para limpar caches (não precisar fazer
     requisição sempre que atualizar a página).
     """
+    
     cache.clear()
 
 
@@ -51,7 +53,7 @@ def visualizar_pecas_concluidas():
     sql = """
         SELECT * 
         FROM software_producao.tb_solicitacao_pecas 
-        WHERE status = 'true';
+        WHERE status = 'true' ORDER BY id;
     """
 
     cur.execute(sql)
@@ -77,7 +79,7 @@ def visualizar_pecas_solicitadas():
     cur = conn.cursor()
 
     sql = """
-    SELECT * FROM software_producao.tb_solicitacao_pecas WHERE status ISNULL
+    SELECT * FROM software_producao.tb_solicitacao_pecas WHERE status ISNULL ORDER BY id
     """
 
     cur.execute(sql)
@@ -163,14 +165,27 @@ def solicitar_peca():
     conjunto = data_json['conjunto']
     observacao = data_json['observacao']
     origem = data_json['origem']
+    dadosTabela = data_json['dadosTabela']
+
+    print(dadosTabela)
+
+    dataFrame = pd.DataFrame(dadosTabela)
+
+    dataFrame_filtrado = dataFrame.loc[dataFrame[1] == carreta]
+
+    data_carreta = dataFrame_filtrado[0].str.cat(sep='-')
+    
+    print(dataFrame_filtrado)
+
+    print(data_carreta)
 
     if quantidadeEstoque != '':
         quantidadeEstoque = float(quantidadeEstoque) 
         quantidade = quantidade - quantidadeEstoque
 
     sql = """
-        INSERT INTO software_producao.tb_solicitacao_pecas (carreta,codigo,quantidade,descricao,conjunto,observacao,origem,processo) values ('{}','{}',{},'{}','{}','{}','{}','{}')
-    """.format(carreta, codigo, quantidade, descricao, conjunto, observacao,origem,processo)
+        INSERT INTO software_producao.tb_solicitacao_pecas (carreta,codigo,quantidade,descricao,conjunto,observacao,origem,processo,data_carreta) values ('{}','{}',{},'{}','{}','{}','{}','{}','{}')
+    """.format(carreta, codigo, quantidade, descricao, conjunto, observacao,origem,processo,data_carreta)
 
     cur.execute(sql)
 
@@ -273,8 +288,6 @@ def tela_inicial(username):
 
     # Agrupa por 'carreta' e soma as colunas 'quantidade', 'data' e 'chave'
     base_levantamento = df.groupby(['data', 'carreta'])['quantidade'].sum().reset_index()
-
-    print(base_levantamento)
 
     base_levantamento = base_levantamento.values.tolist()
 
@@ -390,7 +403,6 @@ def resgatar_checkbox(chave):
     dados = [[conjunto[0], conjunto[1]] for conjunto in dados]
     
     return jsonify(dados)
-
 
 @app.route("/", methods=["GET", "POST"])
 def login():
@@ -538,7 +550,7 @@ def get_base_carretas():
         cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
         sql = f"""
-        SELECT processo, conjunto, codigo, descricao, quantidade, carreta FROM pcp.tb_base_carretas_explodidas WHERE carreta in {lista_carretas} LIMIT 100
+        SELECT processo, conjunto, codigo, descricao, quantidade, carreta FROM pcp.tb_base_carretas_explodidas WHERE carreta in {lista_carretas}
         """
 
         cur.execute(sql)
@@ -553,8 +565,6 @@ def get_base_carretas():
         df_combinado['Observacao'] = ''  # Coluna para o textarea
         df_combinado['Solicitar'] = ''
         df_combinado['Quantidade no Estoque'] = ''  # Coluna para o botão
-
-        print(df_combinado)
 
         df_combinado_html = df_combinado[['processo', 'conjunto', 'codigo','descricao', 'carreta', 'Quantidade','Quantidade no Estoque','Observacao', 'Solicitar']].to_html(index=False)
 
@@ -583,6 +593,65 @@ def get_base_carretas():
     except Exception as e:
         # Em caso de erro, retorne uma resposta de erro
         return jsonify({'error': str(e)}), 500
+
+
+@app.route('/download-modelo-atividades', methods=['GET'])
+def download_modelo_excel():
+    # Caminho para o arquivo modelo CSV
+    excel_filename = 'Modelo_Base_Innovaro.csv'
+
+    # Envie o arquivo para download
+    return send_file(excel_filename, as_attachment=True)
+
+
+@app.route('/receber-upload', methods=['POST'])
+def receber_upload():
+
+    conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER,
+                            password=DB_PASS, host=DB_HOST)
+
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+
+    # Obter o arquivo do formulário
+    file = request.files['file']
+
+    # Obter outras informações do formulário
+    grupo_selecionado = request.form['grupoSelecionado']
+    codigo_maquina = request.form['codigo_maquina']   
+
+    # Salvar o arquivo no servidor (opcional)
+    file.save('uploads_atividade/' + file.filename)
+
+    file = r"uploads_atividade/" + file.filename
+
+    # Processar o arquivo com Pandas
+    df = pd.read_csv(file, sep=";")
+
+    df['grupo'] = grupo_selecionado
+
+    df = df[['codigo_maquina','grupo','responsabilidade','atividade']]
+
+    df_list = df.values.tolist()
+
+    for row in df_list:       
+
+        codigo_maquina = row[0]
+        grupo = row[1]
+        responsabilidade = row[2]
+        atividade = row[3]
+
+        sql_insert = f"""INSERT INTO tb_atividades_preventiva (codigo,grupo,responsabilidade,atividade)
+                        VALUES ('{codigo_maquina}','{grupo}','{responsabilidade}','{atividade}')"""
+
+        cur.execute(sql_insert)
+
+    conn.commit()
+    conn.close()
+
+    os.remove(file)
+    
+    return 'sucess'
+
 
 if __name__ == '__main__':
     app.run()

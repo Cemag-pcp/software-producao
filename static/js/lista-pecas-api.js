@@ -83,7 +83,7 @@ function fetchMoreData() {
         });
 }
 
-// Manipulador de eventos para os botões "Solicitar"
+// Manipulador de eventos para os botões "Solicitar" "AQUI TABELA PEÇA SOLICITADA"
 tableBody.addEventListener("click", function (event) {
     if (event.target.classList.contains("solicitar")) {
        
@@ -106,7 +106,7 @@ tableBody.addEventListener("click", function (event) {
     }
 });
 
-
+// Aqui está enviando para o BackEnd da rota 'solicitar-peca', enviando a tabela de Resultado "AQUI TABELA RESULTADO LEVANTAMENTO"
 divResultado.addEventListener("click", function (event) {
     // Obtenha a linha atual
     if (event.target.classList.contains("solicitar")) {
@@ -136,6 +136,23 @@ divResultado.addEventListener("click", function (event) {
 
 function enviarDadosParaBackend(processo,codigo, descricao, carreta, conjunto, observacao, quantidadeSolicitada, quantidadeEstoque='',origem) {
     // Faça uma solicitação para enviar os dados para o backend
+    const tabelaId = $('#tabela-levantamento-peca').data('tabela-id');
+
+    // Obtenha os dados da tabela
+    const tabela = $('#' + tabelaId);
+    const tbody = tabela.find('tbody');
+    const linhas = tbody.find('tr[style*="table-row"]');
+    const dadosTabela = [];
+
+    // Itere sobre as linhas da tabela e obtenha os dados
+    linhas.each(function() {
+        const colunas = $(this).find('td');
+        const dadosLinha = [];
+        colunas.each(function() {
+            dadosLinha.push($(this).text());
+        });
+        dadosTabela.push(dadosLinha);
+    });
     $("#loading-overlay").show();
     fetch("/solicitar-peca", {
         method: "POST",
@@ -151,7 +168,8 @@ function enviarDadosParaBackend(processo,codigo, descricao, carreta, conjunto, o
             observacao: observacao,
             quantidadeSolicitada: quantidadeSolicitada,
             quantidadeEstoque: quantidadeEstoque,
-            origem:origem
+            origem:origem,
+            dadosTabela: dadosTabela
         }),
     })
         .then(response => response.json())

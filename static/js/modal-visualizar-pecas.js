@@ -26,6 +26,7 @@ $(document).ready(function() {
                     row.html(`
                         <td data-label="Chave">${item[0]}</td>
                         <td data-label="Data">${item[1]}</td>
+                        <td data-label="Data da Carreta">${item[11]}</td>
                         <td data-label="Carreta">${item[2]}</td>
                         <td data-label="Código">${item[3]}</td>
                         <td data-label="Descrição">${item[6]}</td>
@@ -43,8 +44,6 @@ $(document).ready(function() {
                     const row = $(this).closest("tr");
                     const chave = row.find("td:first-child").text();
                     
-                    // Agora você tem os dados que deseja enviar para o backend
-                    pecaConcluida(chave);
                 });
             },
             error: function(error) {
@@ -75,6 +74,7 @@ $('#modal_visualizar_peca_feita_input').click(function() {
                     row.html(`
                     <td data-label="Chave">${item[0]}</td>
                     <td data-label="Data">${item[1]}</td>
+                    <td data-label="Data da Carga">${item[11]}</td>
                     <td data-label="Carreta">${item[2]}</td>
                     <td data-label="Código">${item[3]}</td>
                     <td data-label="Descrição">${item[6]}</td>
@@ -92,7 +92,6 @@ $('#modal_visualizar_peca_feita_input').click(function() {
                     const chave = row.find("td:first-child").text();
                     
                     // Agora você tem os dados que deseja enviar para o backend
-                    pecaConcluida(chave);
                 });
             },
             error: function(error) {
@@ -171,7 +170,6 @@ function pecaConcluida(chave) {
                         const chave = row.find("td:first-child").text();
                         
                         // Agora você tem os dados que deseja enviar para o backend
-                        pecaConcluida(chave);
                     });
                 },
                 error: function(error) {
