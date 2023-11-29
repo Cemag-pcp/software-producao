@@ -1,15 +1,10 @@
 function uploadFile() {
-    
-    var grupoSelecionado = $('#selectGrupos').val();
-    var codigo_maquina = window.codigo_maquina;
-
+    $('#loading-overlay').show()
     var fileInput = document.getElementById('fileSelect');
     var file = fileInput.files[0];
 
     var formData = new FormData();
     formData.append('file', file);
-    formData.append('grupoSelecionado', grupoSelecionado);
-    formData.append('codigo_maquina', codigo_maquina);
 
     $.ajax({
         url: '/receber-upload',
@@ -19,9 +14,16 @@ function uploadFile() {
         contentType: false,
         success: function(data) {
             console.log(data);
+            if (data !== 'success') {
+                alert(data);  // Exibir alerta em caso de erro
+            } else {
+                location.reload();
+            }
+            $('#loading-overlay').hide();
         },
         error: function(error) {
             console.error('Error:', error);
+            $('#loading-overlay').hide();
         }
     });
   }

@@ -111,6 +111,7 @@ function enviarCarretasParaBackend(carretas,quantidade) {
         carreta: carreta,
         quantidade_carretas: quantCellArray[index]
     }));
+    console.log(dataToSend)
     // Realize uma requisição fetch para a rota /get_base_carretas
     fetch('/get_base_carretas', {
         method: 'POST', // Use o método POST para enviar dados
@@ -145,6 +146,8 @@ function enviarCarretasParaBackend(carretas,quantidade) {
 dateRangeFilter.addEventListener('input', filterTable);
 const btnFiltrar = document.getElementById('levantamentoButton');
 let limparFiltro = document.getElementById('limparLevantamento');
+var relacao_pecas = document.getElementById('relacao_pecas');
+
 btnFiltrar.addEventListener('click', function(){
     filterTable();
     tabelaLevantamentoPeca.style.display='none';
@@ -156,6 +159,7 @@ btnFiltrar.addEventListener('click', function(){
     exibirTabela.style.display='block';
     resultado.style.display='block';
     descricao.style.display='block';
+    relacao_pecas.style.display = 'block';
 });
 
 $(document).ready(function () {

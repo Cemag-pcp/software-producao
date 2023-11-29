@@ -157,15 +157,15 @@
                     
                     <form>
                         <div class="container-fluid">
-                            <div id="excel_model">
-                                <a href="{{ url_for('download_modelo_excel') }}" download>
-                                    <button><i class="fa-solid fa-download"></i> Excel Modelo</button>
-                                </a>
-                            </div>
                             <div class="row">
                                 <div id="coluna_data" class="col-md-6 date-input">
-                                    <label id="data_inicial" class="date-input">Data</label>
-                                    <input type="text" class="form-control2 date-input" id="inputDate1" name="datetimes">
+                                    <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                                        <label id="data_inicial" class="date-input">Data</label>
+                                        <div id="excel_model" style="display: none;">
+                                            <a href="{{ url_for('download_modelo_excel') }}" download><i class="fa-solid fa-download"></i> Excel Modelo</a>
+                                        </div>
+                                    </div>
+                                    <input type="text" class="form-control2 date-input" id="inputDate1" name="datetimes" autocomplete="off">
                                 </div>
 
                                 <div id="peca" class="col-md-6">
@@ -208,10 +208,10 @@
                             </div>
 
                             <button type="button" class="btn btn-primary" id="btnFiltrar">Filtrar</button>
-                            <div style="display: flex; justify-content: space-between;">
-                            <button type="button" class="btn btn-primary" id="levantamentoButton" style="display: none;">Filtrar</button>
-                            <button type="button" class="btn btn-primary" id="limparLevantamento" style="display: none;">Limpar Filtros</button>
-                            <button type="button" class="btn btn-primary" id="exibirTabela" style="display: none;" onclick="toggleTabela()">+</button>
+                            <div id="botoes_levantamento">
+                                <button type="button" class="btn btn-primary" id="levantamentoButton" style="display: none;">Filtrar</button>
+                                <button type="button" class="btn btn-primary" id="limparLevantamento" style="display: none;">Limpar Filtros</button>
+                                <button type="button" class="btn btn-primary" id="exibirTabela" style="display: none;" onclick="toggleTabela()">+</button>
                             </div>
                         </div>
                     </form>
@@ -242,7 +242,7 @@
                         </table>
                     </div>
                     <div id="tabela-levantamento-peca" data-tabela-id="tabela-levantamento-peca" style="max-height: 300px; overflow-y: auto; display: none; margin-bottom: 30px;">
-                        <h3 style="color: white;">Carretas Utilizadas por dias</h3>
+                        <h5 style="color: white;">Carretas Utilizadas por dias</h5>
                         <table class="responsive-table1" name="responsive-table1">
                             <thead>
                                 <tr style="border-top: 0">
@@ -263,8 +263,13 @@
                             </tbody>
                         </table>
                     </div>
+                    <h5 style="color: white; display: none;" id="relacao_pecas">Relação de Peças p/ carretas</h5>
                     <div id="resultado" style="max-height: 300px; overflow-y: auto;">
                     </div>
+                    <form id="fileForm" enctype="multipart/form-data">
+                        <input id="fileSelect" type="file" style="width: 100%; color: white;" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+                        <button type="button" class="solicitar" onclick="uploadFile()">Salvar</button>
+                    </form>
                 </div>
                 <div class="modal-footer">
                 </div>
@@ -332,6 +337,7 @@
     <script src="static/js/data-range-e-tabela-levantamento.js"></script>
     <script src="static/js/select-levantamento.js"></script>
     <script src="static/js/filtros-levantamento.js"></script>
+    <script src="static/js/uploadFileExcel.js"></script>
     
     <!-- JavaScript do Bootstrap -->
     <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->

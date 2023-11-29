@@ -37,6 +37,8 @@ document.addEventListener('DOMContentLoaded', function () {
     var conjuntoLabel = document.getElementById('conjunto');
     var resultado = document.getElementById('resultado');
     var close = document.getElementById('fechar_levantamento');
+    var excel_model = document.getElementById('excel_model');
+    var relacao_pecas = document.getElementById('relacao_pecas');
 
     btnPesquisa.addEventListener('click', function () {
         btnPesquisa.classList.add('active');
@@ -61,6 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
         tabelaSolicitarPeca.style.display= 'none';
         tabelaLevantamentoPeca.style.display='none';
         resultado.style.display = 'none';
+        excel_model.style.display = 'none';
     });
 
     close.addEventListener('click', function () {
@@ -85,6 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
       tabelaSolicitarPeca.style.display='none';
       tabelaLevantamentoPeca.style.display='none';
       resultado.style.display = 'none';
+      relacao_pecas.style.display = 'none';
     });
 
     btnFiltrar.addEventListener('click',function(){
@@ -113,6 +117,7 @@ document.addEventListener('DOMContentLoaded', function () {
         tabelaSolicitarPeca.style.display='none';
         tabelaLevantamentoPeca.style.display='none';
         resultado.style.display = 'none';
+        excel_model.style.display = 'flex';
     });
 }); 
 

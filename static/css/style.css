@@ -630,7 +630,7 @@ tbody tr.hide{
 }
 
 .daterangepicker{
-    top: 100px !important;
+    top: 0px !important;
 }
 
 input[type=checkbox]{
@@ -662,14 +662,40 @@ input[type=checkbox]{
     height: 0px !important;
 }
 
+.select2-dropdown {
+    position: fixed !important;
+}
+
+.select2-container--open .select2-dropdown {
+    left: auto !important;
+}
+
 #excel_model {
     display: flex;
     justify-content: flex-end;
-    align-items: baseline;
+    align-items: center;
 }
 
-#excel_model button{
+#excel_model a{
     padding: 5px;
     border-radius: 10px;
     color: #fff;
+    text-decoration: none;
+}
+
+#excel_model a:hover{
+    color: #e2e2e2;
+}
+
+#botoes_levantamento{
+    display: flex; 
+    justify-content: space-between;
+}
+@media(max-width:770px){
+
+    #botoes_levantamento{
+        display: flex; 
+        justify-content: space-between;
+        flex-direction: column;
+    }
 }

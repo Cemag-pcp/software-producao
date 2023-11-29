@@ -132,8 +132,6 @@ def base_carretas():
     # Adicione a cláusula de limite e deslocamento para paginação
     sql += f" LIMIT {per_page} OFFSET {offset}"
 
-    print(sql)
-
     cur.execute(sql)
     data = cur.fetchall()
 
@@ -167,17 +165,11 @@ def solicitar_peca():
     origem = data_json['origem']
     dadosTabela = data_json['dadosTabela']
 
-    print(dadosTabela)
-
     dataFrame = pd.DataFrame(dadosTabela)
 
     dataFrame_filtrado = dataFrame.loc[dataFrame[1] == carreta]
 
     data_carreta = dataFrame_filtrado[0].str.cat(sep='-')
-    
-    print(dataFrame_filtrado)
-
-    print(data_carreta)
 
     if quantidadeEstoque != '':
         quantidadeEstoque = float(quantidadeEstoque) 
@@ -217,6 +209,7 @@ def buscar_dados(filename):
     # base = base.iloc[:,:23]
     base_carretas = base.set_axis(headers, axis=1)[1:]
     base_carretas['PED_PREVISAOEMISSAODOC'] = pd.to_datetime(base_carretas['PED_PREVISAOEMISSAODOC'], format="%d/%M/%Y", errors='ignore')
+    base_carretas[base_carretas['PED_RECURSO.CODIGO'] == 'F4 CS RS/RS A45 P750(I) M23']
 
     return base_carretas
 
@@ -289,6 +282,15 @@ def tela_inicial(username):
     # Agrupa por 'carreta' e soma as colunas 'quantidade', 'data' e 'chave'
     base_levantamento = df.groupby(['data', 'carreta'])['quantidade'].sum().reset_index()
 
+        # Pode ser necessário realizar alguma lógica adicional com os dados recebidos
+    print(base_levantamento[base_levantamento['carreta'] == "F4 CS RS/RS A45 P750(I) M23"])
+    
+    sql = """SELECT DISTINCT carreta FROM pcp.tb_base_carretas_explodidas"""
+
+    cur.execute(sql)
+    data = cur.fetchall()
+    dataFrame = pd.DataFrame(data)
+
     base_levantamento = base_levantamento.values.tolist()
 
     return render_template("tela-inicial.html", base_carretas=base_carretas, username=username,base_carretas_filtro=base_carretas_filtro,base_levantamento=base_levantamento)
@@ -309,11 +311,8 @@ def receber_checkbox():
     cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
     data_json = request.get_json()
-    print(data_json)
 
     data_json = pd.DataFrame(data_json)
-
-    print(data_json)
 
     data_list_insert_sql = data_json.values.tolist()
 
@@ -452,7 +451,6 @@ def peca_concluida():
     cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
     data = request.get_json()
-    print(data)
 
     sql = f"""
         UPDATE software_producao.tb_solicitacao_pecas
@@ -524,8 +522,6 @@ def get_base_carretas():
         # Crie um DataFrame a partir dos dados
         df = pd.DataFrame(data_list)
 
-        # Pode ser necessário realizar alguma lógica adicional com os dados recebidos
-
         df = df[~df['carreta'].astype(str).str.match(r'^\d')]
 
                 # Lista de sufixos a serem removidos
@@ -535,7 +531,7 @@ def get_base_carretas():
         for sufixo in sufixos_para_remover:
             df['carreta'] = df['carreta'].str.rstrip(sufixo)
 
-                # Converta a coluna 'quantidade' para tipo numérico
+        # Converta a coluna 'quantidade' para tipo numérico
         df['quantidade_carretas'] = pd.to_numeric(df['quantidade_carretas'], errors='coerce')
 
         # Agrupa por 'carreta' e soma a coluna 'quantidade_carretas'
@@ -562,6 +558,8 @@ def get_base_carretas():
         # Crie a nova coluna 'quantidade_total' multiplicando as colunas 'quantidade_carretas' e 'quantidade'
         df_combinado['Quantidade'] = df_combinado['quantidade_carretas'] * df_combinado['quantidade']
 
+        # print(df_combinado)
+
         df_combinado['Observacao'] = ''  # Coluna para o textarea
         df_combinado['Solicitar'] = ''
         df_combinado['Quantidade no Estoque'] = ''  # Coluna para o botão
@@ -580,7 +578,7 @@ def get_base_carretas():
         tbody_html = df_combinado_html[thead_end_index:]
 
         # Adicionar colunas extras no final de cada linha no corpo do HTML
-        tbody_html = tbody_html.replace('</tr>', '<td><input type="number" class="form-control2"></td><td><textarea class="form-control-textarea"></textarea></td><td><button class="solicitar" id="solicitar_levantamento">Solicitar</button></td></tr>')
+        tbody_html = tbody_html.replace('</tr>', '<td data-label="Quantidade no Estoque"><input type="number" class="form-control2"></td><td data-label="Observação"><textarea class="form-control-textarea"></textarea></td><td><button class="solicitar" id="solicitar_levantamento">Solicitar</button></td></tr>')
 
         # Juntar o cabeçalho e o corpo do HTML
         df_combinado_html = thead_html + tbody_html
@@ -601,56 +599,70 @@ def download_modelo_excel():
     excel_filename = 'Modelo_Base_Innovaro.csv'
 
     # Envie o arquivo para download
-    return send_file(excel_filename, as_attachment=True)
+    return send_file(excel_filename, as_attachment=True, mimetype='text/csv')
 
 
 @app.route('/receber-upload', methods=['POST'])
 def receber_upload():
+
+    # Obter o arquivo do formulário
+    file = request.files['file']
+
+    try:
+        df = pd.read_csv(file, sep=";", encoding='ISO-8859-1')
+    except :
+        df = pd.read_excel(file)
+
+         # Colunas esperadas no modelo
+    colunas_esperadas = ['processo', 'conjunto', 'codigo','descricao','materia_prima','comprimento','largura','quantidade','etapa_seguinte','carreta']  # Substitua com as colunas reais
+
+    # Verificar se as colunas do DataFrame coincidem com as colunas esperadas
+    if set(df.columns) != set(colunas_esperadas):
+        return 'Colunas do arquivo não correspondem ao modelo'
+
+    carretas_unicas = df['carreta'].unique()
+        
+     # Verificar carretas que não existem no banco de dados
+    carretas_nao_existentes = [carreta for carreta in carretas_unicas if carreta not in consulta_carretas_existem(carreta)]
+
+    # Inserir linhas para carretas que não existem
+    for carreta_nova in carretas_nao_existentes:
+        linhas_novas = df[df['carreta'] == carreta_nova]
+        inserir_linhas_no_banco(linhas_novas)
+
+    return 'success'
+
+def consulta_carretas_existem(carreta):
 
     conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER,
                             password=DB_PASS, host=DB_HOST)
 
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
-    # Obter o arquivo do formulário
-    file = request.files['file']
+    sql = f"SELECT carreta FROM pcp.tb_base_carretas_explodidas WHERE carreta = '{carreta}'"
+    cur.execute(sql)
+    carretas_existem = [row['carreta'] for row in cur.fetchall()]
 
-    # Obter outras informações do formulário
-    grupo_selecionado = request.form['grupoSelecionado']
-    codigo_maquina = request.form['codigo_maquina']   
+    return carretas_existem
 
-    # Salvar o arquivo no servidor (opcional)
-    file.save('uploads_atividade/' + file.filename)
+def inserir_linhas_no_banco(linhas):
+    conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER,
+                            password=DB_PASS, host=DB_HOST)
 
-    file = r"uploads_atividade/" + file.filename
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
-    # Processar o arquivo com Pandas
-    df = pd.read_csv(file, sep=";")
+    for _, linha in linhas.iterrows():
 
-    df['grupo'] = grupo_selecionado
-
-    df = df[['codigo_maquina','grupo','responsabilidade','atividade']]
-
-    df_list = df.values.tolist()
-
-    for row in df_list:       
-
-        codigo_maquina = row[0]
-        grupo = row[1]
-        responsabilidade = row[2]
-        atividade = row[3]
-
-        sql_insert = f"""INSERT INTO tb_atividades_preventiva (codigo,grupo,responsabilidade,atividade)
-                        VALUES ('{codigo_maquina}','{grupo}','{responsabilidade}','{atividade}')"""
-
-        cur.execute(sql_insert)
-
-    conn.commit()
-    conn.close()
-
-    os.remove(file)
-    
-    return 'sucess'
+        print(linha['processo'],linha['conjunto'],linha['codigo'],linha['descricao'],linha['materia_prima'],linha['comprimento'],linha['largura'],linha['quantidade'],linha['etapa_seguinte'],linha['carreta'])
+        sql = f"""
+            INSERT INTO pcp.tb_base_carretas_explodidas
+            (processo, conjunto, codigo, descricao, materia_prima, comprimento, largura, quantidade, etapa_seguinte, carreta)
+            VALUES ('{linha['processo']}', '{linha['conjunto']}', '{linha['codigo']}', '{linha['descricao']}',
+                    '{linha['materia_prima']}', {linha['comprimento']}, {linha['largura']}, {linha['quantidade']},
+                    '{linha['etapa_seguinte']}', '{linha['carreta']}')
+        """
+        cur.execute(sql)
+        conn.commit()
 
 
 if __name__ == '__main__':
