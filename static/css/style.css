@@ -699,3 +699,27 @@ input[type=checkbox]{
         flex-direction: column;
     }
 }
+
+input[type="file"] {
+    display: none;
+}
+
+#fileForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 20px;
+}
+
+#fileForm label{
+    padding: 10px;
+    outline: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1em;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    background: #7167a3;
+    text-align: center;
+}

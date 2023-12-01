@@ -129,13 +129,13 @@ function enviarCarretasParaBackend(carretas,quantidade) {
         document.getElementById('resultado').innerHTML = data.df_combinado_html;
         
         setTimeout(function () {
-        },3000)
-        $("#loading-overlay").hide();
+            $("#loading-overlay").hide();
+        },4500)
     })
     .catch(error => {
         setTimeout(function () {
             $("#loading-overlay").hide();
-        },3500)
+        },3000)
         console.error('Erro ao enviar carretas para o backend:', error);
         
         // Exiba um alerta informando que ocorreu um erro
@@ -146,20 +146,20 @@ function enviarCarretasParaBackend(carretas,quantidade) {
 dateRangeFilter.addEventListener('input', filterTable);
 const btnFiltrar = document.getElementById('levantamentoButton');
 let limparFiltro = document.getElementById('limparLevantamento');
-var relacao_pecas = document.getElementById('relacao_pecas');
+var inserirBase = document.getElementById('inserir_base');
 
 btnFiltrar.addEventListener('click', function(){
     filterTable();
     tabelaLevantamentoPeca.style.display='none';
     carretaLabel.style.display='block';
     limparFiltro.style.display='block';
+    inserirBase.style.display = 'block';
     peca.style.display='block';
     processo.style.display='block';
     conjunto.style.display='block';
     exibirTabela.style.display='block';
     resultado.style.display='block';
     descricao.style.display='block';
-    relacao_pecas.style.display = 'block';
 });
 
 $(document).ready(function () {

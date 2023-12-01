@@ -155,16 +155,11 @@
                 </div>
                 <div class="modal-body">
                     
-                    <form>
+                    <div>
                         <div class="container-fluid">
                             <div class="row">
-                                <div id="coluna_data" class="col-md-6 date-input">
-                                    <div style="display: flex; justify-content: space-between; align-items: baseline;">
-                                        <label id="data_inicial" class="date-input">Data</label>
-                                        <div id="excel_model" style="display: none;">
-                                            <a href="{{ url_for('download_modelo_excel') }}" download><i class="fa-solid fa-download"></i> Excel Modelo</a>
-                                        </div>
-                                    </div>
+                                <div id="coluna_data" class="col-md-6 date-input">         
+                                    <label id="data_inicial" class="date-input">Data</label>
                                     <input type="text" class="form-control2 date-input" id="inputDate1" name="datetimes" autocomplete="off">
                                 </div>
 
@@ -208,13 +203,14 @@
                             </div>
 
                             <button type="button" class="btn btn-primary" id="btnFiltrar">Filtrar</button>
+                            <button type="button" class="btn btn-primary" id="limparLevantamento" style="display: none;">Limpar Filtros</button>
                             <div id="botoes_levantamento">
                                 <button type="button" class="btn btn-primary" id="levantamentoButton" style="display: none;">Filtrar</button>
-                                <button type="button" class="btn btn-primary" id="limparLevantamento" style="display: none;">Limpar Filtros</button>
+                                <button type="button" class="btn btn-primary" id="inserir_base" data-toggle="modal" data-target="#modal_enviar_carretas" style="display: none;">Inserir Base</button>
                                 <button type="button" class="btn btn-primary" id="exibirTabela" style="display: none;" onclick="toggleTabela()">+</button>
                             </div>
                         </div>
-                    </form>
+                    </div>
                     <div id="tabela-solicitar-peca" style="max-height: 300px; overflow-y: auto; display: none;">
                         <table class="responsive-table">
                             <thead>
@@ -249,6 +245,7 @@
                                     <th class="cabecalho" style="border-bottom: none;border-top: none">Data</th>
                                     <th class="cabecalho" style="border-bottom: none;border-top: none">Carreta</th>
                                     <th class="cabecalho" style="border-bottom: none;border-top: none">Quantidade</th>
+                                    <th class="cabecalho" style="border-bottom: none;border-top: none">Base Innovaro</th>
                                     <th class="cabecalho" style="display: none; border-bottom: none;border-top: none">Chave</th>
                                 </tr>        
                             </thead>
@@ -258,21 +255,41 @@
                                     <td data-label="Data" style="border-top: none;">{{row[0]}}</td>
                                     <td data-label="Carreta" style="border-top: none;">{{row[1]}}</td>
                                     <td data-label="Quantidade" style="border-top: none;">{{row[2]}}</td>
+                                    {% if row[3] == True %}
+                                    <td data-label="innovaro" style="border-top: none; color: rgb(94, 250, 141);"><i class="fa-solid fa-check"></i></td>
+                                    {% else %}
+                                    <td data-label="innovaro" style="border-top: none; color: red;"><i class="fa-solid fa-x"></i></td>
+                                    {% endif %}
                                 </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
                     </div>
-                    <h5 style="color: white; display: none;" id="relacao_pecas">Relação de Peças p/ carretas</h5>
                     <div id="resultado" style="max-height: 300px; overflow-y: auto;">
                     </div>
-                    <form id="fileForm" enctype="multipart/form-data">
-                        <input id="fileSelect" type="file" style="width: 100%; color: white;" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
-                        <button type="button" class="solicitar" onclick="uploadFile()">Salvar</button>
-                    </form>
                 </div>
                 <div class="modal-footer">
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade"  id="modal_enviar_carretas" tabindex="-1" role="dialog" aria-labelledby="modal_enviar_carretas_label" aria-hidden="true"  data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width: 300%; margin-top: 150px; overflow-y: auto;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <h4>Insira um arquivo para atualizar a base de carretas </h4>
+                    <button type="button" id="fechar_modal_enviar_carretas" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="excel_model" style="display: none; margin-bottom: 20px;">
+                    <a href="{{ url_for('download_modelo_excel') }}" download><i class="fa-solid fa-download"></i> Excel/Csv Modelo</a>
+                </div>
+                <form id="fileForm" enctype="multipart/form-data">
+                    <label for="fileSelect">Enviar arquivo</label>
+                    <input id="fileSelect"  name="fileSelect" type="file" style="width: 100%; color: white;" onchange="displayFileName()" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+                    <button type="button" style="background: #9267a3;" class="solicitar" onclick="uploadFile()">Salvar</button>
+                </form>
             </div>
         </div>
     </div>

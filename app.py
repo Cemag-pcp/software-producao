@@ -281,15 +281,15 @@ def tela_inicial(username):
 
     # Agrupa por 'carreta' e soma as colunas 'quantidade', 'data' e 'chave'
     base_levantamento = df.groupby(['data', 'carreta'])['quantidade'].sum().reset_index()
-
-        # Pode ser necessário realizar alguma lógica adicional com os dados recebidos
-    print(base_levantamento[base_levantamento['carreta'] == "F4 CS RS/RS A45 P750(I) M23"])
     
-    sql = """SELECT DISTINCT carreta FROM pcp.tb_base_carretas_explodidas"""
+    query = """SELECT DISTINCT carreta FROM pcp.tb_base_carretas_explodidas"""
 
-    cur.execute(sql)
+    cur.execute(query)
     data = cur.fetchall()
-    dataFrame = pd.DataFrame(data)
+    base_explodidas = pd.DataFrame(data)
+
+    # Verifica se a carreta de base_levantamento está presente em dataFrame
+    base_levantamento['innovaro'] = base_levantamento['carreta'].isin(base_explodidas['carreta'])
 
     base_levantamento = base_levantamento.values.tolist()
 
