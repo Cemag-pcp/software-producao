@@ -155,7 +155,6 @@ window.addEventListener("click", function (event) {
 enviarButton.addEventListener("click", function () {
     $('#loading-overlay').show();
     const chave = modalChave.textContent;
-    console.log(chave);
     const setorSelecionado = setorLogadoInput.value; // Obtenha o conjunto selecionado dinamicamente
     const conjuntosSelecionados = [];
     const checkboxData = [];
@@ -194,8 +193,6 @@ enviarButton.addEventListener("click", function () {
     .then(response => {
         if (response.ok) {
             $('#loading-overlay').hide();
-            // Lida com a resposta bem-sucedida
-            console.log("Dados enviados com sucesso!");
             modal.style.display = "none";
         } else {
             $('#loading-overlay').hide();

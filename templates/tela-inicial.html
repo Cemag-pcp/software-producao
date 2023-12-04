@@ -83,7 +83,7 @@
                 </div>
             </section>
         </div>
-        <div class="table table-2" style="margin: 30px; margin-left: 20px;">
+        <div class="table table-2 table-3" style="margin: 30px; margin-left: 20px;">
             <section class="table__header">
                 <h4 style="font-size: 18px;">Programação de Cargas</h4>
             </section>
@@ -143,7 +143,7 @@
     </div>
 
     <!-- Modal para solicitar peças -->
-    <div class="modal fade" id="modal_pesquisa_peca" tabindex="-1" role="dialog" aria-labelledby="modal_pesquisa_peca_label" aria-hidden="true"  data-backdrop="static">
+    <div class="modal fade" id="modal_pesquisa_peca" tabindex="-1" role="dialog" aria-labelledby="modal_pesquisa_peca_label" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="width: 300%;">
                 <div class="modal-header">
@@ -161,6 +161,10 @@
                                 <div id="coluna_data" class="col-md-6 date-input">         
                                     <label id="data_inicial" class="date-input">Data</label>
                                     <input type="text" class="form-control2 date-input" id="inputDate1" name="datetimes" autocomplete="off">
+                                </div>
+
+                                <div id="levant" class="col-md-6">
+                                    <button type="button" class="btn btn-primary" id="levantamentoButton" style="display: none; margin-top: 30px; width: 100%;">Filtrar Data</button>
                                 </div>
 
                                 <div id="peca" class="col-md-6">
@@ -203,9 +207,8 @@
                             </div>
 
                             <button type="button" class="btn btn-primary" id="btnFiltrar">Filtrar</button>
-                            <button type="button" class="btn btn-primary" id="limparLevantamento" style="display: none;">Limpar Filtros</button>
                             <div id="botoes_levantamento">
-                                <button type="button" class="btn btn-primary" id="levantamentoButton" style="display: none;">Filtrar</button>
+                                <button type="button" class="btn btn-primary" id="limparLevantamento" style="display: none;">Limpar Filtros</button>
                                 <button type="button" class="btn btn-primary" id="inserir_base" data-toggle="modal" data-target="#modal_enviar_carretas" style="display: none;">Inserir Base</button>
                                 <button type="button" class="btn btn-primary" id="exibirTabela" style="display: none;" onclick="toggleTabela()">+</button>
                             </div>

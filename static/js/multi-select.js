@@ -3,7 +3,6 @@ new MultiSelectTag('ordemproducao', {
     shadow: true,      // default false
     placeholder: 'Pesquisar...',  // default Search...
     onChange: function (values) {
-        console.log(values)
     }
 })
 

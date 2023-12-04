@@ -12,7 +12,6 @@ let allDataLoaded = false;
 
 campoRolagem.addEventListener("scroll", function () {
     if (!allDataLoaded && campoRolagem.scrollTop + campoRolagem.clientHeight >= campoRolagem.scrollHeight - 1) {
-        console.log("Rolou");
         page++;
         fetchMoreData();
     }
@@ -175,8 +174,6 @@ function enviarDadosParaBackend(processo,codigo, descricao, carreta, conjunto, o
         .then(response => response.json())
         .then(data => {
             $("#loading-overlay").hide();
-            // Lide com a resposta do backend, se necessário
-            console.log("Resposta do backend:", data);
             alert("Solicitação enviada.");
         })
         .catch(error => {

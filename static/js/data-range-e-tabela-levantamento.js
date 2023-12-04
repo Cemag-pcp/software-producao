@@ -12,10 +12,6 @@ let resultado = document.getElementById('resultado');
 function parseDateRange(dateRange) {
     const dateRangeParts = dateRange.split(" - ");
 
-    // Log para verificar o valor de dateRange e dateRangeParts
-    console.log("Valor de dateRange:", dateRange);
-    console.log("Valor de dateRangeParts:", dateRangeParts);
-
     // Verifique se o formato é válido
     if (dateRangeParts.length !== 2) {
         console.error("Formato de data inválido:", dateRange);
@@ -52,7 +48,7 @@ function filterTable() {
         const rows = document.querySelectorAll('.responsive-table1 tbody tr');
 
         // Inicialize um conjunto para armazenar carretas únicas
-        const carretasArray = new Set();
+        const carretasArray = new Array();
         const quantCellArray = [];
 
         // Converta as linhas em um array para facilitar a ordenação
@@ -83,7 +79,7 @@ function filterTable() {
 
             if (dateMatch) {
                 // Adicione a carreta ao conjunto
-                carretasArray.add(row.cells[1].textContent);
+                carretasArray.push(row.cells[1].textContent);
                 quantCellArray.push(row.cells[2].textContent);
                 row.style.display = 'table-row';
             } else {
@@ -93,7 +89,7 @@ function filterTable() {
         
         // Atualize o conteúdo do select com as carretas filtradas
         enviarCarretasParaBackend(carretasArray, quantCellArray);
-    }, 500); // Ajuste o tempo de espera conforme necessário
+    }); // Ajuste o tempo de espera conforme necessário
 }
 
 function enviarCarretasParaBackend(carretas,quantidade) {
@@ -111,7 +107,6 @@ function enviarCarretasParaBackend(carretas,quantidade) {
         carreta: carreta,
         quantidade_carretas: quantCellArray[index]
     }));
-    console.log(dataToSend)
     // Realize uma requisição fetch para a rota /get_base_carretas
     fetch('/get_base_carretas', {
         method: 'POST', // Use o método POST para enviar dados
@@ -122,20 +117,18 @@ function enviarCarretasParaBackend(carretas,quantidade) {
     })
     .then(response => response.json())
     .then(data => {
-        // Faça algo com a resposta do servidor, se necessário
-        console.log('Resposta do servidor:', data);
 
         // Exiba o HTML na sua página
         document.getElementById('resultado').innerHTML = data.df_combinado_html;
         
         setTimeout(function () {
             $("#loading-overlay").hide();
-        },4500)
+        },5000)
     })
     .catch(error => {
         setTimeout(function () {
             $("#loading-overlay").hide();
-        },3000)
+        },5000)
         console.error('Erro ao enviar carretas para o backend:', error);
         
         // Exiba um alerta informando que ocorreu um erro

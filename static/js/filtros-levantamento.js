@@ -6,7 +6,7 @@ $(document).ready(function () {
             var tableData = [];
             $('#responsive tbody tr').each(function () {
                 var rowData = [];
-                $(this).find('td').each(function () {
+                $(this).find('td').each(function () {   
                     rowData.push($(this).text());
                 });
                 tableData.push(rowData);
@@ -21,7 +21,7 @@ $(document).ready(function () {
             
             // Mostra a tabela
             $('#tableContainer').show();
-        }, 4000); // 3000 milissegundos = 3 segundos
+        }, 6000); // 3000 milissegundos = 3 segundos
     });
 
     // Manipulador de eventos para o botão de limpar filtros
@@ -131,9 +131,3 @@ function updateFilters() {
 
     return filteredData;
 }
-
-// Manipulador de eventos para o botão de limpar filtros
-$('#fechar_modal_enviar_carretas').click(function () {
-    $('#loading-overlay').show();
-    location.reload()
-});

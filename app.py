@@ -524,7 +524,7 @@ def get_base_carretas():
 
         df = df[~df['carreta'].astype(str).str.match(r'^\d')]
 
-                # Lista de sufixos a serem removidos
+        # Lista de sufixos a serem removidos
         sufixos_para_remover = ['VM', 'VJ', 'AV', 'CO', 'LC', 'AN']
 
         # Remove os sufixos da coluna 'carreta'
@@ -532,7 +532,7 @@ def get_base_carretas():
             df['carreta'] = df['carreta'].str.rstrip(sufixo)
 
         # Converta a coluna 'quantidade' para tipo numérico
-        df['quantidade_carretas'] = pd.to_numeric(df['quantidade_carretas'], errors='coerce')
+        df['quantidade_carretas'] = pd.to_numeric(df['quantidade_carretas'])
 
         # Agrupa por 'carreta' e soma a coluna 'quantidade_carretas'
         df_agrupado = df.groupby('carreta')['quantidade_carretas'].sum().reset_index()
@@ -557,8 +557,6 @@ def get_base_carretas():
 
         # Crie a nova coluna 'quantidade_total' multiplicando as colunas 'quantidade_carretas' e 'quantidade'
         df_combinado['Quantidade'] = df_combinado['quantidade_carretas'] * df_combinado['quantidade']
-
-        # print(df_combinado)
 
         df_combinado['Observacao'] = ''  # Coluna para o textarea
         df_combinado['Solicitar'] = ''
@@ -628,6 +626,7 @@ def receber_upload():
     # Inserir linhas para carretas que não existem
     for carreta_nova in carretas_nao_existentes:
         linhas_novas = df[df['carreta'] == carreta_nova]
+        print(linhas_novas)
         inserir_linhas_no_banco(linhas_novas)
 
     return 'success'

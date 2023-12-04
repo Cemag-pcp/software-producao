@@ -20,7 +20,6 @@ function uploadFile() {
         processData: false,
         contentType: false,
         success: function(data) {
-            console.log(data);
             if (data !== 'success') {
                 alert(data);  // Exibir alerta em caso de erro
             } else {

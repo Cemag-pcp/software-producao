@@ -30,7 +30,6 @@ document.addEventListener('DOMContentLoaded', function () {
     var exibirTabela = document.getElementById('exibirTabela');
     var tabelaSolicitarPeca = document.getElementById('tabela-solicitar-peca');
     var tabelaLevantamentoPeca = document.getElementById('tabela-levantamento-peca');
-    var table_levantamento = document.getElementById('table-levantamento');
     var pecaLabel = document.getElementById('peca');
     var processoLabel = document.getElementById('processo');
     var descricao = document.getElementById('descricao');
@@ -178,3 +177,16 @@ $(document).ready(function() {
   });
 });
 
+$(document).ready(function() {
+  // Evento de alteração para todos os selects
+  $('select').on('change', function() {
+      // Exibir o overlay de loading
+      $('#loading-overlay').show();
+
+      // Ocultar o overlay de loading após 1 segundo
+      setTimeout(function() {
+          $('#loading-overlay').hide();
+      }, 1000);
+
+  });
+});

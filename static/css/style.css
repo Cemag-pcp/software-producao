@@ -723,3 +723,7 @@ input[type="file"] {
     background: #7167a3;
     text-align: center;
 }
+
+.modal {
+    overflow: auto !important;
+}

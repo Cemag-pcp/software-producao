@@ -135,9 +135,6 @@ function pecaConcluida(chave) {
     })
         .then(response => response.json())
         .then(data => {
-            // Lide com a resposta do backend, se necessário
-            console.log("Resposta do backend:", data);
-            
             // Após o sucesso, faça uma nova solicitação para buscar os dados atualizados
             $.ajax({
                 url: '/visualizar-pecas-solicitadas', // Substitua '/sua_rota_no_backend' pela URL correta
