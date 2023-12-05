@@ -38,13 +38,6 @@ $(document).ready(function() {
                     `);
                     tableBody.append(row);
                 });
-
-                // Manipulador de eventos para os botões "status"
-                tableBody.find("button.status").click(function() {
-                    const row = $(this).closest("tr");
-                    const chave = row.find("td:first-child").text();
-                    
-                });
             },
             error: function(error) {
                 console.error('Erro na solicitação ao backend:', error);
@@ -150,6 +143,7 @@ function pecaConcluida(chave) {
                         row.html(`
                             <td>${item[0]}</td>
                             <td>${item[1]}</td>
+                            <td>${item[11]}</td>
                             <td>${item[2]}</td>
                             <td>${item[3]}</td>
                             <td>${item[6]}</td>

@@ -10,6 +10,7 @@
     <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script src="https://kit.fontawesome.com/d1807a784c.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
@@ -309,6 +310,21 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <div class="form-group">
+                        <div id="dataSolicitPeca" class="col-md-6">
+                            <label style="color: white;">Data</label>
+                            <input type="date" id="filtroDataSolicitPeca" name="filtroDataSolicitPeca" class="form-control2" style="width: 100%; padding: 0;">
+                        </div>
+                        
+                        <div id="carretaSolicitPeca" class="col-md-6" style="margin-bottom: 30px;">
+                            <label style="color: white;">Origem</label>
+                            <select id="filtroOrigemSolicitPeca" name="filtroOrigemSolicitPeca" class="form-control2">
+                                <option value=""></option>  
+                                <option value="Levantamento">Levantamento</option> 
+                                <option value="Solicitadas">Solicitadas</option>   
+                            </select>
+                        </div>
+                    </div>
                     <div class="table__body3" id="tabela-visualizar-peca">
                         <table class='responsive-table'>
                             <thead>
@@ -358,6 +374,7 @@
     <script src="static/js/select-levantamento.js"></script>
     <script src="static/js/filtros-levantamento.js"></script>
     <script src="static/js/uploadFileExcel.js"></script>
+    <script src="static/js/filtros-solicitar-pecas.js"></script>
     
     <!-- JavaScript do Bootstrap -->
     <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->

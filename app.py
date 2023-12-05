@@ -169,6 +169,8 @@ def solicitar_peca():
 
     dataFrame_filtrado = dataFrame.loc[dataFrame[1] == carreta]
 
+    print(dataFrame_filtrado)
+
     data_carreta = dataFrame_filtrado[0].str.cat(sep='-')
 
     if quantidadeEstoque != '':

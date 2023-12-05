@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   document.addEventListener('DOMContentLoaded', function () {
+    var btnSolicitada = document.getElementById('modal_visualizar_peca_solicitada_input');
+    var btnFeita = document.getElementById('modal_visualizar_peca_feita_input');
     var btnPesquisa = document.getElementById('modal_pesquisa_peca_label');
     var btnLevantamento = document.getElementById('modal_levantamento_peca_label');
     var inputDate1 = document.getElementById('inputDate1');
@@ -38,6 +40,8 @@ document.addEventListener('DOMContentLoaded', function () {
     var resultado = document.getElementById('resultado');
     var close = document.getElementById('fechar_levantamento');
     var excel_model = document.getElementById('excel_model');
+    var filtroDataSolicitPeca = document.getElementById('dataSolicitPeca')
+    var filtroOrigemSolicitPeca = document.getElementById('carretaSolicitPeca')
 
     btnPesquisa.addEventListener('click', function () {
         btnPesquisa.classList.add('active');
@@ -120,6 +124,16 @@ document.addEventListener('DOMContentLoaded', function () {
         tabelaLevantamentoPeca.style.display='none';
         resultado.style.display = 'none';
         excel_model.style.display = 'flex';
+    });
+
+    btnSolicitada.addEventListener('click', function () {
+      filtroDataSolicitPeca.style.display = 'block'
+      filtroOrigemSolicitPeca.style.display = 'block'
+    });
+
+    btnFeita.addEventListener('click', function () {
+      filtroDataSolicitPeca.style.display = 'none'
+      filtroOrigemSolicitPeca.style.display = 'none'
     });
 }); 
 

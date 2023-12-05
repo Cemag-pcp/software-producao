@@ -100,6 +100,7 @@ tableBody.addEventListener("click", function (event) {
             alert("Preencha o campo de quantidade")
         } else {
             let origem = "Solicitadas";
+            console.log(processo,codigo, descricao, carreta, conjunto, observacao, quantidadeSolicitada,'',origem)
             enviarDadosParaBackend(processo,codigo, descricao, carreta, conjunto, observacao, quantidadeSolicitada,'',origem);
         }
     }
@@ -117,7 +118,7 @@ divResultado.addEventListener("click", function (event) {
     const codigo = row.querySelector("td:nth-child(3)").textContent;
     const descricao = row.querySelector("td:nth-child(4)").textContent;
     const carreta = row.querySelector("td:nth-child(5)").textContent;
-    const quantidadeNecessaria = row.querySelector("td:nth-child(6)").textContent;
+    const quantidadeNecessaria = Number(row.querySelector("td:nth-child(6)").textContent);
     const quantidadeEstoque = row.querySelector("td:nth-child(7) input").value;
     const observacao = row.querySelector("td:nth-child(8) textarea").value;
 
@@ -125,9 +126,10 @@ divResultado.addEventListener("click", function (event) {
         if (!quantidadeNecessaria || !quantidadeEstoque || quantidadeEstoque < 0) {
             alert("Preencha os campos de quantidade");
         } else if(quantidadeEstoque >= quantidadeNecessaria){
-            alert("Quantidade no estoque já é maior que a quantidade necessária");
+            alert("Quantidade no estoque já é maior ou igual a quantidade necessária");
         } else {
             let origem = "Levantamento";
+            console.log(quantidadeNecessaria,quantidadeEstoque)
             enviarDadosParaBackend(processo,codigo, descricao, carreta, conjunto, observacao, quantidadeNecessaria,quantidadeEstoque,origem);
         }
     }

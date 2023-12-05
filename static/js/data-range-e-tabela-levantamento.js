@@ -19,14 +19,14 @@ function parseDateRange(dateRange) {
     }
 
     const [startDateString, endDateString] = dateRangeParts;
-    const startDate = formatDate(startDateString);
-    const endDate = formatDate(endDateString);
+    const startDate = formatarDataLevantamento(startDateString);
+    const endDate = formatarDataLevantamento(endDateString);
 
     return { startDate, endDate };
 }
 
 // Função para formatar a data de yyyy-MM-dd para dd/MM/yyyy
-function formatDate(dateString) {
+function formatarDataLevantamento(dateString) {
     const parts = dateString.split("/");
     if (parts.length === 3) {
         return new Date(parts[2], parts[1] - 1, parts[0]);
@@ -37,7 +37,7 @@ function formatDate(dateString) {
 let filterTimer;
 
 // Função para filtrar a tabela com base no intervalo de datas
-function filterTable() {
+function filtrarTabela() {
     // Limpe o temporizador existente, se houver
     clearTimeout(filterTimer);
 
@@ -56,8 +56,8 @@ function filterTable() {
 
         // Ordenar as linhas com base nas datas
         rowsArray.sort((a, b) => {
-            const dateA = formatDate(a.cells[0].textContent);
-            const dateB = formatDate(b.cells[0].textContent);
+            const dateA = formatarDataLevantamento(a.cells[0].textContent);
+            const dateB = formatarDataLevantamento(b.cells[0].textContent);
 
             // Verifique se ambas as datas são válidas antes de comparar
             if (dateA && dateB) {
@@ -72,7 +72,7 @@ function filterTable() {
         // Aplicar o filtro agora nas linhas ordenadas
         rowsArray.forEach(row => {
             const dateCell = row.cells[0];
-            const rowDate = formatDate(dateCell.textContent);
+            const rowDate = formatarDataLevantamento(dateCell.textContent);
 
             // Verifique se a data da linha está dentro do intervalo selecionado
             const dateMatch = (rowDate >= startDate && rowDate <= endDate) || (startDate === "" && endDate === "");
@@ -136,13 +136,13 @@ function enviarCarretasParaBackend(carretas,quantidade) {
 }
 
 // Adicione um evento de entrada ao campo de intervalo de datas para chamar a função de filtro
-dateRangeFilter.addEventListener('input', filterTable);
+dateRangeFilter.addEventListener('input', filtrarTabela);
 const btnFiltrar = document.getElementById('levantamentoButton');
 let limparFiltro = document.getElementById('limparLevantamento');
 var inserirBase = document.getElementById('inserir_base');
 
 btnFiltrar.addEventListener('click', function(){
-    filterTable();
+    filtrarTabela();
     tabelaLevantamentoPeca.style.display='none';
     carretaLabel.style.display='block';
     limparFiltro.style.display='block';
