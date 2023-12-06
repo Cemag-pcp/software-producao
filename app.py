@@ -579,7 +579,7 @@ def get_base_carretas():
 
         # Adicionar colunas extras no final de cada linha no corpo do HTML
         tbody_html = tbody_html.replace('</tr>', '<td data-label="Quantidade no Estoque"><input type="number" class="form-control2"></td><td data-label="Observação"><textarea class="form-control-textarea"></textarea></td><td><button class="solicitar" id="solicitar_levantamento">Solicitar</button></td></tr>')
-
+        
         # Juntar o cabeçalho e o corpo do HTML
         df_combinado_html = thead_html + tbody_html
         

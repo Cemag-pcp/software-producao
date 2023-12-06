@@ -118,8 +118,29 @@ function enviarCarretasParaBackend(carretas,quantidade) {
     .then(response => response.json())
     .then(data => {
 
-        // Exiba o HTML na sua página
         document.getElementById('resultado').innerHTML = data.df_combinado_html;
+
+        // Adicionar data-label e remover espaços em branco
+        const table = document.getElementById('responsive');
+
+        if (table) {
+            const headerRow = table.getElementsByTagName('thead')[0].getElementsByTagName('tr')[0];
+            const cells = headerRow.getElementsByTagName('th');
+            
+            for (let j = 0; j < cells.length; j++) {
+                const cell = cells[j];
+                const labelText = cell.textContent.trim();
+
+                // Atribuir o valor ao atributo data-label
+                const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+                for (let i = 0; i < rows.length; i++) {
+                    const dataCell = rows[i].getElementsByTagName('td')[j];
+                    dataCell.setAttribute('data-label', labelText);
+                }
+            }
+        }
+        
+        console.log(data.df_combinado_html)
         
         setTimeout(function () {
             $("#loading-overlay").hide();

@@ -209,8 +209,8 @@
 
                             <button type="button" class="btn btn-primary" id="btnFiltrar">Filtrar</button>
                             <div id="botoes_levantamento">
-                                <button type="button" class="btn btn-primary" id="limparLevantamento" style="display: none;">Limpar Filtros</button>
-                                <button type="button" class="btn btn-primary" id="inserir_base" data-toggle="modal" data-target="#modal_enviar_carretas" style="display: none;">Inserir Base</button>
+                                <button type="button" class="btn btn-primary" id="limparLevantamento" style="display: none; font-size: 11px;">Limpar Filtros</button>
+                                <button type="button" class="btn btn-primary" id="inserir_base" data-toggle="modal" data-target="#modal_enviar_carretas" style="display: none; font-size: 11px;">Inserir Base</button>
                                 <button type="button" class="btn btn-primary" id="exibirTabela" style="display: none;" onclick="toggleTabela()">+</button>
                             </div>
                         </div>
@@ -310,10 +310,10 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
+                    <div style="display: flex; justify-content: space-between;">
                         <div id="dataSolicitPeca" class="col-md-6">
                             <label style="color: white;">Data</label>
-                            <input type="date" id="filtroDataSolicitPeca" name="filtroDataSolicitPeca" class="form-control2" style="width: 100%; padding: 0;">
+                            <input type="date" id="filtroDataSolicitPeca" name="filtroDataSolicitPeca" class="form-control2" style="width: 100%;">
                         </div>
                         
                         <div id="carretaSolicitPeca" class="col-md-6" style="margin-bottom: 30px;">

@@ -696,7 +696,7 @@ input[type=checkbox]{
     #botoes_levantamento{
         display: flex; 
         justify-content: space-between;
-        flex-direction: column;
+        flex-direction: row;
     }
 }
 
