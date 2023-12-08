@@ -140,8 +140,6 @@ function enviarCarretasParaBackend(carretas,quantidade) {
             }
         }
         
-        console.log(data.df_combinado_html)
-        
         setTimeout(function () {
             $("#loading-overlay").hide();
         },5000)
