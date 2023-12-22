@@ -8,6 +8,8 @@ let conjunto = document.getElementById('conjunto');
 let descricao = document.getElementById('descricao');
 let exibirTabela = document.getElementById('exibirTabela');
 let resultado = document.getElementById('resultado');
+let filtroProcesso = document.getElementById('filtroProcesso');
+let filtroCarreta = document.getElementById('filtroCarreta');
 // Função para formatar o intervalo de datas
 function parseDateRange(dateRange) {
     const dateRangeParts = dateRange.split(" - ");
@@ -159,19 +161,23 @@ dateRangeFilter.addEventListener('input', filtrarTabela);
 const btnFiltrar = document.getElementById('levantamentoButton');
 let limparFiltro = document.getElementById('limparLevantamento');
 var inserirBase = document.getElementById('inserir_base');
+var ocultButton = document.getElementById('ocultButton')
 
 btnFiltrar.addEventListener('click', function(){
     filtrarTabela();
     tabelaLevantamentoPeca.style.display='none';
-    carretaLabel.style.display='block';
+    carretaLabel.style.display='none';
     limparFiltro.style.display='block';
     inserirBase.style.display = 'block';
+    filtroProcesso.style.display = 'none';
+    filtroCarreta.style.display = 'none';
     peca.style.display='block';
-    processo.style.display='block';
+    processo.style.display='none';
     conjunto.style.display='block';
     exibirTabela.style.display='block';
     resultado.style.display='block';
     descricao.style.display='block';
+    ocultButton.style.display='block';
 });
 
 $(document).ready(function () {

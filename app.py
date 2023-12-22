@@ -513,7 +513,7 @@ def visao_geral():
 @app.route("/get_base_carretas", methods=['POST'])
 def get_base_carretas():
 
-    try:
+    # try:
         # Obtenha os dados JSON da requisição
         data = request.json
          # data = {'carretas': ['CBH6R FO SS T P750(I) M21', 'F6 SS RS/RS A45 P750(I) M23', '026020', 'F6 CS RS/RS A45 P750(I) M23', 'CBHM10000-2E SS RS/RD P750(I) M17', 'CBH6-2E FO SS RS/RD P750(I) M21', 'FTC6500 CS RS/RS BB P750(I) M22', 'FTC6500 CS RS/RS BB P750(I) M22 AV', '026054', '030671', 'CBHM5000 GR SS RD MM P750(I) M17 AV', 'CBHM6000 CA SS RD MM M21 AN', 'CBHM5000 CA SC RD ABA MM P750(I) M17 VJ', '466657CO', 'CBH5 FO SS T MM P750(I) M21 AV', 'CBH6 FO SS T MM P750(I) M22 AV', 'CBH6 FO SS T MM P750(I) M22 VM', 'CBHM5000 CA SS RD ABA MM P750(I) M17 VM', 'CBHM6000 CA SS RD ABA MM P750(I) M21 VM', 'CBHM6000 CA SC RD ABA MM P750(I) M21 VJ', 'CBH5 UG SS RD P750(I) M21', 'FTC4300 SS RS/RS BB P750(I) M22 AN', 'CBHM5000 GR SS RD MM M17 VM', 'CBHM5000 GR SS T MM M20', 'CBHM5000 GR SS RD MM M17', '318280', '318413', '031254LC', '240590', '222185', '240229']}
@@ -560,11 +560,33 @@ def get_base_carretas():
         # Crie a nova coluna 'quantidade_total' multiplicando as colunas 'quantidade_carretas' e 'quantidade'
         df_combinado['Quantidade'] = df_combinado['quantidade_carretas'] * df_combinado['quantidade']
 
+        df_combinado['Saldo'] = df_combinado['quantidade_carretas'] * df_combinado['quantidade']
+
         df_combinado['Observacao'] = ''  # Coluna para o textarea
         df_combinado['Solicitar'] = ''
         df_combinado['Quantidade no Estoque'] = ''  # Coluna para o botão
 
-        df_combinado_html = df_combinado[['processo', 'conjunto', 'codigo','descricao', 'carreta', 'Quantidade','Quantidade no Estoque','Observacao', 'Solicitar']].to_html(index=False)
+        df_filtrado = df_combinado[df_combinado['codigo'] == '433860']
+
+        print(df_filtrado)
+
+        df_final = df_combinado.groupby('codigo').agg({
+            'processo': 'first',  # assume que é o mesmo para todas as linhas agrupadas
+            'conjunto': 'first',  # assume que é o mesmo para todas as linhas agrupadas
+            'descricao': 'first',  # assume que é o mesmo para todas as linhas agrupadas
+            'quantidade_carretas': 'sum',
+            'Quantidade': 'sum',
+            'Saldo': 'sum',
+            'Quantidade no Estoque': 'first',
+            'Observacao': 'first',  # assume que é o mesmo para todas as linhas agrupadas
+            'Solicitar': 'first',  # assume que é o mesmo para todas as linhas agrupadas # assume que é o mesmo para todas as linhas agrupadas
+        }).reset_index()
+
+        df_filtrado_final = df_final[df_final['codigo'] == '433860']
+
+        print(df_filtrado_final)
+
+        df_combinado_html = df_final[['codigo','conjunto','descricao', 'Quantidade','Saldo','Quantidade no Estoque','Observacao', 'Solicitar']].to_html(index=False)
 
         # Adicionar a classe 'responsive-table' à tabela
         df_combinado_html = df_combinado_html.replace('<table border="1" class="dataframe">', '<table border="0" class="responsive-table responsive" id="responsive">')
@@ -588,9 +610,9 @@ def get_base_carretas():
         # Você pode retornar uma mensagem de sucesso ou qualquer outra coisa que desejar
         return jsonify({'message': 'Dados recebidos com sucesso!','df_combinado_html': df_combinado_html})
 
-    except Exception as e:
-        # Em caso de erro, retorne uma resposta de erro
-        return jsonify({'error': str(e)}), 500
+    # except Exception as e:
+    #     # Em caso de erro, retorne uma resposta de erro
+    #     return jsonify({'error': str(e)}), 500
 
 
 @app.route('/download-modelo-atividades', methods=['GET'])

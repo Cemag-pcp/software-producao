@@ -42,6 +42,12 @@ document.addEventListener('DOMContentLoaded', function () {
     var excel_model = document.getElementById('excel_model');
     var filtroDataSolicitPeca = document.getElementById('dataSolicitPeca')
     var filtroOrigemSolicitPeca = document.getElementById('carretaSolicitPeca')
+    var levant = document.getElementById('levant');
+    var solicitarPecasButton = document.getElementById('solicitarPecasButton');
+
+    solicitarPecasButton.addEventListener('click', function () {
+      resetarCampos()
+    })
 
     btnPesquisa.addEventListener('click', function () {
         btnPesquisa.classList.add('active');
@@ -57,6 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
         descricao.style.display='none';
         conjuntoLabel.style.display = 'block';
         col.style.display='none';
+        levant.style.display='none';
         inputDate1.style.display = 'none';
         limparLevantamento.style.display = 'none';
         inserirBase.style.display = 'none';
@@ -70,30 +77,40 @@ document.addEventListener('DOMContentLoaded', function () {
         excel_model.style.display = 'none';
     });
 
-    close.addEventListener('click', function () {
+    function resetarCampos() {
       btnLevantamento.classList.add('active');
       btnPesquisa.classList.remove('active');
       inputDate1.value = ''; // Limpa o valor do campo de data
       filtroPeca.value = ''; // Limpa a seleção de peça
       filtroProcesso.value = ''; // Limpa a seleção de processo
       filtroConjunto.value = ''; // Limpa a seleção de conjunto
+      filtroProcesso.style.display = 'none';
       pecaLabel.style.display = 'none';
-      descricao.style.display='none';
+      descricao.style.display = 'none';
       processoLabel.style.display = 'none';
       carretaLabel.style.display = 'none';
       conjuntoLabel.style.display = 'none';
-      col.style.display='block';
-      exibirTabela.style.display='none';
+      col.style.display = 'block';
+      exibirTabela.style.display = 'none';
       inputDate1.style.display = 'block';
-      data_inicial.style.display='block';
+      data_inicial.style.display = 'block';
       btnFiltrarLevantamento.style.display = 'block';
       btnFiltrar.style.display = 'none';
       limparLevantamento.style.display = 'none';
+      levant.style.display = 'flex';
       inserirBase.style.display = 'none';
-      tabelaSolicitarPeca.style.display='none';
-      tabelaLevantamentoPeca.style.display='none';
+      tabelaSolicitarPeca.style.display = 'none';
+      tabelaLevantamentoPeca.style.display = 'none';
       resultado.style.display = 'none';
-  
+    }
+    
+    // Associar ao evento de clique no botão de fechar
+    close.addEventListener('click', resetarCampos);
+    
+    // Associar ao evento de ocultar o modal
+    // Substitua 'modal_pesquisa_peca' pelo ID real do seu modal
+    $('#modal_pesquisa_peca').on('hidden.bs.modal', function () {
+      resetarCampos();
     });
 
     btnFiltrar.addEventListener('click',function(){
@@ -124,6 +141,7 @@ document.addEventListener('DOMContentLoaded', function () {
         tabelaLevantamentoPeca.style.display='none';
         resultado.style.display = 'none';
         excel_model.style.display = 'flex';
+        levant.style.display = 'flex';
     });
 
     btnSolicitada.addEventListener('click', function () {
@@ -204,3 +222,18 @@ $(document).ready(function() {
 
   });
 });
+
+function toggleFiltros() {
+  var filtros = document.getElementById('filtros');
+  var icon = document.getElementById('icon');
+
+  if (filtros.style.display === 'none') {
+      filtros.style.display = 'block';
+      icon.classList.remove('fa-maximize');
+      icon.classList.add('fa-minimize');
+  } else {
+      filtros.style.display = 'none';
+      icon.classList.remove('fa-minimize');
+      icon.classList.add('fa-maximize');
+  }
+}

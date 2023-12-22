@@ -146,7 +146,7 @@
     <!-- Modal para solicitar peças -->
     <div class="modal fade" id="modal_pesquisa_peca" tabindex="-1" role="dialog" aria-labelledby="modal_pesquisa_peca_label" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog" role="document">
-            <div class="modal-content" style="width: 300%;">
+            <div class="modal-content" style="width: 200%;">
                 <div class="modal-header">
                     <input type="button" class="modal-title active" id="modal_pesquisa_peca_label" value="Solicitar Peças">
                     <input type="button" class="modal-title" id="modal_levantamento_peca_label" value="Levantamento de Peças">
@@ -158,51 +158,59 @@
                     
                     <div>
                         <div class="container-fluid">
-                            <div class="row">
-                                <div id="coluna_data" class="col-md-6 date-input">         
-                                    <label id="data_inicial" class="date-input">Data</label>
-                                    <input type="text" class="form-control2 date-input" id="inputDate1" name="datetimes" autocomplete="off">
-                                </div>
+                            <div>
+                                <div class="form-row2">
+                                    <div id="coluna_data" class="col-md-6 date-input">         
+                                        <label id="data_inicial" class="date-input">Data</label>
+                                        <input type="text" class="form-control2 date-input" id="inputDate1" name="datetimes" autocomplete="off">
+                                    </div>
 
-                                <div id="levant" class="col-md-6">
-                                    <button type="button" class="btn btn-primary" id="levantamentoButton" style="display: none; margin-top: 30px; width: 100%;">Filtrar Data</button>
+                                    <div id="levant" class="col-md-6">
+                                        <button type="button" class="btn btn-primary" id="levantamentoButton" style="display: none; margin-top: 30px; width: 100%;font-size: 12px;">Filtrar Data</button>
+                                    </div>
                                 </div>
+                                <div style="width: 100%; display: flex; justify-content: flex-end; padding-right: 15px;padding-left: 15px;">
+                                    <button type="button" class="btn btn-primary" id="ocultButton" style="display: none; margin: 0;" onclick="toggleFiltros()"><i id="icon" class="fa-solid fa-minimize"></i></button>
+                                </div>
+                                <div id="filtros">
+                                    <div class="form-row2">
+                                        <div id="peca" class="col-md-6">
+                                            <label>Peça</label>
+                                            <select id="filtroPeca" name="filtroPeca" class="form-control2">
+                                                <option value="" selected disabled hidden></option>  
+                                                <option></option> 
+                                            </select>
+                                        </div>
 
-                                <div id="peca" class="col-md-6">
-                                    <label>Peça</label>
-                                    <select id="filtroPeca" name="filtroPeca" class="form-control2">
-                                        <option value="" selected disabled hidden></option>  
-                                        <option></option> 
-                                    </select>
-                                </div>
+                                        <div id="conjunto" class="col-md-6">
+                                            <label>Conjunto</label>
+                                            <select id="filtroConjunto" name="filtroConjunto" class="form-control2">
+                                                <option value="" selected disabled hidden></option>  
+                                            </select>
+                                        </div>
+                                    </div>
 
-                                <div id="processo" class="col-md-6">
-                                    <label>Processo</label>
-                                    <select id="filtroProcesso" name="filtroProcesso" class="form-control2">
-                                        <option value="" selected disabled hidden></option>  
-                                    </select>
-                                </div>
-                                
-                                <div id="carreta" class="col-md-6">
-                                    <label>Carreta</label>
-                                    <select id="filtroCarreta" name="filtroCarreta" class="form-control2">
-                                        <option value="" selected disabled hidden></option>  
-                                        <option></option>  
-                                    </select>
-                                </div>
-                                
-                                <div id="conjunto" class="col-md-6">
-                                    <label>Conjunto</label>
-                                    <select id="filtroConjunto" name="filtroConjunto" class="form-control2">
-                                        <option value="" selected disabled hidden></option>  
-                                    </select>
-                                </div>
+                                    <div id="descricao" class="col-md-6" style="display: none;">
+                                        <label>Descrição</label>
+                                        <select id="filtroDescricao" name="filtroDescricao" class="form-control2">
+                                            <option value="" selected disabled hidden></option>  
+                                        </select>
+                                    </div>
 
-                                <div id="descricao" class="col-md-6" style="display: none;">
-                                    <label>Descrição</label>
-                                    <select id="filtroDescricao" name="filtroDescricao" class="form-control2">
-                                        <option value="" selected disabled hidden></option>  
-                                    </select>
+                                    <div id="carreta" class="col-md-6">
+                                        <label>Carreta</label>
+                                        <select id="filtroCarreta" name="filtroCarreta" class="form-control2">
+                                            <option value="" selected disabled hidden></option>  
+                                            <option></option>  
+                                        </select>
+                                    </div>
+                                    
+                                    <div id="processo" class="col-md-6">
+                                        <label>Processo</label>
+                                        <select id="filtroProcesso" name="filtroProcesso" class="form-control2">
+                                            <option value="" selected disabled hidden></option>  
+                                        </select>
+                                    </div>
                                 </div>
                                     
                             </div>
@@ -269,7 +277,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div id="resultado" style="max-height: 300px; overflow-y: auto;">
+                    <div id="resultado" style="max-height: 500px; overflow-y: auto;">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -279,7 +287,7 @@
     </div>
     <div class="modal fade"  id="modal_enviar_carretas" tabindex="-1" role="dialog" aria-labelledby="modal_enviar_carretas_label" aria-hidden="true"  data-backdrop="static">
         <div class="modal-dialog" role="document">
-            <div class="modal-content" style="width: 300%; margin-top: 150px; overflow-y: auto;">
+            <div class="modal-content" style="width: 100%; margin-top: 150px; overflow-y: auto;">
                 <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                     <h4>Insira um arquivo para atualizar a base de carretas </h4>
                     <button type="button" id="fechar_modal_enviar_carretas" class="close" data-dismiss="modal" aria-label="Fechar">
