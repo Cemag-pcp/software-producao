@@ -571,20 +571,16 @@ def get_base_carretas():
         print(df_filtrado)
 
         df_final = df_combinado.groupby('codigo').agg({
-            'processo': 'first',  # assume que é o mesmo para todas as linhas agrupadas
-            'conjunto': 'first',  # assume que é o mesmo para todas as linhas agrupadas
-            'descricao': 'first',  # assume que é o mesmo para todas as linhas agrupadas
+            'processo': 'first', 
+            'conjunto': 'first', 
+            'descricao': 'first', 
             'quantidade_carretas': 'sum',
             'Quantidade': 'sum',
             'Saldo': 'sum',
             'Quantidade no Estoque': 'first',
-            'Observacao': 'first',  # assume que é o mesmo para todas as linhas agrupadas
-            'Solicitar': 'first',  # assume que é o mesmo para todas as linhas agrupadas # assume que é o mesmo para todas as linhas agrupadas
+            'Observacao': 'first', 
+            'Solicitar': 'first', 
         }).reset_index()
-
-        df_filtrado_final = df_final[df_final['codigo'] == '433860']
-
-        print(df_filtrado_final)
 
         df_combinado_html = df_final[['codigo','conjunto','descricao', 'Quantidade','Saldo','Quantidade no Estoque','Observacao', 'Solicitar']].to_html(index=False)
 

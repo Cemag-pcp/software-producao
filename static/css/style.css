@@ -694,7 +694,10 @@ input[type=checkbox]{
 
 #botoes_levantamento{
     display: flex; 
-    justify-content: space-between;
+    justify-content: flex-end;
+    gap: 20px;
+    padding-right: 15px;
+    padding-left: 15px;
 }
 @media(max-width:770px){
 
