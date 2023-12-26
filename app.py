@@ -573,9 +573,9 @@ def get_base_carretas():
         # Crie a nova coluna 'quantidade_total' multiplicando as colunas 'quantidade_carretas' e 'quantidade'
         df_combinado['Quantidade'] = df_combinado['quantidade_carretas'] * df_combinado['quantidade']
 
-        df_combinado = pd.merge(df_combinado, df_tabela_saldo[['codigo', 'saldo']], how='inner', on='codigo')
+        df_combinado = pd.merge(df_combinado, df_tabela_saldo[['codigo', 'saldo']], how='left', on='codigo')
 
-        print(df_combinado)
+        df_combinado['saldo'] = df_combinado['saldo'].fillna(0)
 
         df_combinado['Observacao'] = ''  # Coluna para o textarea
         df_combinado['Solicitar'] = ''
