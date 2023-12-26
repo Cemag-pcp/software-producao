@@ -551,24 +551,35 @@ def get_base_carretas():
         SELECT processo, conjunto, codigo, descricao, quantidade, carreta FROM pcp.tb_base_carretas_explodidas WHERE carreta in {lista_carretas}
         """
 
+        sql_saldo = f"""
+        SELECT segundo_agrupamento, saldo FROM software_producao.tb_saldo
+        """
+
         cur.execute(sql)
         tabela_filtrada = cur.fetchall()
         df_tabela_filtrada = pd.DataFrame(tabela_filtrada)
+
+        cur.execute(sql_saldo)
+        tabela_saldo = cur.fetchall()
+        df_tabela_saldo= pd.DataFrame(tabela_saldo)
+
+        df_tabela_saldo['codigo'] = df_tabela_saldo['segundo_agrupamento'].str.split(' - ', expand=True)[0]
+        df_tabela_saldo['descricao'] = df_tabela_saldo['segundo_agrupamento'].str.split(' - ', expand=True)[1]
+
+        print(df_tabela_saldo)
 
         df_combinado = pd.merge(df_tabela_filtrada, df_agrupado, how='inner', on='carreta')
 
         # Crie a nova coluna 'quantidade_total' multiplicando as colunas 'quantidade_carretas' e 'quantidade'
         df_combinado['Quantidade'] = df_combinado['quantidade_carretas'] * df_combinado['quantidade']
 
-        df_combinado['Saldo'] = df_combinado['quantidade_carretas'] * df_combinado['quantidade']
+        df_combinado = pd.merge(df_combinado, df_tabela_saldo[['codigo', 'saldo']], how='inner', on='codigo')
+
+        print(df_combinado)
 
         df_combinado['Observacao'] = ''  # Coluna para o textarea
         df_combinado['Solicitar'] = ''
         df_combinado['Quantidade no Estoque'] = ''  # Coluna para o botão
-
-        df_filtrado = df_combinado[df_combinado['codigo'] == '433860']
-
-        print(df_filtrado)
 
         df_final = df_combinado.groupby('codigo').agg({
             'processo': 'first', 
@@ -576,13 +587,13 @@ def get_base_carretas():
             'descricao': 'first', 
             'quantidade_carretas': 'sum',
             'Quantidade': 'sum',
-            'Saldo': 'sum',
+            'saldo': 'first',
             'Quantidade no Estoque': 'first',
             'Observacao': 'first', 
             'Solicitar': 'first', 
         }).reset_index()
 
-        df_combinado_html = df_final[['codigo','conjunto','descricao', 'Quantidade','Saldo','Quantidade no Estoque','Observacao', 'Solicitar']].to_html(index=False)
+        df_combinado_html = df_final[['codigo','conjunto','descricao', 'Quantidade','saldo','Quantidade no Estoque','Observacao', 'Solicitar']].to_html(index=False)
 
         # Adicionar a classe 'responsive-table' à tabela
         df_combinado_html = df_combinado_html.replace('<table border="1" class="dataframe">', '<table border="0" class="responsive-table responsive" id="responsive">')
