@@ -1,6 +1,8 @@
 // Filtro para tabela inicial
 const dateRangeFilter = document.getElementById('inputDate1');
 let tabelaLevantamentoPeca = document.getElementById('tabela-levantamento-peca');
+var carretas_utilizadas = document.getElementById('carretas_utilizadas');
+var base_carretas = document.getElementById('base_carretas');
 let carretaLabel = document.getElementById('carreta');
 let peca = document.getElementById('peca');
 let processo = document.getElementById('processo');
@@ -98,9 +100,55 @@ function enviarCarretasParaBackend(carretas,quantidade) {
     $('#loading-overlay').show()
     const carretasArray = Array.from(carretas);
     const quantCellArray = Array.from(quantidade);
+    var inputDate1 = document.getElementById('inputDate1');
+    var col = document.getElementById('coluna_data');
+    var data_inicial = document.getElementById('data_inicial');
+    var btnFiltrar = document.getElementById('btnFiltrar');
+    var filtroPeca = document.getElementById('filtroPeca');
+    var filtroProcesso = document.getElementById('filtroProcesso');
+    var filtroConjunto = document.getElementById('filtroConjunto');
+    var btnFiltrarLevantamento = document.getElementById('levantamentoButton');
+    var limparLevantamento = document.getElementById('limparLevantamento');
+    var inserirBase = document.getElementById('inserir_base');
+    var exibirTabela = document.getElementById('exibirTabela');
+    var tabelaSolicitarPeca = document.getElementById('tabela-solicitar-peca');
+    var tabelaLevantamentoPeca = document.getElementById('tabela-levantamento-peca');
+    var pecaLabel = document.getElementById('peca');
+    var processoLabel = document.getElementById('processo');
+    var descricao = document.getElementById('descricao');
+    var carretaLabel = document.getElementById('carreta');
+    var conjuntoLabel = document.getElementById('conjunto');
+    var resultado = document.getElementById('resultado');
+    var levant = document.getElementById('levant');
+    var carretas_utilizadas = document.getElementById('carretas_utilizadas');
+    var base_carretas = document.getElementById('base_carretas');
 
     if(carretasArray == '' || carretasArray.length == 1){
         alert("Erro ao encontrar carreta para essas datas")
+        inputDate1.value = ''; // Limpa o valor do campo de data
+        filtroPeca.value = ''; // Limpa a seleção de peça
+        filtroProcesso.value = ''; // Limpa a seleção de processo
+        filtroConjunto.value = ''; // Limpa a seleção de conjunto
+        filtroProcesso.style.display = 'none';
+        pecaLabel.style.display = 'none';
+        descricao.style.display = 'none';
+        processoLabel.style.display = 'none';
+        carretaLabel.style.display = 'none';
+        conjuntoLabel.style.display = 'none';
+        col.style.display = 'block';
+        exibirTabela.style.display = 'none';
+        inputDate1.style.display = 'block';
+        data_inicial.style.display = 'block';
+        btnFiltrarLevantamento.style.display = 'block';
+        btnFiltrar.style.display = 'none';
+        limparLevantamento.style.display = 'none';
+        levant.style.display = 'flex';
+        inserirBase.style.display = 'none';
+        tabelaSolicitarPeca.style.display = 'none';
+        tabelaLevantamentoPeca.style.display = 'none';
+        carretas_utilizadas.style.display = 'none';
+        base_carretas.style.display = 'none';
+        resultado.style.display = 'none';
         $('#loading-overlay').hide()
         return 
     } 
@@ -166,6 +214,8 @@ var ocultButton = document.getElementById('ocultButton')
 btnFiltrar.addEventListener('click', function(){
     filtrarTabela();
     tabelaLevantamentoPeca.style.display='none';
+    carretas_utilizadas.style.display = 'none';
+    base_carretas.style.display = 'block';
     carretaLabel.style.display='none';
     limparFiltro.style.display='block';
     inserirBase.style.display = 'block';

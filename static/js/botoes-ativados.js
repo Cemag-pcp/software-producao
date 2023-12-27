@@ -44,6 +44,8 @@ document.addEventListener('DOMContentLoaded', function () {
     var filtroOrigemSolicitPeca = document.getElementById('carretaSolicitPeca')
     var levant = document.getElementById('levant');
     var solicitarPecasButton = document.getElementById('solicitarPecasButton');
+    var carretas_utilizadas = document.getElementById('carretas_utilizadas');
+    var base_carretas = document.getElementById('base_carretas');
 
     solicitarPecasButton.addEventListener('click', function () {
       resetarCampos()
@@ -73,6 +75,8 @@ document.addEventListener('DOMContentLoaded', function () {
         btnFiltrar.style.display = 'block';
         tabelaSolicitarPeca.style.display= 'none';
         tabelaLevantamentoPeca.style.display='none';
+        carretas_utilizadas.style.display = 'none';
+        base_carretas.style.display = 'none';
         resultado.style.display = 'none';
         excel_model.style.display = 'none';
     });
@@ -101,6 +105,8 @@ document.addEventListener('DOMContentLoaded', function () {
       inserirBase.style.display = 'none';
       tabelaSolicitarPeca.style.display = 'none';
       tabelaLevantamentoPeca.style.display = 'none';
+      carretas_utilizadas.style.display = 'none';
+      base_carretas.style.display = 'none';
       resultado.style.display = 'none';
     }
     
@@ -139,6 +145,8 @@ document.addEventListener('DOMContentLoaded', function () {
         inserirBase.style.display = 'none';
         tabelaSolicitarPeca.style.display='none';
         tabelaLevantamentoPeca.style.display='none';
+        carretas_utilizadas.style.display = 'none';
+        base_carretas.style.display = 'none';
         resultado.style.display = 'none';
         excel_model.style.display = 'flex';
         levant.style.display = 'flex';

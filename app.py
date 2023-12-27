@@ -566,8 +566,6 @@ def get_base_carretas():
         df_tabela_saldo['codigo'] = df_tabela_saldo['segundo_agrupamento'].str.split(' - ', expand=True)[0]
         df_tabela_saldo['descricao'] = df_tabela_saldo['segundo_agrupamento'].str.split(' - ', expand=True)[1]
 
-        print(df_tabela_saldo)
-
         df_combinado = pd.merge(df_tabela_filtrada, df_agrupado, how='inner', on='carreta')
 
         # Crie a nova coluna 'quantidade_total' multiplicando as colunas 'quantidade_carretas' e 'quantidade'

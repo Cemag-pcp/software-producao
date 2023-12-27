@@ -1,6 +1,7 @@
 function toggleTabela() {
     // Obtém a referência da tabela e do botão
     var tabela = document.getElementById('tabela-levantamento-peca');
+    var carretas_utilizadas = document.getElementById('carretas_utilizadas');
     var botao = document.getElementById('exibirTabela');
 
     // Verifica o estado atual da tabela (se está visível ou não)
@@ -9,9 +10,11 @@ function toggleTabela() {
     // Altera o estado da tabela e o texto do botão com base no estado atual
     if (tabelaVisivel) {
         tabela.style.display = 'none';
+        carretas_utilizadas.style.display = 'none';
         botao.innerText = '+';
     } else {
         tabela.style.display = 'block';
+        carretas_utilizadas.style.display = 'block';
         botao.innerText = '-';
     }
 }
