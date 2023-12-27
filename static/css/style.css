@@ -632,6 +632,10 @@ tbody tr.hide{
         color: var(--cores-letras);
         font-size: 10px;
     }
+    
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        max-width: 180px;
+    }
 }
 
 .daterangepicker{

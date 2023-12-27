@@ -164,8 +164,11 @@ def solicitar_peca():
     observacao = data_json['observacao']
     origem = data_json['origem']
     dadosTabela = data_json['dadosTabela']
+    dataRange = data_json['dataRange']
 
     dataFrame = pd.DataFrame(dadosTabela)
+
+    print(dataFrame)
 
     dataFrame_filtrado = dataFrame.loc[dataFrame[1] == carreta]
 
@@ -177,9 +180,11 @@ def solicitar_peca():
         quantidadeEstoque = float(quantidadeEstoque) 
         quantidade = quantidade - quantidadeEstoque
 
+    print(dataRange)
+
     sql = """
         INSERT INTO software_producao.tb_solicitacao_pecas (carreta,codigo,quantidade,descricao,conjunto,observacao,origem,processo,data_carreta) values ('{}','{}',{},'{}','{}','{}','{}','{}','{}')
-    """.format(carreta, codigo, quantidade, descricao, conjunto, observacao,origem,processo,data_carreta)
+    """.format(carreta, codigo, quantidade, descricao, conjunto, observacao,origem,processo,dataRange)
 
     cur.execute(sql)
 
@@ -539,17 +544,25 @@ def get_base_carretas():
         # Agrupa por 'carreta' e soma a coluna 'quantidade_carretas'
         df_agrupado = df.groupby('carreta')['quantidade_carretas'].sum().reset_index()
 
-        lista_carretas = df_agrupado['carreta'].values.tolist()
+        lista_carretas = df_agrupado['carreta'].tolist()
     
-        lista_carretas = tuple(lista_carretas)
+        print(len(lista_carretas))
 
         conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER,
                             password=DB_PASS, host=DB_HOST)
         cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
-        sql = f"""
-        SELECT processo, conjunto, codigo, descricao, quantidade, carreta FROM pcp.tb_base_carretas_explodidas WHERE carreta in {lista_carretas}
-        """
+        lista_carretas = tuple(lista_carretas)
+
+        if len(lista_carretas) != 1:
+            sql = f"""
+                    SELECT processo, conjunto, codigo, descricao, quantidade, carreta FROM pcp.tb_base_carretas_explodidas WHERE carreta in {lista_carretas}
+                """
+        else:
+            lista_carretas = lista_carretas[0]
+            sql = f"""
+                    SELECT processo, conjunto, codigo, descricao, quantidade, carreta FROM pcp.tb_base_carretas_explodidas WHERE carreta in ('{lista_carretas}')
+                """
 
         sql_saldo = f"""
         SELECT segundo_agrupamento, saldo FROM software_producao.tb_saldo

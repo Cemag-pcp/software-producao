@@ -123,7 +123,7 @@ function enviarCarretasParaBackend(carretas,quantidade) {
     var carretas_utilizadas = document.getElementById('carretas_utilizadas');
     var base_carretas = document.getElementById('base_carretas');
 
-    if(carretasArray == '' || carretasArray.length == 1){
+    if(carretasArray == '' || carretasArray.length == 0){
         alert("Erro ao encontrar carreta para essas datas")
         inputDate1.value = ''; // Limpa o valor do campo de data
         filtroPeca.value = ''; // Limpa a seleção de peça
@@ -245,9 +245,14 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    $('#filtroCarreta').select2({
+    $('#filtroConjunto').select2({
         width: '100%',
         dropdownParent: $('#modal_pesquisa_peca')
     });
 });
 
+$(document).ready(function() {
+    $('#resultado').on('click', function() {
+        $(this).focus();
+    });
+});

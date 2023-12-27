@@ -113,29 +113,29 @@ divResultado.addEventListener("click", function (event) {
     const row = event.target.parentElement.parentElement;
 
     // Obtenha os dados relevantes da linha
-    const processo = row.querySelector("td:first-child").textContent;
+    const dataRange = document.getElementById("inputDate1").value;
+    const codigo = row.querySelector("td:first-child").textContent;
     const conjunto = row.querySelector("td:nth-child(2)").textContent;
-    const codigo = row.querySelector("td:nth-child(3)").textContent;
-    const descricao = row.querySelector("td:nth-child(4)").textContent;
+    const descricao = row.querySelector("td:nth-child(3)").textContent;
+    const quantidadeNecessaria = Number(row.querySelector("td:nth-child(4)").textContent);
     const carreta = row.querySelector("td:nth-child(5)").textContent;
-    const quantidadeNecessaria = Number(row.querySelector("td:nth-child(6)").textContent);
-    const quantidadeEstoque = row.querySelector("td:nth-child(7) input").value;
-    const observacao = row.querySelector("td:nth-child(8) textarea").value;
+    const quantidadeEstoque = row.querySelector("td:nth-child(6) input").value;
+    const observacao = row.querySelector("td:nth-child(7) textarea").value;
 
         // Adicione verificação para quantidadeNecessaria se necessário
         if (!quantidadeNecessaria || !quantidadeEstoque || quantidadeEstoque < 0) {
             alert("Preencha os campos de quantidade");
-        } else if(quantidadeEstoque >= quantidadeNecessaria){
-            alert("Quantidade no estoque já é maior ou igual a quantidade necessária");
+        } else if (quantidadeEstoque > quantidadeNecessaria) {
+            alert("A quantidade no estoque já é maior que a quantidade necessária");
         } else {
             let origem = "Levantamento";
             console.log(quantidadeNecessaria,quantidadeEstoque)
-            enviarDadosParaBackend(processo,codigo, descricao, carreta, conjunto, observacao, quantidadeNecessaria,quantidadeEstoque,origem);
+            enviarDadosParaBackend('',codigo, descricao, carreta, conjunto, observacao, quantidadeNecessaria,quantidadeEstoque,origem,dataRange);
         }
     }
 });
 
-function enviarDadosParaBackend(processo,codigo, descricao, carreta, conjunto, observacao, quantidadeSolicitada, quantidadeEstoque='',origem) {
+function enviarDadosParaBackend(processo,codigo, descricao, carreta, conjunto, observacao, quantidadeSolicitada, quantidadeEstoque='',origem,dataRange) {
     // Faça uma solicitação para enviar os dados para o backend
     const tabelaId = $('#tabela-levantamento-peca').data('tabela-id');
 
@@ -170,6 +170,7 @@ function enviarDadosParaBackend(processo,codigo, descricao, carreta, conjunto, o
             quantidadeSolicitada: quantidadeSolicitada,
             quantidadeEstoque: quantidadeEstoque,
             origem:origem,
+            dataRange:dataRange,
             dadosTabela: dadosTabela
         }),
     })

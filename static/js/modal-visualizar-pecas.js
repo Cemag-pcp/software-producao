@@ -24,10 +24,8 @@ $(document).ready(function() {
                     const row = $('<tr>');
                     
                     row.html(`
-                        <td data-label="Chave">${item[0]}</td>
                         <td data-label="Data">${item[1]}</td>
                         <td data-label="Data da Carreta">${item[11]}</td>
-                        <td data-label="Carreta">${item[2]}</td>
                         <td data-label="Código">${item[3]}</td>
                         <td data-label="Descrição">${item[6]}</td>
                         <td data-label="Conjunto">${item[7]}</td>
@@ -65,7 +63,6 @@ $('#modal_visualizar_peca_feita_input').click(function() {
                     const row = $('<tr>');
                     
                     row.html(`
-                    <td data-label="Chave">${item[0]}</td>
                     <td data-label="Data">${item[1]}</td>
                     <td data-label="Data da Carga">${item[11]}</td>
                     <td data-label="Carreta">${item[2]}</td>

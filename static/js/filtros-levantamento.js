@@ -43,7 +43,9 @@ $(document).ready(function () {
 function fillSelect(selectId, options, selectedValue) {
     var select = $('#' + selectId);
     select.empty(); // Limpa as opções existentes
-    select.append('<option></option>'); // Adiciona uma opção em branco
+    select.append('<option value="" hidden></option>'); // Adiciona a opção "Limpar filtro"
+    select.append('<option value="" hidden>Sem filtro</option>'); // Adiciona a opção "Limpar filtro"
+
     $.each(options, function (index, value) {
         var option = $('<option>', {
             value: value,
@@ -55,6 +57,16 @@ function fillSelect(selectId, options, selectedValue) {
         }
 
         select.append(option);
+    });
+
+    select.change(function() {
+        var selectedText = $(this).find('option:selected').text();
+        
+        if (selectedText === "Limpar filtro" || selectedText === "Sem filtro") {
+            // Limpa o valor do filtro
+            $(this).text("");
+            // Faça qualquer outra ação necessária aqui
+        }
     });
 }
 

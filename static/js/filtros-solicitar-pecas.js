@@ -1,6 +1,10 @@
 $('#filtroDataSolicitPeca, #filtroOrigemSolicitPeca').change(function() {
     const selectedDate = $('#filtroDataSolicitPeca').val();
     const selectedOrigem = $('#filtroOrigemSolicitPeca').val();
+
+    if (selectedDate.includes(' - Invalid date')) {
+        selectedDate = '';
+    }
     
     filtrarTabelaSolicitadas(selectedDate, selectedOrigem);
 });
@@ -13,11 +17,11 @@ function filtrarTabelaSolicitadas(selectedDate, selectedOrigem) {
         const linhaDataElement = $(this).find('td[data-label="Data da Carreta"]');
         const rowOrigem = $(this).find('td[data-label="Origem"]').text();
         const linhaData = linhaDataElement.text();
-        
-        const formattedSelectedDate = formatDate(selectedDate);
+
+        console.log(selectedDate)
 
         // Verifica se a data e a origem correspondem aos critérios de filtro
-        const dateMatches = formattedSelectedDate === '' || linhaData === formattedSelectedDate;
+        const dateMatches = selectedDate === '' || linhaData === selectedDate;
         const origemMatches = selectedOrigem === '' || rowOrigem === selectedOrigem;
 
         if (dateMatches && origemMatches) {

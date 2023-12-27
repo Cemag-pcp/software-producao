@@ -178,7 +178,6 @@
                                             <label>Peça</label>
                                             <select id="filtroPeca" name="filtroPeca" class="form-control2">
                                                 <option value="" selected disabled hidden></option>  
-                                                <option></option> 
                                             </select>
                                         </div>
 
@@ -295,7 +294,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div id="excel_model" style="display: none; margin-bottom: 20px;">
+                <div id="excel_model" style="margin-bottom: 20px;">
                     <a href="{{ url_for('download_modelo_excel') }}" download><i class="fa-solid fa-download"></i> Excel/Csv Modelo</a>
                 </div>
                 <form id="fileForm" enctype="multipart/form-data">
@@ -322,7 +321,7 @@
                     <div style="display: flex; justify-content: space-between;">
                         <div id="dataSolicitPeca" class="col-md-6">
                             <label style="color: white;">Data</label>
-                            <input type="date" id="filtroDataSolicitPeca" name="filtroDataSolicitPeca" class="form-control2" style="width: 100%;">
+                            <input id="filtroDataSolicitPeca" name="datetimes" class="form-control2" style="width: 100%;">
                         </div>
                         
                         <div id="carretaSolicitPeca" class="col-md-6" style="margin-bottom: 30px;">
@@ -338,10 +337,8 @@
                         <table class='responsive-table'>
                             <thead>
                                 <tr>
-                                    <th class="cabecalho">Chave</th>
                                     <th class="cabecalho">Data solicitada</th>
                                     <th class="cabecalho">Data Carga</th>
-                                    <th class="cabecalho">Carreta</th>
                                     <th class="cabecalho">Código</th>
                                     <th class="cabecalho">Descrição</th>
                                     <th class="cabecalho">Conjunto</th>
@@ -353,10 +350,8 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td data-label="Chave"></td>
                                     <td data-label="Data"></td>
                                     <td data-label="Data da Carga"></td>
-                                    <td data-label="Carreta"></td>
                                     <td data-label="Código"></td>
                                     <td data-label="Descrição"></td>
                                     <td data-label="Conjunto"></td>
