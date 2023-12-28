@@ -22,15 +22,6 @@ $(document).ready(function () {
         }, 6000); // 3000 milissegundos = 3 segundos
     });
 
-    // Manipulador de eventos para o botão de limpar filtros
-    $('#limparLevantamento').click(function () {
-        // Limpa os valores dos selects
-        $('#filtroConjunto, #filtroPeca, #filtroDescricao').val('');
-
-        // Chama a função updateFilters para reexibir todas as linhas na tabela
-        updateFilters();
-    });
-
     // Manipuladores de eventos para os selects
     $('#filtroConjunto').change(updateFilters);
     $('#filtroPeca').change(updateFilters);
