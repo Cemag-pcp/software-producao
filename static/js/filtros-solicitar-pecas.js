@@ -18,8 +18,6 @@ function filtrarTabelaSolicitadas(selectedDate, selectedOrigem) {
         const rowOrigem = $(this).find('td[data-label="Origem"]').text();
         const linhaData = linhaDataElement.text();
 
-        console.log(selectedDate)
-
         // Verifica se a data e a origem correspondem aos critérios de filtro
         const dateMatches = selectedDate === '' || linhaData === selectedDate;
         const origemMatches = selectedOrigem === '' || rowOrigem === selectedOrigem;

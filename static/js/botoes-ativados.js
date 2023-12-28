@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var filtroCarreta = document.getElementById('filtroCarreta');
     var filtroConjunto = document.getElementById('filtroConjunto');
     var btnFiltrarLevantamento = document.getElementById('levantamentoButton');
-    var limparLevantamento = document.getElementById('limparLevantamento');
+    // var limparLevantamento = document.getElementById('limparLevantamento');
     var inserirBase = document.getElementById('inserir_base');
     var exibirTabela = document.getElementById('exibirTabela');
     var tabelaSolicitarPeca = document.getElementById('tabela-solicitar-peca');
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
         col.style.display='none';
         levant.style.display='none';
         inputDate1.style.display = 'none';
-        limparLevantamento.style.display = 'none';
+        // limparLevantamento.style.display = 'none';
         inserirBase.style.display = 'none';
         data_inicial.style.display='none';
         btnFiltrarLevantamento.style.display = 'none';
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
       data_inicial.style.display = 'block';
       btnFiltrarLevantamento.style.display = 'block';
       btnFiltrar.style.display = 'none';
-      limparLevantamento.style.display = 'none';
+      // limparLevantamento.style.display = 'none';
       levant.style.display = 'flex';
       inserirBase.style.display = 'none';
       tabelaSolicitarPeca.style.display = 'none';
@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function () {
         data_inicial.style.display='block';
         btnFiltrarLevantamento.style.display = 'block';
         btnFiltrar.style.display = 'none';
-        limparLevantamento.style.display = 'none';
+        // limparLevantamento.style.display = 'none';
         inserirBase.style.display = 'none';
         tabelaSolicitarPeca.style.display='none';
         tabelaLevantamentoPeca.style.display='none';

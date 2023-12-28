@@ -24,6 +24,7 @@ $(document).ready(function() {
                     const row = $('<tr>');
                     
                     row.html(`
+                        <td data-label="Chave" style="display: none;">${item[0]}</td>
                         <td data-label="Data">${item[1]}</td>
                         <td data-label="Data da Carreta">${item[11]}</td>
                         <td data-label="Código">${item[3]}</td>
@@ -63,9 +64,9 @@ $('#modal_visualizar_peca_feita_input').click(function() {
                     const row = $('<tr>');
                     
                     row.html(`
+                    <td data-label="Chave" style="display: none;">${item[0]}</td>
                     <td data-label="Data">${item[1]}</td>
                     <td data-label="Data da Carga">${item[11]}</td>
-                    <td data-label="Carreta">${item[2]}</td>
                     <td data-label="Código">${item[3]}</td>
                     <td data-label="Descrição">${item[6]}</td>
                     <td data-label="Conjunto">${item[7]}</td>
@@ -113,6 +114,7 @@ $('#modal_visualizar_peca_feita').on('shown.bs.modal', function (e) {
 
 function pecaConcluida(chave) {
     $("#loading-overlay").show();
+    console.log(chave)
     // Faça uma solicitação para enviar os dados para o backend
     fetch("/peca-concluida", {
         method: "POST",
@@ -138,10 +140,8 @@ function pecaConcluida(chave) {
                     newData.forEach(function(item) {
                         const row = $('<tr>');
                         row.html(`
-                            <td>${item[0]}</td>
                             <td>${item[1]}</td>
                             <td>${item[11]}</td>
-                            <td>${item[2]}</td>
                             <td>${item[3]}</td>
                             <td>${item[6]}</td>
                             <td>${item[7]}</td>

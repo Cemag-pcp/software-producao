@@ -108,7 +108,7 @@ function enviarCarretasParaBackend(carretas,quantidade) {
     var filtroProcesso = document.getElementById('filtroProcesso');
     var filtroConjunto = document.getElementById('filtroConjunto');
     var btnFiltrarLevantamento = document.getElementById('levantamentoButton');
-    var limparLevantamento = document.getElementById('limparLevantamento');
+    // var limparLevantamento = document.getElementById('limparLevantamento');
     var inserirBase = document.getElementById('inserir_base');
     var exibirTabela = document.getElementById('exibirTabela');
     var tabelaSolicitarPeca = document.getElementById('tabela-solicitar-peca');
@@ -141,7 +141,7 @@ function enviarCarretasParaBackend(carretas,quantidade) {
         data_inicial.style.display = 'block';
         btnFiltrarLevantamento.style.display = 'block';
         btnFiltrar.style.display = 'none';
-        limparLevantamento.style.display = 'none';
+        // limparLevantamento.style.display = 'none';
         levant.style.display = 'flex';
         inserirBase.style.display = 'none';
         tabelaSolicitarPeca.style.display = 'none';
@@ -198,6 +198,7 @@ function enviarCarretasParaBackend(carretas,quantidade) {
         setTimeout(function () {
             $("#loading-overlay").hide();
         },5000)
+        alert('Erro ao encontrar carretas para essa data')
         console.error('Erro ao enviar carretas para o backend:', error);
         
         // Exiba um alerta informando que ocorreu um erro
@@ -207,7 +208,7 @@ function enviarCarretasParaBackend(carretas,quantidade) {
 // Adicione um evento de entrada ao campo de intervalo de datas para chamar a função de filtro
 dateRangeFilter.addEventListener('input', filtrarTabela);
 const btnFiltrar = document.getElementById('levantamentoButton');
-let limparFiltro = document.getElementById('limparLevantamento');
+// let limparFiltro = document.getElementById('limparLevantamento');
 var inserirBase = document.getElementById('inserir_base');
 var ocultButton = document.getElementById('ocultButton')
 
@@ -217,7 +218,7 @@ btnFiltrar.addEventListener('click', function(){
     carretas_utilizadas.style.display = 'none';
     base_carretas.style.display = 'block';
     carretaLabel.style.display='none';
-    limparFiltro.style.display='block';
+    // limparFiltro.style.display='block';
     inserirBase.style.display = 'block';
     filtroProcesso.style.display = 'none';
     filtroCarreta.style.display = 'none';

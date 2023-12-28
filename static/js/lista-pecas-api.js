@@ -101,7 +101,7 @@ tableBody.addEventListener("click", function (event) {
         } else {
             let origem = "Solicitadas";
             console.log(processo,codigo, descricao, carreta, conjunto, observacao, quantidadeSolicitada,'',origem)
-            enviarDadosParaBackend(processo,codigo, descricao, carreta, conjunto, observacao, quantidadeSolicitada,'',origem);
+            enviarDadosParaBackend(processo,codigo, descricao, carreta, conjunto, observacao, quantidadeSolicitada,'',origem,'');
         }
     }
 });

@@ -44,7 +44,7 @@ function fillSelect(selectId, options, selectedValue) {
     var select = $('#' + selectId);
     select.empty(); // Limpa as opções existentes
     select.append('<option value="" hidden></option>'); // Adiciona a opção "Limpar filtro"
-    select.append('<option value="" hidden>Sem filtro</option>'); // Adiciona a opção "Limpar filtro"
+    select.append('<option value="" hidden>Limpar filtro</option>'); // Adiciona a opção "Limpar filtro"
 
     $.each(options, function (index, value) {
         var option = $('<option>', {
