@@ -29,6 +29,7 @@ $(document).ready(function() {
                         <td data-label="Data da Carreta">${item[11]}</td>
                         <td data-label="Código">${item[3]}</td>
                         <td data-label="Descrição">${item[6]}</td>
+                        <td data-label="Matéria Prima">${item[12]}</td>
                         <td data-label="Conjunto">${item[7]}</td>
                         <td data-label="Quantidade">${item[4]}</td>
                         <td data-label="Observação">${item[8]}</td>
@@ -67,6 +68,7 @@ $('#modal_visualizar_peca_feita_input').click(function() {
                     <td data-label="Chave" style="display: none;">${item[0]}</td>
                     <td data-label="Data">${item[1]}</td>
                     <td data-label="Data da Carga">${item[11]}</td>
+                    <td data-label="Matéria Prima">${item[12]}</td>
                     <td data-label="Código">${item[3]}</td>
                     <td data-label="Descrição">${item[6]}</td>
                     <td data-label="Conjunto">${item[7]}</td>
