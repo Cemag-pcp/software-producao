@@ -1,5 +1,5 @@
 $('#filtroDataSolicitPeca, #filtroOrigemSolicitPeca').change(function() {
-    const selectedDate = $('#filtroDataSolicitPeca').val();
+    let selectedDate = $('#filtroDataSolicitPeca').val();
     const selectedOrigem = $('#filtroOrigemSolicitPeca').val();
 
     if (selectedDate.includes(' - Invalid date')) {
