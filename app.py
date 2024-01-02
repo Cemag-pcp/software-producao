@@ -165,6 +165,7 @@ def solicitar_peca():
     origem = data_json['origem']
     dadosTabela = data_json['dadosTabela']
     dataRange = data_json['dataRange']
+    materiaPrima = data_json['materiaPrima']
 
     dataFrame = pd.DataFrame(dadosTabela)
 
@@ -183,8 +184,8 @@ def solicitar_peca():
     print(dataRange)
 
     sql = """
-        INSERT INTO software_producao.tb_solicitacao_pecas (carreta,codigo,quantidade,descricao,conjunto,observacao,origem,processo,data_carreta) values ('{}','{}',{},'{}','{}','{}','{}','{}','{}')
-    """.format(carreta, codigo, quantidade, descricao, conjunto, observacao,origem,processo,dataRange)
+        INSERT INTO software_producao.tb_solicitacao_pecas (carreta,codigo,quantidade,descricao,conjunto,materia_prima,observacao,origem,processo,data_carreta) values ('{}','{}',{},'{}','{}','{}','{}','{}','{}','{}')
+    """.format(carreta, codigo, quantidade, descricao, conjunto, materiaPrima,observacao,origem,processo,dataRange)
 
     cur.execute(sql)
 
@@ -529,6 +530,8 @@ def get_base_carretas():
         # Crie um DataFrame a partir dos dados
         df = pd.DataFrame(data_list)
 
+        print(df)
+
         df = df[~df['carreta'].astype(str).str.match(r'^\d')]
 
         # Lista de sufixos a serem removidos
@@ -554,12 +557,12 @@ def get_base_carretas():
 
         if len(lista_carretas) != 1:
             sql = f"""
-                    SELECT processo, conjunto, codigo, descricao, quantidade, carreta FROM pcp.tb_base_carretas_explodidas WHERE carreta in {lista_carretas}
+                    SELECT processo, conjunto, materia_prima, codigo, descricao, quantidade, carreta FROM pcp.tb_base_carretas_explodidas WHERE carreta in {lista_carretas}
                 """
         else:
             lista_carretas = lista_carretas[0]
             sql = f"""
-                    SELECT processo, conjunto, codigo, descricao, quantidade, carreta FROM pcp.tb_base_carretas_explodidas WHERE carreta in ('{lista_carretas}')
+                    SELECT processo, conjunto, materia_prima, codigo, descricao, quantidade, carreta FROM pcp.tb_base_carretas_explodidas WHERE carreta in ('{lista_carretas}')
                 """
 
         sql_saldo = f"""
@@ -586,23 +589,31 @@ def get_base_carretas():
 
         df_combinado['saldo'] = df_combinado['saldo'].fillna(0)
 
+
+        df_combinado['Materia Prima'] = df_combinado['materia_prima']  # Coluna para o textarea
         df_combinado['Observacao'] = ''  # Coluna para o textarea
         df_combinado['Solicitar'] = ''
         df_combinado['Quantidade no Estoque'] = ''  # Coluna para o botão
+
+        resultado_filtrado = df_combinado[df_combinado['codigo'] == '018338']
+
+        # Exibindo o resultado
+        print(resultado_filtrado)
 
         df_final = df_combinado.groupby('codigo').agg({
             'processo': 'first', 
             'conjunto': 'first', 
             'descricao': 'first', 
-            'quantidade_carretas': 'sum',
-            'Quantidade': 'sum',
+            'Materia Prima':'first',
+            'quantidade_carretas': 'first',
+            'Quantidade': 'first',
             'saldo': 'first',
             'Quantidade no Estoque': 'first',
             'Observacao': 'first', 
             'Solicitar': 'first', 
         }).reset_index()
 
-        df_combinado_html = df_final[['codigo','conjunto','descricao', 'Quantidade','saldo','Quantidade no Estoque','Observacao', 'Solicitar']].to_html(index=False)
+        df_combinado_html = df_final[['codigo','conjunto','descricao','Materia Prima', 'Quantidade','saldo','Quantidade no Estoque','Observacao', 'Solicitar']].to_html(index=False)
 
         # Adicionar a classe 'responsive-table' à tabela
         df_combinado_html = df_combinado_html.replace('<table border="1" class="dataframe">', '<table border="0" class="responsive-table responsive" id="responsive">')
