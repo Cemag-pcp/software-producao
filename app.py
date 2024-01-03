@@ -589,16 +589,14 @@ def get_base_carretas():
 
         df_combinado['saldo'] = df_combinado['saldo'].fillna(0)
 
-
         df_combinado['Materia Prima'] = df_combinado['materia_prima']  # Coluna para o textarea
         df_combinado['Observacao'] = ''  # Coluna para o textarea
         df_combinado['Solicitar'] = ''
         df_combinado['Quantidade no Estoque'] = ''  # Coluna para o botão
 
-        resultado_filtrado = df_combinado[df_combinado['codigo'] == '018338']
+        df_combinado = df_combinado.groupby(['codigo', 'carreta']).first().reset_index()
 
-        # Exibindo o resultado
-        print(resultado_filtrado)
+        print(df_combinado[['codigo', 'carreta','Quantidade']])
 
         df_final = df_combinado.groupby('codigo').agg({
             'processo': 'first', 
@@ -606,7 +604,7 @@ def get_base_carretas():
             'descricao': 'first', 
             'Materia Prima':'first',
             'quantidade_carretas': 'first',
-            'Quantidade': 'first',
+            'Quantidade': 'sum',
             'saldo': 'first',
             'Quantidade no Estoque': 'first',
             'Observacao': 'first', 
