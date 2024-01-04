@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var excel_model = document.getElementById('excel_model');
     var filtroDataSolicitPeca = document.getElementById('dataSolicitPeca')
     var filtroOrigemSolicitPeca = document.getElementById('carretaSolicitPeca')
+    var filtroMateriaPrima = document.getElementById('materiaPrima')
     var levant = document.getElementById('levant');
     var solicitarPecasButton = document.getElementById('solicitarPecasButton');
     var carretas_utilizadas = document.getElementById('carretas_utilizadas');
@@ -155,11 +156,13 @@ document.addEventListener('DOMContentLoaded', function () {
     btnSolicitada.addEventListener('click', function () {
       filtroDataSolicitPeca.style.display = 'block'
       filtroOrigemSolicitPeca.style.display = 'block'
+      filtroMateriaPrima.style.display = 'block'
     });
 
     btnFeita.addEventListener('click', function () {
       filtroDataSolicitPeca.style.display = 'none'
       filtroOrigemSolicitPeca.style.display = 'none'
+      filtroMateriaPrima.style.display = 'none'
     });
 }); 
 

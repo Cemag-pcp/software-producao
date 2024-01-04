@@ -9,6 +9,7 @@ $(document).ready(function() {
     $('#modal_visualizar_peca_solicitada_input').click(function() {
         $('#tabela-visualizar-peca th.botao-column').show();
         $('#tabela-visualizar-peca td.botao-column').show();
+        const selectedMateriaPrima = $('#filtroMateriaPrima').val();
         $("#loading-overlay").show();
         // Faça uma solicitação AJAX para buscar os dados do backend
         $.ajax({
@@ -38,6 +39,7 @@ $(document).ready(function() {
                     `);
                     tableBody.append(row);
                 });
+                preencherFiltroMateriaPrima()
             },
             error: function(error) {
                 console.error('Erro na solicitação ao backend:', error);

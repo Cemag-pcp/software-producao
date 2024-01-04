@@ -52,6 +52,7 @@ function fillSelect(selectId, options, selectedValue) {
 
     select.change(function() {
         var selectedText = $(this).find('option:selected').text();
+        console.log(selectedText)
         
         if (selectedText === "Limpar filtro" || selectedText === "Sem filtro") {
             // Limpa o valor do filtro

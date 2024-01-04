@@ -318,18 +318,25 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div style="display: flex; justify-content: space-between;">
-                        <div id="dataSolicitPeca" class="col-md-6">
+                    <div style="display: flex; justify-content: space-evenly; flex-wrap: wrap; gap: 5px 10px;">
+                        <div id="dataSolicitPeca">
                             <label style="color: white;">Data</label>
-                            <input id="filtroDataSolicitPeca" name="datetimes" class="form-control2" style="width: 100%;">
+                            <input id="filtroDataSolicitPeca" name="datetimes" class="form-control2" style="width: 280px;">
                         </div>
                         
-                        <div id="carretaSolicitPeca" class="col-md-6" style="margin-bottom: 30px;">
+                        <div id="carretaSolicitPeca">
                             <label style="color: white;">Origem</label>
-                            <select id="filtroOrigemSolicitPeca" name="filtroOrigemSolicitPeca" class="form-control2">
+                            <select id="filtroOrigemSolicitPeca" name="filtroOrigemSolicitPeca" class="form-control2" style="width: 280px;">
                                 <option value=""></option>  
                                 <option value="Levantamento">Levantamento</option> 
                                 <option value="Solicitadas">Solicitadas</option>   
+                            </select>
+                        </div>
+
+                        <div id="materiaPrima" style="margin-bottom: 30px;">
+                            <label style="color: white;">Matéria Prima</label>
+                            <select id="filtroMateriaPrima" name="filtroMateriaPrima" class="form-control2" style="width: 280px;">
+                                <option value=""></option>    
                             </select>
                         </div>
                     </div>

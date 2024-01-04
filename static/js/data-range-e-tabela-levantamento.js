@@ -252,6 +252,13 @@ $(document).ready(function () {
     });
 });
 
+$(document).ready(function () {
+    $('#filtroMateriaPrima').select2({
+        width: '100%',
+        dropdownParent: $('#modal_visualizar_peca_solicitada')
+    });
+});
+
 $(document).ready(function() {
     $('#resultado').on('click', function() {
         $(this).focus();
