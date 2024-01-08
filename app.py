@@ -712,6 +712,58 @@ def inserir_linhas_no_banco(linhas):
         cur.execute(sql)
         conn.commit()
 
+def merge_planilhas():
+
+    planilha1 = pd.read_csv('1.csv', sep=";", encoding='ISO-8859-1')  
+    planilha2 = pd.read_csv('2.csv', sep=";", encoding='ISO-8859-1')  
+    planilha3 = pd.read_csv('3.csv', sep=";", encoding='ISO-8859-1') 
+    planilha4 = pd.read_csv('4.csv', sep=";", encoding='ISO-8859-1') 
+
+    # Merge das planilhas
+    merge1 = pd.merge(planilha1, planilha2, on=['2o. Agrupamento', '3o. Agrupamento', 'Recurso', 'Descrição', 'Matéria Prima', 'Compr', 'Largu', 'Quant', 'Etapa Seguinte', 'carreta'], how='outer')
+    merge2 = pd.merge(merge1, planilha3, on=['2o. Agrupamento', '3o. Agrupamento', 'Recurso', 'Descrição', 'Matéria Prima', 'Compr', 'Largu', 'Quant', 'Etapa Seguinte', 'carreta'], how='outer')
+    merged_data = pd.merge(merge2, planilha4, on=['2o. Agrupamento', '3o. Agrupamento', 'Recurso', 'Descrição', 'Matéria Prima', 'Compr', 'Largu', 'Quant', 'Etapa Seguinte', 'carreta'], how='outer')
+
+    merged_data = merged_data.fillna(0.0)
+
+    # Salvar a planilha final
+    merged_data.to_csv('planilha_final.csv', index=False)
+
+    merged_data['carreta_prefixo'] = merged_data['carreta'].str.split('-').str[0].str.strip()
+
+    merged_data['Compr'] = merged_data['Compr'].str.replace(',', '.').astype(float)
+    merged_data['Largu'] = merged_data['Largu'].str.replace(',', '.').astype(float)
+
+    conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER,
+                            password=DB_PASS, host=DB_HOST)
+
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+
+    # Iteração sobre as linhas da DataFrame e inserção no banco de dados
+    for _, linha in merged_data.iterrows():
+        sql = """
+            INSERT INTO pcp.tb_base_carretas_explodidas
+            (processo, conjunto, codigo, descricao, materia_prima, comprimento, largura, quantidade, etapa_seguinte, carreta)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        """
+        values = (
+            linha['2o. Agrupamento'],
+            linha['3o. Agrupamento'],
+            linha['Recurso'],
+            linha['Descrição'],
+            linha['Matéria Prima'],
+            linha['Compr'], 
+            linha['Largu'], 
+            linha['Quant'],
+            linha['Etapa Seguinte'],
+            linha['carreta_prefixo']
+        )
+        cur.execute(sql, values)
+        conn.commit()
+
+    # Fechar a conexão
+    cur.close()
+    conn.close()
 
 if __name__ == '__main__':
     app.run()
