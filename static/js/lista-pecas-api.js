@@ -126,8 +126,8 @@ divResultado.addEventListener("click", function (event) {
         // Adicione verificação para quantidadeNecessaria se necessário
         if (!quantidadeNecessaria || !quantidadeEstoque || quantidadeEstoque < 0) {
             alert("Preencha os campos de quantidade");
-        } else if (quantidadeEstoque > quantidadeNecessaria) {
-            alert("A quantidade no estoque já é maior que a quantidade necessária");
+        } else if (quantidadeEstoque >= quantidadeNecessaria) {
+            alert("A quantidade no estoque já é maior ou igual a quantidade necessária");
         } else {
             let origem = "Levantamento";
             console.log(quantidadeNecessaria,quantidadeEstoque)

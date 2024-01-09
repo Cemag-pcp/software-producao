@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var btnFiltrar = document.getElementById('btnFiltrar');
     var filtroPeca = document.getElementById('filtroPeca');
     var filtroProcesso = document.getElementById('filtroProcesso');
-    var filtroCarreta = document.getElementById('filtroCarreta');
+    var filtroMateria = document.getElementById('filtroMateria');
     var filtroConjunto = document.getElementById('filtroConjunto');
     var btnFiltrarLevantamento = document.getElementById('levantamentoButton');
     // var limparLevantamento = document.getElementById('limparLevantamento');
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
         inputDate1.value = ''; // Limpa o valor do campo de data
         filtroPeca.value = ''; // Limpa a seleção de peça
         filtroProcesso.value = ''; // Limpa a seleção de processo
-        filtroCarreta.value = ''; // Limpa a seleção de carreta
+        filtroMateria.value = ''; // Limpa a seleção de carreta
         filtroConjunto.value = ''; // Limpa a seleção de conjunto
         pecaLabel.style.display = 'block';
         processoLabel.style.display = 'block';
@@ -87,6 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
       btnPesquisa.classList.remove('active');
       inputDate1.value = ''; // Limpa o valor do campo de data
       filtroPeca.value = ''; // Limpa a seleção de peça
+      filtroMateria.value = '';
       filtroProcesso.value = ''; // Limpa a seleção de processo
       filtroConjunto.value = ''; // Limpa a seleção de conjunto
       filtroProcesso.style.display = 'none';
@@ -130,6 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
         inputDate1.value = ''; // Limpa o valor do campo de data
         filtroPeca.value = ''; // Limpa a seleção de peça
         filtroProcesso.value = ''; // Limpa a seleção de processo
+        filtroMateria.value = '';
         filtroConjunto.value = ''; // Limpa a seleção de conjunto
         pecaLabel.style.display = 'none';
         descricao.style.display='none';

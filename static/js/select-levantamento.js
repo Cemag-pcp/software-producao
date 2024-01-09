@@ -90,7 +90,7 @@ document.getElementById('filtroPeca').addEventListener('change', function() {
     }
 });
 
-document.getElementById('filtroCarreta').addEventListener('change', function() {
+document.getElementById('filtroMateria').addEventListener('change', function() {
     var filtroCarreta = this.value.toLowerCase(); // Obtém o valor selecionado e converte para minúsculas
     var tabela = document.getElementById('resultado');
     var linhas = tabela.getElementsByTagName('tr');

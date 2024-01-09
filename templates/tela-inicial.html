@@ -148,7 +148,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="width: 200%;">
                 <div class="modal-header">
-                    <input type="button" class="modal-title active" id="modal_pesquisa_peca_label" value="Solicitar Peças">
+                    <input type="button" class="modal-title active" id="modal_pesquisa_peca_label" value="Solicitar Peças" disabled>
                     <input type="button" class="modal-title" id="modal_levantamento_peca_label" value="Levantamento de Peças">
                     <button type="button" id="fechar_levantamento" class="close" data-dismiss="modal" aria-label="Fechar" style="color: #fff;">
                         <span aria-hidden="true">&times;</span>
@@ -188,22 +188,22 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="form-row2">
+                                        <div id="descricao" class="col-md-6" style="display: none;">
+                                            <label>Descrição</label>
+                                            <select id="filtroDescricao" name="filtroDescricao" class="form-control2">
+                                                <option value="" selected disabled hidden></option>  
+                                            </select>
+                                        </div>
 
-                                    <div id="descricao" class="col-md-6" style="display: none;">
-                                        <label>Descrição</label>
-                                        <select id="filtroDescricao" name="filtroDescricao" class="form-control2">
-                                            <option value="" selected disabled hidden></option>  
-                                        </select>
+                                        <div id="carreta" class="col-md-6">
+                                            <label>Matéria Prima</label>
+                                            <select id="filtroMateria" name="filtroMateria" class="form-control2">
+                                                <option value="" selected disabled hidden></option>  
+                                                <option></option>  
+                                            </select>
+                                        </div>
                                     </div>
-
-                                    <div id="carreta" class="col-md-6">
-                                        <label>Carreta</label>
-                                        <select id="filtroCarreta" name="filtroCarreta" class="form-control2">
-                                            <option value="" selected disabled hidden></option>  
-                                            <option></option>  
-                                        </select>
-                                    </div>
-                                    
                                     <div id="processo" class="col-md-6">
                                         <label>Processo</label>
                                         <select id="filtroProcesso" name="filtroProcesso" class="form-control2">

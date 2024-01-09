@@ -12,6 +12,7 @@ let exibirTabela = document.getElementById('exibirTabela');
 let resultado = document.getElementById('resultado');
 let filtroProcesso = document.getElementById('filtroProcesso');
 let filtroCarreta = document.getElementById('filtroCarreta');
+let filtroMateria = document.getElementById('filtroMateria');
 // Função para formatar o intervalo de datas
 function parseDateRange(dateRange) {
     const dateRangeParts = dateRange.split(" - ");
@@ -217,11 +218,11 @@ btnFiltrar.addEventListener('click', function(){
     tabelaLevantamentoPeca.style.display='none';
     carretas_utilizadas.style.display = 'none';
     base_carretas.style.display = 'block';
-    carretaLabel.style.display='none';
+    carretaLabel.style.display='block';
     // limparFiltro.style.display='block';
     inserirBase.style.display = 'block';
     filtroProcesso.style.display = 'none';
-    filtroCarreta.style.display = 'none';
+    filtroMateria.style.display = 'block';
     peca.style.display='block';
     processo.style.display='none';
     conjunto.style.display='block';
@@ -247,6 +248,13 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     $('#filtroConjunto').select2({
+        width: '100%',
+        dropdownParent: $('#modal_pesquisa_peca')
+    });
+});
+
+$(document).ready(function () {
+    $('#filtroMateria').select2({
         width: '100%',
         dropdownParent: $('#modal_pesquisa_peca')
     });

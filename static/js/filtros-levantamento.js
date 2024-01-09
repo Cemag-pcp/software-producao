@@ -16,6 +16,7 @@ $(document).ready(function () {
             fillSelect('filtroConjunto', getColumnValues(tableData, 1));
             fillSelect('filtroPeca', getColumnValues(tableData, 0));
             fillSelect('filtroDescricao', getColumnValues(tableData, 2));
+            fillSelect('filtroMateria', getColumnValues(tableData, 3));
             
             // Mostra a tabela
             $('#tableContainer').show();
@@ -26,6 +27,7 @@ $(document).ready(function () {
     $('#filtroConjunto').change(updateFilters);
     $('#filtroPeca').change(updateFilters);
     $('#filtroDescricao').change(updateFilters);
+    $('#filtroMateria').change(updateFilters);
 
 });
 
@@ -79,6 +81,7 @@ function updateFilters() {
     var filtroConjuntoValue = $('#filtroConjunto').val().toLowerCase();
     var filtroPecaValue = $('#filtroPeca').val().toLowerCase();
     var filtroDescricaoValue = $('#filtroDescricao').val().toLowerCase();
+    var filtroMateriaValue = $('#filtroMateria').val().toLowerCase();
 
     // Obtém as linhas da tabela
     var table = $('#responsive');
@@ -96,12 +99,14 @@ function updateFilters() {
         var conjuntoValue = row.find('td:eq(1)').text().toLowerCase();
         var pecaValue = row.find('td:eq(0)').text().toLowerCase();
         var descricaoValue = row.find('td:eq(2)').text().toLowerCase();
+        var materiaValue = row.find('td:eq(3)').text().toLowerCase();
 
         // Verifica se a linha corresponde aos filtros
         var shouldDisplay =
             conjuntoValue.includes(filtroConjuntoValue) &&
             pecaValue.includes(filtroPecaValue) &&
-            descricaoValue.includes(filtroDescricaoValue) 
+            descricaoValue.includes(filtroDescricaoValue) &&
+            materiaValue.includes(filtroMateriaValue)
 
         // Se a linha corresponder aos filtros, adiciona os valores ao array de dados filtrados
         if (shouldDisplay) {
@@ -120,6 +125,7 @@ function updateFilters() {
     fillSelect('filtroConjunto', getColumnValues(filteredData, 1), filtroConjuntoValue);
     fillSelect('filtroPeca', getColumnValues(filteredData, 0), filtroPecaValue);
     fillSelect('filtroDescricao', getColumnValues(filteredData, 2), filtroDescricaoValue);
+    fillSelect('filtroMateria', getColumnValues(filteredData, 3), filtroMateriaValue);
 
     return filteredData;
 }
