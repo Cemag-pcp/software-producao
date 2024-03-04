@@ -35,7 +35,7 @@ $(document).ready(function() {
                         <td data-label="Quantidade">${item[4]}</td>
                         <td data-label="Observação">${item[8]}</td>
                         <td data-label="Origem">${item[9]}</td>
-                        <td><button class="status">Feito</button></td>
+                        <td class="botao-column"><button class="status">Feito</button></td>
                     `);
                     tableBody.append(row);
                 });
@@ -144,15 +144,17 @@ function pecaConcluida(chave) {
                     newData.forEach(function(item) {
                         const row = $('<tr>');
                         row.html(`
+                            <td style="display: none;">${item[0]}</td>
                             <td>${item[1]}</td>
                             <td>${item[11]}</td>
+                            <td>${item[12]}</td>
                             <td>${item[3]}</td>
                             <td>${item[6]}</td>
                             <td>${item[7]}</td>
                             <td>${item[4]}</td>
                             <td>${item[8]}</td>
                             <td>${item[9]}</td>
-                            <td><button class="status">Feito</button></td>
+                            <td class="botao-column"><button class="status">Feito</button></td>
                         `);
                         tableBody.append(row);
                     });

@@ -13,6 +13,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script src="https://kit.fontawesome.com/d1807a784c.js" crossorigin="anonymous"></script>
+    <!-- Adicione a biblioteca xlsx -->
+    <!-- Adicione a biblioteca XLSX via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
     <link rel="stylesheet" type="text/css" href="static/css/modal-programacao.css">
@@ -340,7 +344,7 @@
                         </div>
                     </div>
                     <div class="table__body3" id="tabela-visualizar-peca">
-                        <table class='responsive-table'>
+                        <table id="tabela-visualizar-peca" class="responsive-table visualizar_levantamento">
                             <thead>
                                 <tr>
                                     <th class="cabecalho" style="display: none;">Chave</th>
@@ -363,6 +367,7 @@
                                     <td data-label="Data da Carga"></td>
                                     <td data-label="Código"></td>
                                     <td data-label="Descrição"></td>
+                                    <td data-label="Matéria Prima"></td>
                                     <td data-label="Conjunto"></td>
                                     <td data-label="Quantidade"></td>
                                     <td class="botao-column"></td>
@@ -372,6 +377,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <button class="status1" onclick="downloadTable()">Baixar Tabela</button>
                 </div>
             </div>
         </div>
@@ -388,6 +394,7 @@
     <script src="static/js/filtros-levantamento.js"></script>
     <script src="static/js/uploadFileExcel.js"></script>
     <script src="static/js/filtros-solicitar-pecas.js"></script>
+    <script src="static/js/download_table.js"></script>
     
     <!-- JavaScript do Bootstrap -->
     <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
